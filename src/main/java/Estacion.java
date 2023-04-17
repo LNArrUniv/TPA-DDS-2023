@@ -1,5 +1,5 @@
 import java.util.List;
-
+import ar.edu.utn.frba.dds.Modelos.Servicio;
 public class Estacion {
     private String nombre;
     private String direccion;
