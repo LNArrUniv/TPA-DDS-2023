@@ -8,4 +8,9 @@ public class Banios implements Servicio{
     this.nombre = nombre;
     this.capacidad = capacidad;
   }
+
+  @Override
+  public void usar() {
+
+  }
 }

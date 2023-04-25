@@ -7,4 +7,9 @@ public class Ascensor extends MedioDeElevacion{
     super(nombre, tramoCalleHastaAcceso, tramoAccesoHastaAnden);
     this.capacidad = capacidad;
   }
+
+  @Override
+  public void usar() {
+
+  }
 }

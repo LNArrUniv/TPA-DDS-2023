@@ -15,7 +15,7 @@ public class Usuario {
   public void eliminarInteresProblematica(Servicio servicio) {
     this.interesProblematica.remove(servicio);
   }
-  public void agregarComunidad(Comunidad comunidad) {
+  public void darseAltaComunidad(Comunidad comunidad) {
     this.comunidades.add(comunidad);
   }
   public void darseBajaComunidad(Comunidad comunidad) {

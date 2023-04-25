@@ -5,4 +5,9 @@ public class EscaleraMecanica extends MedioDeElevacion{
   public EscaleraMecanica(String nombre, int tramoCalleHastaAcceso, int tramoAccesoHastaAnden) {
     super(nombre, tramoCalleHastaAcceso, tramoAccesoHastaAnden);
   }
+
+  @Override
+  public void usar() {
+
+  }
 }

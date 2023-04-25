@@ -10,4 +10,5 @@ abstract public class MedioDeElevacion implements Servicio {
     this.tramoCalleHastaAcceso = tramoCalleHastaAcceso;
     this.tramoAccesoHastaAnden = tramoAccesoHastaAnden;
   }
+
 }
