@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.Modelos;
+package ar.edu.utn.frba.dds.modelos;
 
 import java.util.List;
 
@@ -10,14 +10,15 @@ public class Linea {
   private String estacionDeDestino;
   private List<Estacion> listaDeEstaciones;
 
-  public void agregarEstacion(Estacion estacion){
+  public void agregarEstacion(Estacion estacion) {
     this.listaDeEstaciones.add(estacion);
   }
-  public void eliminarEstacion(Estacion estacion){
+
+  public void eliminarEstacion(Estacion estacion) {
     this.listaDeEstaciones.remove(estacion);
   }
-  public List<Estacion> getListaDeEstaciones(){
+
+  public List<Estacion> getListaDeEstaciones() {
     return this.listaDeEstaciones;
   }
-
 }
