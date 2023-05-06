@@ -1,5 +1,7 @@
 package ar.edu.utn.frba.dds.Modelos;
 
-public interface Servicio {
-    void usar();
+public class Servicio {
+    private String nombre;
+    private String descripcion;
+    private boolean estado;
 }
