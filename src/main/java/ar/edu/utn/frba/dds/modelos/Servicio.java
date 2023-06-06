@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.modelos;
+package ar.edu.utn.frba.dds.Modelos;
 
 public class Servicio {
   private String nombre;

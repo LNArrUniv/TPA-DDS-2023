@@ -1,7 +1,7 @@
-package ar.edu.utn.frba.dds.seguridad;
+package ar.edu.utn.frba.dds.Seguridad;
 
-import ar.edu.utn.frba.dds.seguridad.filtros.ControlPasswordDebil;
-import ar.edu.utn.frba.dds.seguridad.filtros.PoliticaNist800;
+import ar.edu.utn.frba.dds.Seguridad.Filtros.ControlPasswordDebil;
+import ar.edu.utn.frba.dds.Seguridad.Filtros.PoliticaNist800;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

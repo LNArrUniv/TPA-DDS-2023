@@ -1,6 +1,6 @@
-package ar.edu.utn.frba.dds.seguridad;
+package ar.edu.utn.frba.dds.Seguridad;
 
-import ar.edu.utn.frba.dds.seguridad.filtros.FiltroInterface;
+import ar.edu.utn.frba.dds.Seguridad.Filtros.FiltroInterface;
 import java.util.ArrayList;
 import java.util.List;
 
