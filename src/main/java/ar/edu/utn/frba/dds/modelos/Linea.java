@@ -1,5 +1,6 @@
 package ar.edu.utn.frba.dds.modelos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Linea {
@@ -8,7 +9,15 @@ public class Linea {
   private TipoTransporte tipo;
   private String estacionDeOrigen;
   private String estacionDeDestino;
-  private List<Estacion> listaDeEstaciones;
+  private ArrayList<Estacion> listaDeEstaciones;
+
+  public Linea(String nombre, TipoTransporte tipo, String estacionDeOrigen, String estacionDeDestino) {
+    this.nombre = nombre;
+    this.tipo = tipo;
+    this.estacionDeOrigen = estacionDeOrigen;
+    this.estacionDeDestino = estacionDeDestino;
+    this.listaDeEstaciones = new ArrayList<Estacion>();
+  }
 
   public void agregarEstacion(Estacion estacion) {
     this.listaDeEstaciones.add(estacion);
@@ -18,7 +27,10 @@ public class Linea {
     this.listaDeEstaciones.remove(estacion);
   }
 
-  public List<Estacion> getListaDeEstaciones() {
+  public ArrayList<Estacion> getListaDeEstaciones() {
     return this.listaDeEstaciones;
+  }
+  private void agregarEstaciones (ArrayList<Estacion> estaciones){
+    estaciones.forEach(estacion->listaDeEstaciones.add(estacion));
   }
 }
