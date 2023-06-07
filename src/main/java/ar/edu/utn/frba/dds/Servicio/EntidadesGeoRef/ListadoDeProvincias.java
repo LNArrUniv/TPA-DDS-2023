@@ -1,6 +1,6 @@
 package ar.edu.utn.frba.dds.Servicio.EntidadesGeoRef;
 
-import ar.edu.utn.frba.dds.Modelos.Entidad.Provincia;
+import ar.edu.utn.frba.dds.Modelos.EntidadDTO.Provincia;
 
 import java.util.List;
 

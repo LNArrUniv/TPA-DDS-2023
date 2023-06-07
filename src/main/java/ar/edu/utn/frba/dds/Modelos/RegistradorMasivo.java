@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.modelos;
+package ar.edu.utn.frba.dds.Modelos;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
