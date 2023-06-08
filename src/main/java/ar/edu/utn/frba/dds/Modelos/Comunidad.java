@@ -1,6 +1,5 @@
-package ar.edu.utn.frba.dds.modelos;
+package ar.edu.utn.frba.dds.Modelos;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Comunidad {

@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.seguridad.filtros;
+package ar.edu.utn.frba.dds.Seguridad.Filtros;
 
 public class ControlPasswordDebil implements FiltroInterface {
   private static final String[] password_list = {
