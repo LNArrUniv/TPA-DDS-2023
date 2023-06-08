@@ -24,7 +24,7 @@ public class Comunidad {
     this.miembros.remove(usuario);
   }
 
-  public void relevarServicio(Servicio servicio, Estacion estacion) {
-    estacion.modificarServicio(servicio);
+  public void relevarServicio(Servicio servicio, Establecimiento establecimiento) {
+    // TODO: establecimiento.modificarServicio(servicio);
   }
 }

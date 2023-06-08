@@ -8,5 +8,6 @@ abstract class Usuario {
   private String email;
   private String contrasenia;
 
-  void registrar(){}
+  void registrar() {
+  }
 }

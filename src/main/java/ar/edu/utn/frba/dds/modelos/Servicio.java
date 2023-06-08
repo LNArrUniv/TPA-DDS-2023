@@ -14,5 +14,8 @@ public class Servicio {
     this.localizacion = localizacion;
   }
 
-  private void usarServicio(){};
+  private void usarServicio() {
+  }
+
+  ;
 }

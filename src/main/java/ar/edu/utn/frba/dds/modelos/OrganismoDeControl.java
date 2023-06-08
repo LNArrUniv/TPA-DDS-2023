@@ -1,18 +1,18 @@
 package ar.edu.utn.frba.dds.modelos;
 
 public class OrganismoDeControl {
-    private String nombre;
-    private Usuario encargado;
+  private String nombre;
+  private Usuario encargado;
 
-    private EntidadPropietaria entidadControlada;
+  private EntidadPropietaria entidadControlada;
 
 
-    public OrganismoDeControl(String nombre, Usuario encargado) {
-        this.nombre = nombre;
-        this.encargado = encargado;
-    }
+  public OrganismoDeControl(String nombre, Usuario encargado) {
+    this.nombre = nombre;
+    this.encargado = encargado;
+  }
 
-    private void setEntidadControlada(EntidadPropietaria entidad){
-        entidadControlada =  entidad;
-    }
+  private void setEntidadControlada(EntidadPropietaria entidad) {
+    entidadControlada = entidad;
+  }
 }
