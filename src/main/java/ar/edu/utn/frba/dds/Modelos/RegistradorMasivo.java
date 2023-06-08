@@ -1,3 +1,23 @@
+<<<<<<< HEAD:src/main/java/ar/edu/utn/frba/dds/modelos/RegistradorMasivo.java
+package ar.edu.utn.frba.dds.modelos;
+
+import java.util.ArrayList;
+
+public class RegistradorMasivo {
+  private String archivoCsv;
+
+  private ArrayList<Entidad> listaEntidades() {
+    //TODO CUANDO IMPLEMENTEMOS LA CARGA POR EL ARCHIVO CSV
+    return new ArrayList<>();
+  }
+
+  private void registrarEntidad() {
+  }
+
+  private void registrar() {
+  }
+}
+=======
 package ar.edu.utn.frba.dds.Modelos;
 
 import com.opencsv.CSVReader;
@@ -58,3 +78,4 @@ public class RegistradorMasivo {
     }
 }
  */
+>>>>>>> main:src/main/java/ar/edu/utn/frba/dds/Modelos/RegistradorMasivo.java
