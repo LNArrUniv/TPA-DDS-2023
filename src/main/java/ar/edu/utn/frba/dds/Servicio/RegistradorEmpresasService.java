@@ -9,17 +9,17 @@ import java.util.List;
 
 public class RegistradorEmpresasService {
 
-    private static String ArchivoSCV;
+    private static String ArchivoCSV;
     public List<String> entidadesPrestadoras = new ArrayList<>();
     public List<String> organismosDeControl = new ArrayList<>();
 
     public RegistradorEmpresasService(String archivoCSV) {
-        ArchivoSCV = archivoCSV;
+        ArchivoCSV = archivoCSV;
     }
 
     public List<String> obtenerEntidadesPrestadoras() throws IOException,
                                                                     CsvValidationException{
-        CSVReader reader = new CSVReader(new FileReader(ArchivoSCV));
+        CSVReader reader = new CSVReader(new FileReader(ArchivoCSV));
         reader.readNext(); // Leer la primera línea y descartarla (encabezados)
         String[] campos;
         while ((campos = reader.readNext()) != null) {
@@ -31,7 +31,7 @@ public class RegistradorEmpresasService {
 
     public List<String> obtenerOrganismosControl() throws IOException,
                                                                  CsvValidationException{
-        CSVReader reader = new CSVReader(new FileReader(ArchivoSCV));
+        CSVReader reader = new CSVReader(new FileReader(ArchivoCSV));
         reader.readNext(); // Leer la primera línea y descartarla (encabezados)
         String[] campos;
         while ((campos = reader.readNext()) != null) {
