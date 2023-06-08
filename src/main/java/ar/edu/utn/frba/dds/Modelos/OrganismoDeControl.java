@@ -15,4 +15,8 @@ public class OrganismoDeControl {
   private void setEntidadControlada(EntidadPropietaria entidad) {
     entidadControlada = entidad;
   }
+
+  public String getNombre() {
+    return nombre;
+  }
 }

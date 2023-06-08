@@ -1,5 +1,7 @@
 package ar.edu.utn.frba.dds.Servicio;
 
+import ar.edu.utn.frba.dds.Modelos.EntidadPropietaria;
+import ar.edu.utn.frba.dds.Modelos.OrganismoDeControl;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 import java.io.FileReader;
@@ -10,34 +12,39 @@ import java.util.List;
 public class RegistradorEmpresasService {
 
     private static String ArchivoCSV;
-    public List<String> entidadesPrestadoras = new ArrayList<>();
-    public List<String> organismosDeControl = new ArrayList<>();
+    private List<EntidadPropietaria> entidadesPrestadoras = new ArrayList<>();
+    private List<OrganismoDeControl> organismosDeControl = new ArrayList<>();
 
     public RegistradorEmpresasService(String archivoCSV) {
         ArchivoCSV = archivoCSV;
     }
 
-    public List<String> obtenerEntidadesPrestadoras() throws IOException,
-                                                                    CsvValidationException{
+    public void obtenerEntidadesPrestadoras() throws IOException, CsvValidationException{
         CSVReader reader = new CSVReader(new FileReader(ArchivoCSV));
         reader.readNext(); // Leer la primera línea y descartarla (encabezados)
         String[] campos;
         while ((campos = reader.readNext()) != null) {
-            entidadesPrestadoras.add(campos[1]);
+            entidadesPrestadoras.add(new EntidadPropietaria(campos[0], campos[1], null));
         }
         reader.close();
+    }
+
+    public void obtenerOrganismosControl() throws IOException, CsvValidationException{
+        CSVReader reader = new CSVReader(new FileReader(ArchivoCSV));
+        reader.readNext(); // Leer la primera línea y descartarla (encabezados)
+        String[] campos;
+        while ((campos = reader.readNext()) != null) {
+
+            organismosDeControl.add(new OrganismoDeControl(campos[2], null));
+        }
+        reader.close();
+    }
+
+    public List<EntidadPropietaria> getEntidadesPrestadoras() {
         return entidadesPrestadoras;
     }
 
-    public List<String> obtenerOrganismosControl() throws IOException,
-                                                                 CsvValidationException{
-        CSVReader reader = new CSVReader(new FileReader(ArchivoCSV));
-        reader.readNext(); // Leer la primera línea y descartarla (encabezados)
-        String[] campos;
-        while ((campos = reader.readNext()) != null) {
-            organismosDeControl.add(campos[3]);
-        }
-        reader.close();
+    public List<OrganismoDeControl> getOrganismosDeControl() {
         return organismosDeControl;
     }
 }

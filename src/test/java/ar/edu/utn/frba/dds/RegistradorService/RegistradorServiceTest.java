@@ -1,30 +1,42 @@
 package ar.edu.utn.frba.dds.RegistradorService;
 
+import ar.edu.utn.frba.dds.Modelos.EntidadPropietaria;
+import ar.edu.utn.frba.dds.Modelos.OrganismoDeControl;
 import ar.edu.utn.frba.dds.Servicio.RegistradorEmpresasService;
 import com.opencsv.exceptions.CsvValidationException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.List;
 
 public class RegistradorServiceTest {
-  @Test
-  public static void main(String[] args) throws CsvValidationException, IOException {
+  private static RegistradorEmpresasService registrador;
+  @BeforeAll
+  public static void init() throws CsvValidationException, IOException {
     String archivoCSV = "src/main/Archivos/ServiciosPrestadoresYOrganismosDeControl.csv";
-    RegistradorEmpresasService registrador = new RegistradorEmpresasService(archivoCSV);
-    List<String> entidades = registrador.obtenerEntidadesPrestadoras();
-    List<String> organismos = registrador.obtenerOrganismosControl();
+    registrador = new RegistradorEmpresasService(archivoCSV);
 
-    System.out.println("----------------Entidades Prestadoras----------------");
-    for (String entidad : entidades){
-      System.out.println(entidad);
+    registrador.obtenerEntidadesPrestadoras();
+    registrador.obtenerOrganismosControl();
+  }
+  @Test
+  public void seCarganCorrectamenteLasEntidadesPrestadoras() throws CsvValidationException, IOException {
+    System.out.println("\n----------------Entidades Prestadoras----------------");
+    for (EntidadPropietaria entidad : registrador.getEntidadesPrestadoras()){
+      System.out.println(entidad.getNombre().concat(": ").concat(entidad.getDescripcion()));
     }
 
-    System.out.println("----------------Organismos de Control----------------");
-    for (String organismo : organismos){
-      System.out.println(organismo);
-    }
-
+    Assertions.assertEquals(8, registrador.getEntidadesPrestadoras().size());
   }
 
+  @Test
+  public void seCarganCorrectamenteLosOrganismosDeControl() throws CsvValidationException, IOException {
+    System.out.println("----------------Organismos de Control----------------");
+    for (OrganismoDeControl organismo : registrador.getOrganismosDeControl()){
+      System.out.println(organismo.getNombre());
+    }
+
+    Assertions.assertEquals(8, registrador.getOrganismosDeControl().size());
+  }
 }

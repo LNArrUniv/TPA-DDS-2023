@@ -1,10 +1,9 @@
-
-ID,Nombre,Descripción,Organismo de control
-1,Hospital San Juan,Hospital público ubicado en la ciudad de Buenos Aires.,Ministerio de Salud
-2,Clínica Santa María,Clínica privada especializada en cirugía plástica.,Colegio Médico
-3,Consultorio Dr. Pérez,Consultorio médico general en la ciudad de Neuquen.,Consejo General de Colegios de Médicos
-4,Centro Médico Pilar,Centro médico especializado en diversas especialidades ubicado en Pilar, Buenos Aires.,Colegio Médico de la Provincia de Buenos Aires
-5,Laboratorio Argentino,Laboratorio farmacéutico líder en la producción de medicamentos genéricos.,Administración Nacional de Medicamentos
-6,Clínica del Sol,Clínica privada de alta complejidad ubicada en la ciudad de Córdoba.,Ministerio de Salud de la Provincia de Córdoba
-7,Hospital Austral,Hospital universitario y de alta complejidad situado en Pilar, Buenos Aires.,Ministerio de Salud de la Nación de la Provincia de Buenos Aires
-8,Consultorio Dra. Gómez,Consultorio médico especializado en pediatría en la ciudad de Rosario, Santa Fe.,Colegio de Médicos de la Provincia de Santa Fe
+Nombre,Descripción,Organismo de control
+Hospital San Juan,Hospital público ubicado en la ciudad de Buenos Aires.,Ministerio de Salud
+Clínica Santa María,Clínica privada especializada en cirugía plástica.,Colegio Médico
+Consultorio Dr. Pérez,Consultorio médico general en la ciudad de Neuquen.,Consejo General de Colegios de Médicos
+Centro Médico Pilar,Centro médico especializado en diversas especialidades ubicado en Pilar.,Colegio Médico de la Provincia de Buenos Aires
+Laboratorio Argentino,Laboratorio farmacéutico líder en la producción de medicamentos genéricos.,Administración Nacional de Medicamentos
+Clínica del Sol,Clínica privada de alta complejidad ubicada en la ciudad de Córdoba.,Ministerio de Salud de la Provincia de Córdoba
+Hospital Austral,Hospital universitario y de alta complejidad situado en Pilar.,Ministerio de Salud de la Nación de la Provincia de Buenos Aires
+Consultorio Dra. Gómez,Consultorio médico especializado en pediatría en la ciudad de Rosario.,Colegio de Médicos de la Provincia de Santa Fe
