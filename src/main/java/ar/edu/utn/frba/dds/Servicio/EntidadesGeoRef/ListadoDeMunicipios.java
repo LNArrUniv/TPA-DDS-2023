@@ -1,7 +1,7 @@
 
 package ar.edu.utn.frba.dds.Servicio.EntidadesGeoRef;
 
-import ar.edu.utn.frba.dds.Modelos.EntidadDTO.Municipalidad;
+import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Municipalidad;
 
 import java.util.List;
 

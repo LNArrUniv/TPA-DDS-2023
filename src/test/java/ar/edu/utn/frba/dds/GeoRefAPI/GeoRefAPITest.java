@@ -1,7 +1,7 @@
 package ar.edu.utn.frba.dds.GeoRefAPI;
 
 
-import ar.edu.utn.frba.dds.Modelos.EntidadDTO.Provincia;
+import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Provincia;
 import ar.edu.utn.frba.dds.Servicio.EntidadesGeoRef.ListadoDeProvincias;
 import ar.edu.utn.frba.dds.Servicio.GeoRefAPIService;
 import org.junit.jupiter.api.Test;

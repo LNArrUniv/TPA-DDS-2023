@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.Modelos.Entidad;
+package ar.edu.utn.frba.dds.Modelos.Ubicacion;
 
 public class Departamento {
   private int id;

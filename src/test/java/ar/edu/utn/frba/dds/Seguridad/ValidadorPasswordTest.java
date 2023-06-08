@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class ValidadorPasswordTest {
-  private String passwordDebil = "1234567890";
+  private String passwordDebil = "cooper";
   private String passwordNoCumpleLaPoliticaNIST = "fgALP";
   private String passwordValida = "b5ryDTt8s";
   private ValidadorPassword validador;
@@ -15,7 +15,7 @@ public class ValidadorPasswordTest {
   @BeforeEach
   public void init(){
     validador = new ValidadorPassword();
-    ControlPasswordDebil filtro1 = new ControlPasswordDebil();
+    ControlPasswordDebil filtro1 = new ControlPasswordDebil("src/main/java/ar/edu/utn/frba/dds/Seguridad/Filtros/common-passwords.txt");
     PoliticaNist800 filtro2 = new PoliticaNist800();
     validador.addFiltro(filtro1);
     validador.addFiltro(filtro2);
