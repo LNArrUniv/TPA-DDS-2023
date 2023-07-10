@@ -3,9 +3,7 @@ package ar.edu.utn.frba.dds.Modelos;
 public class OrganismoDeControl {
   private String nombre;
   private Usuario encargado;
-
   private EntidadPropietaria entidadControlada;
-
 
   public OrganismoDeControl(String nombre, Usuario encargado) {
     this.nombre = nombre;

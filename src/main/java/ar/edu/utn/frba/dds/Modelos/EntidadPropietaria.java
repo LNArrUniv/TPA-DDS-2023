@@ -6,7 +6,6 @@ public class EntidadPropietaria {
   private String nombre;
   private String descripcion;
   private Usuario encargado;
-
   private ArrayList<Entidad> entidades;
 
   public EntidadPropietaria(String nombre, String descripcion, Usuario encargado) {

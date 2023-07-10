@@ -1,13 +1,12 @@
 package ar.edu.utn.frba.dds.Modelos;
 
-import java.util.List;
-
-abstract class Usuario {
+public abstract class Usuario {
   private String nombre;
   private String apellido;
-  private String email;
+  private String username;
   private String contrasenia;
 
-  void registrar() {
+  public String getUsername() {
+    return username;
   }
 }

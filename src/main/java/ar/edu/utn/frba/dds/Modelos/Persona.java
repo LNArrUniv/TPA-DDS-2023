@@ -1,31 +1,20 @@
 package ar.edu.utn.frba.dds.Modelos;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class Persona {
+public class Persona extends Usuario {
 
   private ArrayList<Entidad> entidadesDeInteres;
   private ArrayList<Servicio> serviciosDeInteres;
-
   private Localizacion localizacion;
-  private ArrayList<Servicio> interesProblematica;
   private ArrayList<Comunidad> comunidades;
+  private MedioDeContacto contacto;
 
   public Persona(Localizacion localizacion) {
     this.entidadesDeInteres = new ArrayList<Entidad>();
     this.serviciosDeInteres = new ArrayList<Servicio>();
     this.localizacion = localizacion;
-    this.interesProblematica = new ArrayList<Servicio>();
     this.comunidades = new ArrayList<Comunidad>();
-  }
-
-  public void agregarInteresProblematica(Servicio servicio) {
-    this.interesProblematica.add(servicio);
-  }
-
-  public void eliminarInteresProblematica(Servicio servicio) {
-    this.interesProblematica.remove(servicio);
   }
 
   public void darseAltaComunidad(Comunidad comunidad) {
@@ -34,5 +23,9 @@ public class Persona {
 
   public void darseBajaComunidad(Comunidad comunidad) {
     this.comunidades.remove(comunidad);
+  }
+
+  public void notificar(Notificacion notificacion) {
+    //TODO
   }
 }
