@@ -1,5 +1,8 @@
 package ar.edu.utn.frba.dds.Modelos;
 
+import ar.edu.utn.frba.dds.Modelos.Notificaciones.Notificacion;
+import ar.edu.utn.frba.dds.Modelos.Notificaciones.NotificacionIncidenteResuelto;
+import ar.edu.utn.frba.dds.Modelos.Notificaciones.NotificacionNuevoIncidente;
 import java.util.ArrayList;
 
 public class Comunidad {
@@ -26,6 +29,10 @@ public class Comunidad {
   public void relevarServicio(Servicio servicio, Establecimiento establecimiento) {
     serviciosDeInteres.add(servicio);
     establecimiento.agregarServicio(servicio);
+  }
+
+  public void agregarServicioDeInteres(Servicio servicio){
+    serviciosDeInteres.add(servicio);
   }
 
   public void informarNuevoIncidente(Servicio servicio, Incidente incidente){

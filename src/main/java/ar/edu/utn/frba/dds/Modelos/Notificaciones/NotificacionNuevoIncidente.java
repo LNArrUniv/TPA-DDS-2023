@@ -1,9 +1,12 @@
-package ar.edu.utn.frba.dds.Modelos;
+package ar.edu.utn.frba.dds.Modelos.Notificaciones;
+
+import ar.edu.utn.frba.dds.Modelos.Incidente;
+import ar.edu.utn.frba.dds.Modelos.Servicio;
 
 public class NotificacionNuevoIncidente extends Notificacion {
 
   public NotificacionNuevoIncidente(Servicio servicio, Incidente incidente) {
-    super();
+    super(servicio, incidente);
   }
 
   @Override

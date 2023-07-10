@@ -1,5 +1,7 @@
 package ar.edu.utn.frba.dds.Modelos;
 
+import ar.edu.utn.frba.dds.Modelos.Notificaciones.ConfiguracionNotificaciones;
+import ar.edu.utn.frba.dds.Modelos.Notificaciones.Notificacion;
 import java.util.ArrayList;
 
 public class Persona extends Usuario {
@@ -8,17 +10,23 @@ public class Persona extends Usuario {
   private ArrayList<Servicio> serviciosDeInteres;
   private Localizacion localizacion;
   private ArrayList<Comunidad> comunidades;
-  private MedioDeContacto contacto;
+  private ConfiguracionNotificaciones configuracionNotificaciones;
 
-  public Persona(Localizacion localizacion) {
+  public Persona(String nombre, String apellido, String username, String contrasenia, ConfiguracionNotificaciones configuracionNotificaciones) {
+    super(nombre, apellido, username, contrasenia);
     this.entidadesDeInteres = new ArrayList<Entidad>();
     this.serviciosDeInteres = new ArrayList<Servicio>();
-    this.localizacion = localizacion;
     this.comunidades = new ArrayList<Comunidad>();
+    this.configuracionNotificaciones = configuracionNotificaciones;
+  }
+
+  public void setLocalizacion(Localizacion localizacion) {
+    this.localizacion = localizacion;
   }
 
   public void darseAltaComunidad(Comunidad comunidad) {
     this.comunidades.add(comunidad);
+    comunidad.agregarMiembro(this);
   }
 
   public void darseBajaComunidad(Comunidad comunidad) {
@@ -26,6 +34,6 @@ public class Persona extends Usuario {
   }
 
   public void notificar(Notificacion notificacion) {
-    //TODO
+    configuracionNotificaciones.notificarMiembro(notificacion);
   }
 }

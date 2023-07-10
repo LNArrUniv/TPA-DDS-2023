@@ -13,6 +13,8 @@ public class Servicio {
     this.nombre = nombre;
     this.descripcion = descripcion;
     this.localizacion = localizacion;
+    this.incidentesActivos = new ArrayList<>();
+    this.historialIncidentes = new ArrayList<>();
   }
 
   public String getNombre() {

@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.GeoRefAPI;
+package ar.edu.utn.frba.dds.Servicio.GeoRefAPI;
 
 
 import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Provincia;

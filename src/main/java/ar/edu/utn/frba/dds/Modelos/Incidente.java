@@ -9,6 +9,12 @@ public class Incidente {
     private Boolean resuelto;
     private LocalDateTime fechaHoraCierre;
 
+    public Incidente(String descripcion, Persona informante) {
+        this.descripcion = descripcion;
+        this.fechaHoraApertura = LocalDateTime.now();
+        this.informante = informante;
+    }
+
     public Persona getInformante() {
         return informante;
     }
