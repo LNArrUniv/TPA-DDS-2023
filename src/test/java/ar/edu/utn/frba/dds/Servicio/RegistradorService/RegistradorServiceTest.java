@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.RegistradorService;
+package ar.edu.utn.frba.dds.Servicio.RegistradorService;
 
 import ar.edu.utn.frba.dds.Modelos.EntidadPropietaria;
 import ar.edu.utn.frba.dds.Modelos.OrganismoDeControl;

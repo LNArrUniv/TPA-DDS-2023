@@ -15,11 +15,7 @@ public class Entidad {
     this.localizacion = localizacion;
   }
 
-  private void usarServicio(Establecimiento establecimiento, Servicio servicio) {
-  }
-
-  private void agregarEstablecimiento(Establecimiento establecimiento) {
+  public void agregarEstablecimiento(Establecimiento establecimiento) {
     establecimientos.add(establecimiento);
   }
-
 }

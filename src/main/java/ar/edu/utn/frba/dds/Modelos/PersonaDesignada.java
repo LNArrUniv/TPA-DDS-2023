@@ -1,4 +1,7 @@
-package ar.edu.utn.frba.dds.modelos;
+package ar.edu.utn.frba.dds.Modelos;
 
-public class PersonaDesignada {
+public class PersonaDesignada extends Usuario {
+  public PersonaDesignada(String nombre, String apellido, String username, String contrasenia) {
+    super(nombre, apellido, username, contrasenia);
+  }
 }
