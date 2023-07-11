@@ -7,6 +7,7 @@ import ar.edu.utn.frba.dds.Modelos.Servicio;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -20,6 +21,7 @@ public class SinApurosTest {
   public void init(){
     MedioDeContacto medioDeContactoPepe = new ContactoEmail("pepe@gmail.com");
     SinApuros configPepe = new SinApuros(medioDeContactoPepe);
+    configPepe.agregarHorario(LocalTime.now().plus(30, ChronoUnit.SECONDS));
     configPepe.agregarHorario(LocalTime.of(20,23,0));
     configPepe.agregarHorario(LocalTime.of(23,0,0));
     configPepe.agregarHorario(LocalTime.of(19,0,0));
@@ -45,7 +47,7 @@ public class SinApurosTest {
 
     comunidad.informarNuevoIncidente(unServicio, incidente);
 
-    lock.await(2, TimeUnit.MINUTES); // para que el test no finalice y le de tiempo a testear el "SinApuros"
+    lock.await(40, TimeUnit.SECONDS); // para que el test no finalice y le de tiempo a testear el "SinApuros"
   }
 
   @Test
@@ -55,6 +57,6 @@ public class SinApurosTest {
 
     comunidad.informarIncidenteResuelto(unServicio, incidente);
 
-    lock.await(2, TimeUnit.MINUTES); // para que el test no finalice y le de tiempo a testear el "SinApuros"
+    lock.await(40, TimeUnit.SECONDS); // para que el test no finalice y le de tiempo a testear el "SinApuros"
   }
 }
