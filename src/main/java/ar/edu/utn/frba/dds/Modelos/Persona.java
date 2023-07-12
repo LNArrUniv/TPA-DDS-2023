@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Persona extends Usuario {
 
   private ArrayList<Entidad> entidadesDeInteres;
-  private ArrayList<Servicio> serviciosDeInteres;
+  private ArrayList<ServicioPorPersona> serviciosDeInteres;
   private Localizacion localizacion;
   private ArrayList<Comunidad> comunidades;
   private ConfiguracionNotificaciones configuracionNotificaciones;
@@ -15,7 +15,7 @@ public class Persona extends Usuario {
   public Persona(String nombre, String apellido, String username, String contrasenia, ConfiguracionNotificaciones configuracionNotificaciones) {
     super(nombre, apellido, username, contrasenia);
     this.entidadesDeInteres = new ArrayList<Entidad>();
-    this.serviciosDeInteres = new ArrayList<Servicio>();
+    this.serviciosDeInteres = new ArrayList<ServicioPorPersona>();
     this.comunidades = new ArrayList<Comunidad>();
     this.configuracionNotificaciones = configuracionNotificaciones;
   }
