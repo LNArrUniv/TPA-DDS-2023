@@ -8,7 +8,7 @@ public class SenderServiceTest {
   @Test
     public void testWpMail() throws Exception{
 
-      SenderService senderService = new SenderService();
+      SenderService senderService = SenderService.getInstance();
 
       senderService.email("oviedofranc@gmail.com", "Test encabezado", "Test Mensaje");
       senderService.whatsApp("Test Mensaje", "1126068543");

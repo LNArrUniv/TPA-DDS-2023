@@ -14,4 +14,11 @@ public class NotificacionIncidenteResuelto extends Notificacion {
 
     return msg;
   }
+
+  @Override
+  public String getEncabezado(){
+    String encabezado = "INCIDENTE RESUELTO";
+
+    return encabezado;
+  }
 }

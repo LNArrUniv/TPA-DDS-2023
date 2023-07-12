@@ -13,4 +13,6 @@ public abstract class Notificacion {
   }
 
   public abstract String getMensajeDeNotificacion();
+
+  public abstract String getEncabezado();
 }

@@ -15,4 +15,11 @@ public class NotificacionNuevoIncidente extends Notificacion {
 
     return msg;
   }
+
+  @Override
+  public String getEncabezado(){
+    String encabezado = "NUEVO INCIDENTE";
+
+    return encabezado;
+  }
 }

@@ -1,11 +1,17 @@
 package ar.edu.utn.frba.dds.Servicio;
 
+import ar.edu.utn.frba.dds.Modelos.Servicio;
 import ar.edu.utn.frba.dds.Servicio.Comunicacion.MailService;
 import ar.edu.utn.frba.dds.Servicio.Comunicacion.WhatsAppService;
 
 public class SenderService {
+  private static SenderService instance;
 
   private static MailService mailServiceInstance;
+
+  private SenderService() {
+    this.instance = new SenderService();
+  }
 
   static {
     try {
@@ -24,6 +30,13 @@ public class SenderService {
   public String whatsApp(String mensaje, String numero){
     whatsAppServiceInstance.SendWhatsapp(mensaje, numero);
     return "Mensaje enviado por WhatsApp";
+  }
+
+  public static SenderService getInstance(){
+    if (instance.equals(null)){
+      instance = new SenderService();
+    }
+    return instance;
   }
 
 

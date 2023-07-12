@@ -1,5 +1,8 @@
 package ar.edu.utn.frba.dds.Modelos.Notificaciones;
 
+import ar.edu.utn.frba.dds.Servicio.SenderService;
+import com.google.api.services.gmail.Gmail;
+
 public class ContactoEmail implements MedioDeContacto{
   private String email;
 
@@ -8,8 +11,9 @@ public class ContactoEmail implements MedioDeContacto{
   }
 
   @Override
-  public void notificar(Notificacion notificacion) {
-    //TODO: NotificadorEmail.getInstance().notificar(email, notificacion.getMensajeDeNotificacion());
-    System.out.println(notificacion.getMensajeDeNotificacion());
+  public void notificar(Notificacion notificacion) throws Exception {
+    SenderService notificador = SenderService.getInstance();
+    notificador.email(email, notificacion.getEncabezado() , notificacion.getMensajeDeNotificacion());
+    //System.out.println(notificacion.getMensajeDeNotificacion());
   }
 }

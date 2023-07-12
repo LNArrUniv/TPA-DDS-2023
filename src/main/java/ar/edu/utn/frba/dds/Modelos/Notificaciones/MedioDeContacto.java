@@ -1,5 +1,5 @@
 package ar.edu.utn.frba.dds.Modelos.Notificaciones;
 
 public interface MedioDeContacto {
-  void notificar(Notificacion notificacion);
+  void notificar(Notificacion notificacion) throws Exception;
 }
