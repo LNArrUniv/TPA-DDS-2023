@@ -15,6 +15,10 @@ public class Entidad {
     this.localizacion = localizacion;
   }
 
+  public ArrayList<Establecimiento> getEstablecimientos() {
+    return establecimientos;
+  }
+
   public void agregarEstablecimiento(Establecimiento establecimiento) {
     establecimientos.add(establecimiento);
   }

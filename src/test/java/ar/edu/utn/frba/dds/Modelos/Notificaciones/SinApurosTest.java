@@ -42,20 +42,20 @@ public class SinApurosTest {
 
   @Test
   public void seEnvianLasNotificacionesAlAbrirUnIncidente() throws InterruptedException {
-    Incidente incidente = new Incidente("La escalera mecanica del segundo piso no esta en funcionamiento", pepe);
+    Incidente incidente = new Incidente("La escalera mecanica del segundo piso no esta en funcionamiento", pepe, unServicio);
     CountDownLatch lock = new CountDownLatch(1);
 
-    comunidad.informarNuevoIncidente(unServicio, incidente);
+    comunidad.informarNuevoIncidente(incidente);
 
     lock.await(40, TimeUnit.SECONDS); // para que el test no finalice y le de tiempo a testear el "SinApuros"
   }
 
   @Test
   public void seEnvianLasNotificacionesAlCerrarUnIncidente() throws InterruptedException {
-    Incidente incidente = new Incidente("La escalera mecanica del segundo piso no esta en funcionamiento", pepe);
+    Incidente incidente = new Incidente("La escalera mecanica del segundo piso no esta en funcionamiento", pepe, unServicio);
     CountDownLatch lock = new CountDownLatch(1);
 
-    comunidad.informarIncidenteResuelto(unServicio, incidente);
+    comunidad.informarIncidenteResuelto(incidente);
 
     lock.await(40, TimeUnit.SECONDS); // para que el test no finalice y le de tiempo a testear el "SinApuros"
   }

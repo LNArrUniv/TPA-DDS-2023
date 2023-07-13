@@ -35,16 +35,15 @@ public class Comunidad {
     serviciosDeInteres.add(servicio);
   }
 
-  public void informarNuevoIncidente(Servicio servicio, Incidente incidente){
-    servicio.agregarNuevoIncidente(incidente);
-    Notificacion notificacion = new NotificacionNuevoIncidente(servicio, incidente);
+  public void informarNuevoIncidente(Incidente incidente){
+    Notificacion notificacion = new NotificacionNuevoIncidente(incidente);
     miembros.forEach(miembro -> miembro.notificar(notificacion));
     administradores.forEach(admin -> admin.notificar(notificacion));
   }
 
-  public void informarIncidenteResuelto(Servicio servicio, Incidente incidente){
-    servicio.marcarComoResuelto(incidente);
-    Notificacion notificacion = new NotificacionIncidenteResuelto(servicio, incidente);
+  public void informarIncidenteResuelto(Incidente incidente){
+    incidente.marcarComoResuelto();
+    Notificacion notificacion = new NotificacionIncidenteResuelto(incidente);
     miembros.forEach(miembro -> miembro.notificar(notificacion));
     administradores.forEach(admin -> admin.notificar(notificacion));
   }

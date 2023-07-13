@@ -16,6 +16,10 @@ public class Establecimiento {
     this.localizacion = localizacion;
   }
 
+  public ArrayList<Servicio> getServicios() {
+    return servicios;
+  }
+
   public void agregarServicio(Servicio servicio) {
     servicios.add(servicio);
   }

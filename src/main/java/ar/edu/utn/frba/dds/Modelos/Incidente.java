@@ -8,11 +8,15 @@ public class Incidente {
     private Persona informante;
     private Boolean resuelto;
     private LocalDateTime fechaHoraCierre;
+    private Servicio servicio;
+    private Localizacion localizacion;
 
-    public Incidente(String descripcion, Persona informante) {
+    public Incidente(String descripcion, Persona informante, Servicio servicio) {
         this.descripcion = descripcion;
         this.fechaHoraApertura = LocalDateTime.now();
         this.informante = informante;
+        this.servicio = servicio;
+        this.localizacion = servicio.getLocalizacion();
     }
 
     public Persona getInformante() {
@@ -21,5 +25,18 @@ public class Incidente {
 
     public String getDescripcion() {
         return descripcion;
+    }
+
+    public Localizacion getLocalizacion() {
+        return localizacion;
+    }
+
+    public Servicio getServicio() {
+        return servicio;
+    }
+
+    public void marcarComoResuelto(){
+        this.fechaHoraCierre = LocalDateTime.now();
+        this.resuelto = true;
     }
 }

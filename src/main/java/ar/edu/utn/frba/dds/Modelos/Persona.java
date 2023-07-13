@@ -2,7 +2,10 @@ package ar.edu.utn.frba.dds.Modelos;
 
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.ConfiguracionNotificaciones;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.Notificacion;
+import ar.edu.utn.frba.dds.Modelos.Notificaciones.NotificacionNuevoIncidente;
+import ar.edu.utn.frba.dds.Modelos.Notificaciones.NotificacionRevision;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class Persona extends Usuario {
 
@@ -22,6 +25,11 @@ public class Persona extends Usuario {
 
   public void setLocalizacion(Localizacion localizacion) {
     this.localizacion = localizacion;
+    ArrayList<Incidente> incidentesConMismaLocalizacion = (ArrayList<Incidente>) RepositorioIncidentes.getInstance().getActivos().stream().filter(incidente -> incidente.getLocalizacion().equals(localizacion));
+    for (Incidente incidente: incidentesConMismaLocalizacion) {
+      Notificacion notificacion = new NotificacionRevision(incidente);
+      notificar(notificacion);
+    }
   }
 
   public void darseAltaComunidad(Comunidad comunidad) {

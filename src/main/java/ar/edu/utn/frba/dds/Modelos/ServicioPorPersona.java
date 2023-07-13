@@ -15,10 +15,4 @@ public class ServicioPorPersona {
     public String getNombre() {
         return servicioElegido.getNombre();
     }
-
-    public void agregarNuevoIncidente(Incidente incidente){
-        servicioElegido.agregarNuevoIncidente(incidente);
-    }
-
-    public void marcarComoResuelto(Incidente incidente){ servicioElegido.marcarComoResuelto(incidente); }
 }
