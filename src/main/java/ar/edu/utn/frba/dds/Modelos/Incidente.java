@@ -22,4 +22,12 @@ public class Incidente {
     public String getDescripcion() {
         return descripcion;
     }
+
+    public LocalDateTime getFechaHoraApertura() {
+        return fechaHoraApertura;
+    }
+
+    public LocalDateTime getFechaHoraCierre() {
+        return fechaHoraCierre;
+    }
 }
