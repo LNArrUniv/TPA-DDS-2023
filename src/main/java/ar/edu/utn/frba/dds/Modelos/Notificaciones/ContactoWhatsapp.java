@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.Modelos.Notificaciones;
 
 import ar.edu.utn.frba.dds.Servicio.SenderService;
+import com.google.api.services.gmail.Gmail;
 
 public class ContactoWhatsapp implements MedioDeContacto{
   private String telefono;

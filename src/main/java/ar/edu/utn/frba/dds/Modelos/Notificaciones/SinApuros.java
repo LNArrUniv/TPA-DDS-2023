@@ -36,8 +36,14 @@ public class SinApuros implements ConfiguracionNotificaciones{
     }
   }
 
-  private void notificarPendientes(){
-    notificacionesPendientes.forEach(notificacion -> medioDeContacto.notificar(notificacion));
+  public void notificarPendientes(){
+    notificacionesPendientes.forEach(notificacion -> {
+      try {
+        medioDeContacto.notificar(notificacion);
+      } catch (Exception e) {
+        throw new RuntimeException(e);
+      }
+    });
   }
 
   public void agregarHorario(LocalTime horario){

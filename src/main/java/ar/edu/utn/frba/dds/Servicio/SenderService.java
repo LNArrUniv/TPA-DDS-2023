@@ -5,7 +5,7 @@ import ar.edu.utn.frba.dds.Servicio.Comunicacion.MailService;
 import ar.edu.utn.frba.dds.Servicio.Comunicacion.WhatsAppService;
 
 public class SenderService {
-  private static SenderService instance;
+  private static SenderService instance = null;
 
   private static MailService mailServiceInstance;
 
@@ -38,6 +38,4 @@ public class SenderService {
     }
     return instance;
   }
-
-
 }

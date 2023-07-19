@@ -8,7 +8,7 @@ public class CuandoSuceden implements ConfiguracionNotificaciones{
   }
 
   @Override
-  public void notificarMiembro(Notificacion notificacion) {
+  public void notificarMiembro(Notificacion notificacion) throws Exception {
     medioDeContacto.notificar(notificacion);
   }
 }

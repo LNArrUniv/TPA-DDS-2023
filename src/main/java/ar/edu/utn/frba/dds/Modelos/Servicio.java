@@ -1,23 +1,18 @@
 package ar.edu.utn.frba.dds.Modelos;
 
-import java.util.ArrayList;
+import ar.edu.utn.frba.dds.Modelos.Ubicacion.Localidad;
+import lombok.Getter;
 
 public class Servicio {
+  @Getter
   private String nombre;
   private String descripcion;
-  private Localizacion localizacion;
+  @Getter
+  private Localidad ubicacion;
 
-  public Servicio(String nombre, String descripcion, Localizacion localizacion) {
+  public Servicio(String nombre, String descripcion, Localidad ubicacion) {
     this.nombre = nombre;
     this.descripcion = descripcion;
-    this.localizacion = localizacion;
-  }
-
-  public String getNombre() {
-    return nombre;
-  }
-
-  public Localizacion getLocalizacion() {
-    return localizacion;
+    this.ubicacion = ubicacion;
   }
 }

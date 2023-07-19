@@ -37,14 +37,30 @@ public class Comunidad {
 
   public void informarNuevoIncidente(Incidente incidente){
     Notificacion notificacion = new NotificacionNuevoIncidente(incidente);
-    miembros.forEach(miembro -> miembro.notificar(notificacion));
-    administradores.forEach(admin -> admin.notificar(notificacion));
+    notificarMiembrosYAdmins(notificacion);
+
   }
 
   public void informarIncidenteResuelto(Incidente incidente){
     incidente.marcarComoResuelto();
     Notificacion notificacion = new NotificacionIncidenteResuelto(incidente);
-    miembros.forEach(miembro -> miembro.notificar(notificacion));
-    administradores.forEach(admin -> admin.notificar(notificacion));
+    notificarMiembrosYAdmins(notificacion);
+  }
+
+  private void notificarMiembrosYAdmins(Notificacion notificacion){
+    miembros.forEach(miembro -> {
+      try {
+        miembro.notificar(notificacion);
+      } catch (Exception e) {
+        throw new RuntimeException(e);
+      }
+    });
+    administradores.forEach(admin -> {
+      try {
+        admin.notificar(notificacion);
+      } catch (Exception e) {
+        throw new RuntimeException(e);
+      }
+    });
   }
 }

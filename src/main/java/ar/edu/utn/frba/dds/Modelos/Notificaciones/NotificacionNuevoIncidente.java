@@ -1,7 +1,6 @@
 package ar.edu.utn.frba.dds.Modelos.Notificaciones;
 
 import ar.edu.utn.frba.dds.Modelos.Incidente;
-import ar.edu.utn.frba.dds.Modelos.Servicio;
 
 public class NotificacionNuevoIncidente extends Notificacion {
 
