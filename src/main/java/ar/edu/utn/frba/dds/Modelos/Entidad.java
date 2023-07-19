@@ -1,12 +1,15 @@
 package ar.edu.utn.frba.dds.Modelos;
 
+import ar.edu.utn.frba.dds.Modelos.Ubicacion.Provincia;
+import lombok.Getter;
 import java.util.ArrayList;
 
 public class Entidad {
   private String nombre;
   private String descripcion;
+  @Getter
   private ArrayList<Establecimiento> establecimientos;
-  private Localizacion localizacion;
+  private Provincia ubicacion;
 
   private ArrayList<Incidente> incidentes;
 

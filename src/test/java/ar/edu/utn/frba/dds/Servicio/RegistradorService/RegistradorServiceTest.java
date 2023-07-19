@@ -21,7 +21,7 @@ public class RegistradorServiceTest {
     registrador.obtenerOrganismosControl();
   }
   @Test
-  public void seCarganCorrectamenteLasEntidadesPrestadoras() throws CsvValidationException, IOException {
+  public void seCarganCorrectamenteLasEntidadesPrestadoras() {
     System.out.println("\n----------------Entidades Prestadoras----------------");
     for (EntidadPropietaria entidad : registrador.getEntidadesPrestadoras()){
       System.out.println(entidad.getNombre().concat(": ").concat(entidad.getDescripcion()));
@@ -31,7 +31,7 @@ public class RegistradorServiceTest {
   }
 
   @Test
-  public void seCarganCorrectamenteLosOrganismosDeControl() throws CsvValidationException, IOException {
+  public void seCarganCorrectamenteLosOrganismosDeControl() {
     System.out.println("----------------Organismos de Control----------------");
     for (OrganismoDeControl organismo : registrador.getOrganismosDeControl()){
       System.out.println(organismo.getNombre());

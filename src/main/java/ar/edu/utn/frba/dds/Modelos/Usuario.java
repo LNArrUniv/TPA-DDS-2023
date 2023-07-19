@@ -1,8 +1,11 @@
 package ar.edu.utn.frba.dds.Modelos;
 
+import lombok.Getter;
+
 public abstract class Usuario {
   private String nombre;
   private String apellido;
+  @Getter
   private String username;
   private String contrasenia;
 
@@ -11,9 +14,5 @@ public abstract class Usuario {
     this.apellido = apellido;
     this.username = username;
     this.contrasenia = contrasenia;
-  }
-
-  public String getUsername() {
-    return username;
   }
 }

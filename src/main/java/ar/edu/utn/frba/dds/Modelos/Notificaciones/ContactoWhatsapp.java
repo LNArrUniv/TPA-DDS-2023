@@ -1,11 +1,15 @@
 package ar.edu.utn.frba.dds.Modelos.Notificaciones;
 
+import ar.edu.utn.frba.dds.Servicio.SenderService;
+import com.google.api.services.gmail.Gmail;
+
 public class ContactoWhatsapp implements MedioDeContacto{
   private String telefono;
 
   @Override
   public void notificar(Notificacion notificacion) {
-    //TODO: NotificadorWhatsapp.getInstance().notificar(telefono, notificacion.getMensajeDeNotificacion());
-    System.out.println(notificacion.getMensajeDeNotificacion());
+    SenderService notificador = SenderService.getInstance();
+    notificador.whatsApp(notificacion.getMensajeDeNotificacion(), telefono);
+    //System.out.println(notificacion.getMensajeDeNotificacion());
   }
 }

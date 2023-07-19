@@ -1,19 +1,21 @@
 package ar.edu.utn.frba.dds.Modelos;
 
+import ar.edu.utn.frba.dds.Modelos.Ubicacion.Localidad;
+import lombok.Getter;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Establecimiento {
   private String nombre;
   private String descripcion;
+  @Getter
   private ArrayList<Servicio> servicios;
-  private Localizacion localizacion;
+  private Localidad ubicacion;
 
-  public Establecimiento(String nombre, String descripcion, Localizacion localizacion) {
+  public Establecimiento(String nombre, String descripcion, Localidad ubicacion) {
     this.nombre = nombre;
     this.descripcion = descripcion;
     this.servicios = new ArrayList<Servicio>();
-    this.localizacion = localizacion;
+    this.ubicacion = ubicacion;
   }
 
   public void agregarServicio(Servicio servicio) {
