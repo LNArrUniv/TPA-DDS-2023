@@ -11,14 +11,21 @@ public class Entidad {
   private ArrayList<Establecimiento> establecimientos;
   private Provincia ubicacion;
 
-  public Entidad(String nombre, String descripcion, Provincia ubicacion) {
+  private ArrayList<Incidente> incidentes;
+
+  public Entidad(String nombre, String descripcion, Localizacion localizacion) {
     this.nombre = nombre;
     this.descripcion = descripcion;
     this.establecimientos = new ArrayList<Establecimiento>();
-    this.ubicacion = ubicacion;
+    this.localizacion = localizacion;
+    this.incidentes=new ArrayList<>();
   }
 
   public void agregarEstablecimiento(Establecimiento establecimiento) {
     establecimientos.add(establecimiento);
+  }
+
+  public ArrayList<Incidente> getIncidentes() {
+    return incidentes;
   }
 }

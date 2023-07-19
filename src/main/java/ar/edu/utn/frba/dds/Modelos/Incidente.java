@@ -29,4 +29,12 @@ public class Incidente {
         this.fechaHoraCierre = LocalDateTime.now();
         this.resuelto = true;
     }
+
+    public LocalDateTime getFechaHoraApertura() {
+        return fechaHoraApertura;
+    }
+
+    public LocalDateTime getFechaHoraCierre() {
+        return fechaHoraCierre;
+    }
 }
