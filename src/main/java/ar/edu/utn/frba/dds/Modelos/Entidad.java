@@ -10,19 +10,21 @@ public class Entidad {
   @Getter
   private ArrayList<Establecimiento> establecimientos;
   private Provincia ubicacion;
-
   private ArrayList<Incidente> incidentes;
 
-  public Entidad(String nombre, String descripcion, Localizacion localizacion) {
+  public Entidad(String nombre, String descripcion, Provincia ubicacion) {
     this.nombre = nombre;
     this.descripcion = descripcion;
     this.establecimientos = new ArrayList<Establecimiento>();
-    this.localizacion = localizacion;
+    this.ubicacion = ubicacion;
     this.incidentes=new ArrayList<>();
   }
 
   public void agregarEstablecimiento(Establecimiento establecimiento) {
     establecimientos.add(establecimiento);
+  }
+  public void agregarIncidente(Incidente incidente){
+    incidentes.add(incidente);
   }
 
   public ArrayList<Incidente> getIncidentes() {

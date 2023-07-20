@@ -35,6 +35,10 @@ public class Comunidad {
     serviciosDeInteres.add(servicio);
   }
 
+  public int totalMiembros(){
+    return miembros.size() + administradores.size();
+  }
+
   public void informarNuevoIncidente(Incidente incidente){
     Notificacion notificacion = new NotificacionNuevoIncidente(incidente);
     notificarMiembrosYAdmins(notificacion);

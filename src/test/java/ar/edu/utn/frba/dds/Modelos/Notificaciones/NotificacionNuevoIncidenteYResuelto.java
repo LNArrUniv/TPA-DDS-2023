@@ -62,7 +62,7 @@ public class NotificacionNuevoIncidenteYResuelto {
 
   @Test
   public void seEnvianLasNotificacionesAlAbrirUnIncidente() throws InterruptedException {
-    Incidente incidente = new Incidente("La escalera mecanica del segundo piso no esta en funcionamiento", pepe, unServicio);
+    Incidente incidente = new Incidente("La escalera mecanica del segundo piso no esta en funcionamiento", pepe, unServicio, comunidad);
     CountDownLatch lock = new CountDownLatch(1);
 
     comunidad.informarNuevoIncidente(incidente);
@@ -72,7 +72,7 @@ public class NotificacionNuevoIncidenteYResuelto {
 
   @Test
   public void seEnvianLasNotificacionesAlCerrarUnIncidente() throws InterruptedException {
-    Incidente incidente = new Incidente("La escalera mecanica del segundo piso no esta en funcionamiento", pepe, unServicio);
+    Incidente incidente = new Incidente("La escalera mecanica del segundo piso no esta en funcionamiento", pepe, unServicio, comunidad);
     CountDownLatch lock = new CountDownLatch(1);
 
     comunidad.informarIncidenteResuelto(incidente);

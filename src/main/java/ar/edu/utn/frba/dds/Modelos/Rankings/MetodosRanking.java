@@ -6,5 +6,5 @@ import java.util.ArrayList;
 
 public interface MetodosRanking {
 
-    public void generarRanking(ArrayList<Entidad> entidades);
+  public void generarRanking(ArrayList<Entidad> entidades);
 }
