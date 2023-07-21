@@ -15,11 +15,12 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class GeneradorDeInformesTest {
-  GeneradorDeInformes generadorDeInformes = new GeneradorDeInformes();
+  GeneradorDeInformes generadorDeInformes;
   ArrayList<ItemRanking> listaDeItems;
 
   @BeforeEach
   public void init() throws DocumentException, FileNotFoundException {
+    //generadorDeInformes = new GeneradorDeInformes();
     generadorDeInformes = mock(GeneradorDeInformes.class);
     doAnswer(invocationOnMock -> null).when(generadorDeInformes).generarInforme(any(ArrayList.class));
 
