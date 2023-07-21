@@ -1,7 +1,6 @@
 package ar.edu.utn.frba.dds.Modelos.Rankings;
 
 import ar.edu.utn.frba.dds.Modelos.Entidad;
-import ar.edu.utn.frba.dds.Modelos.Notificaciones.SinApuros;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,11 +22,10 @@ public class RankingIncidentes{
         Timer tempo = new Timer();
         LocalDateTime semanaPasada = LocalDateTime.now().minus(7,ChronoUnit.DAYS);
         long semana = LocalDateTime.now().until(semanaPasada,ChronoUnit.MILLIS);
-        tempo.schedule(new GeneradorRanking(), semana);
+        tempo.schedule(new GeneradorRankingSemanal(), semana);
     }
 
-    private class GeneradorRanking extends TimerTask{
-
+    private class GeneradorRankingSemanal extends TimerTask{
         @Override
         public void run() {
             metodosRankings.forEach(metodo-> metodo.generarRanking(entidades));

@@ -24,7 +24,7 @@ public class TiempoDeCierre implements MetodosRanking {
         return acumulado/entidad.getIncidentes().size();
     }
 
-    private float tiempoReparacion(Incidente incidente){ //TODO puse el tiempo en horas pq creo que era el mejor periodo de tiempo
+    private float tiempoReparacion(Incidente incidente){
         long diff = ChronoUnit.HOURS.between(incidente.getFechaHoraCierre(),incidente.getFechaHoraApertura());
         return (float) diff;
     }
