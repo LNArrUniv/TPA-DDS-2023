@@ -1,6 +1,6 @@
 package ar.edu.utn.frba.dds.Modelos;
 
-import ar.edu.utn.frba.dds.Modelos.Ubicacion.Localidad;
+import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Localidad;
 import lombok.Getter;
 
 public class Servicio {

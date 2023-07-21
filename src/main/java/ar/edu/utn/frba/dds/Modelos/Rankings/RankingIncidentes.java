@@ -6,13 +6,14 @@ import ar.edu.utn.frba.dds.Modelos.Notificaciones.SinApuros;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class RankingIncidentes {
 
   private ArrayList<Entidad> entidades;
-  private ArrayList<MetodosRanking> metodosRankings; //[TiempoDeCierre,MayorCantidadIncidentes,GradoImpacto]
+  private ArrayList<MetodosRanking> metodosRankings = (ArrayList<MetodosRanking>) List.of(new TiempoDeCierre(), new MayorCantidadIncidentes(), new GradoImpacto()); //[new TiempoDeCierre(),MayorCantidadIncidentes,GradoImpacto]
 
 
   private void filtrarIncidentes(ArrayList<Entidad> entidades) {

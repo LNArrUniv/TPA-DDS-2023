@@ -10,7 +10,7 @@ public class NotificacionRevision extends Notificacion {
 
   @Override
   public String getMensajeDeNotificacion() {
-    String msg = "Hay un incidente ACTIVO en el Servicio  " + incidente.getServicio().getNombre() + ". Por favor, si tiene tiempo de revisar su estado actual se lo agradeceriamos. Muchas gracias y disculpe las molestias.";
+    String msg = "Hay un incidente ACTIVO en el Servicio " + incidente.getServicio().getNombre() + ". Por favor, si tiene tiempo de revisar su estado actual se lo agradeceriamos. Muchas gracias y disculpe las molestias.";
 
     return msg;
   }

@@ -62,6 +62,8 @@ public class CalculoRankingsTest {
   public void ElBancoNacionTieneMejorPromedioDeCierreQueElBancoProvincia(){ // O sea tarda menos en cerrarlos
     incidenteEscaleraMec.setFechaHoraApertura(LocalDateTime.now().minus(1, ChronoUnit.HOURS));
     incidenteEscaleraMec.marcarComoResuelto();
+    incidenteAscensor.setFechaHoraApertura(LocalDateTime.now().minus(1, ChronoUnit.HOURS));
+    incidenteAscensor.marcarComoResuelto();
     incidenteBaño.setFechaHoraApertura(LocalDateTime.now().minus(3, ChronoUnit.HOURS));
     incidenteBaño.marcarComoResuelto();
 

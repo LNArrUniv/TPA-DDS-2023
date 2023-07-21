@@ -11,7 +11,6 @@ public class NotificacionNuevoIncidente extends Notificacion {
   @Override
   public String getMensajeDeNotificacion() {
     String msg = "Nuevo incidente informado por " + incidente.getInformante().getUsername() + " en el Servicio " + incidente.getServicio().getNombre() + ": " + incidente.getDescripcion();
-
     return msg;
   }
 

@@ -1,6 +1,5 @@
 package ar.edu.utn.frba.dds.Modelos;
 
-import ar.edu.utn.frba.dds.Modelos.Ubicacion.Localidad;
 import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalDateTime;
@@ -17,8 +16,6 @@ public class Incidente {
   @Getter
   private Servicio servicio;
   @Getter
-  private Localidad ubicacion;
-  @Getter
   private Comunidad comunidad;
 
   public Incidente(String descripcion, Persona informante, Servicio servicio, Comunidad comunidad) {
@@ -26,7 +23,6 @@ public class Incidente {
     this.fechaHoraApertura = LocalDateTime.now();
     this.informante = informante;
     this.servicio = servicio;
-    this.ubicacion = servicio.getUbicacion();
     this.comunidad = comunidad;
   }
 

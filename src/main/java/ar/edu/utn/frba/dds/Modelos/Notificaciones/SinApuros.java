@@ -12,7 +12,7 @@ import java.util.TreeSet;
 public class SinApuros implements ConfiguracionNotificaciones{
   private MedioDeContacto medioDeContacto;
   private TreeSet<LocalTime> horariosDeNotificacion;
-  private Boolean running = false;
+  private Boolean running;
   private ArrayList<Notificacion> notificacionesPendientes;
 
   public SinApuros(MedioDeContacto medioDeContacto) {
@@ -36,7 +36,7 @@ public class SinApuros implements ConfiguracionNotificaciones{
     }
   }
 
-  public void notificarPendientes(){
+  private void notificarPendientes(){
     notificacionesPendientes.forEach(notificacion -> {
       try {
         medioDeContacto.notificar(notificacion);

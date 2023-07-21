@@ -1,6 +1,6 @@
 package ar.edu.utn.frba.dds.Modelos;
 
-import ar.edu.utn.frba.dds.Modelos.Ubicacion.Provincia;
+import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Provincia;
 import lombok.Getter;
 import java.util.ArrayList;
 
@@ -10,6 +10,7 @@ public class Entidad {
   @Getter
   private ArrayList<Establecimiento> establecimientos;
   private Provincia ubicacion;
+  @Getter
   private ArrayList<Incidente> incidentes;
 
   public Entidad(String nombre, String descripcion, Provincia ubicacion) {
@@ -25,9 +26,5 @@ public class Entidad {
   }
   public void agregarIncidente(Incidente incidente){
     incidentes.add(incidente);
-  }
-
-  public ArrayList<Incidente> getIncidentes() {
-    return incidentes;
   }
 }

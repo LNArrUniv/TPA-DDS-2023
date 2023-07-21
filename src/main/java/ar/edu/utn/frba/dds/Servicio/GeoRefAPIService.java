@@ -1,5 +1,6 @@
 package ar.edu.utn.frba.dds.Servicio;
 
+import ar.edu.utn.frba.dds.Servicio.EntidadesGeoRef.ListadoDeLocalidades;
 import ar.edu.utn.frba.dds.Servicio.EntidadesGeoRef.ListadoDeProvincias;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -34,4 +35,11 @@ public class GeoRefAPIService {
       Response<ListadoDeProvincias> responseProvinciasArgentinas = requestProvinciasArgentinas.execute();
       return responseProvinciasArgentinas.body();
     }
+
+  public ListadoDeLocalidades listadoDeLocalidades() throws IOException {
+    GeoRefService geoRefService = this.retrofit.create(GeoRefService.class);
+    Call<ListadoDeLocalidades> requestLocalidadesArgentinas =  geoRefService.localidades();
+    Response<ListadoDeLocalidades> responseLocalidadesArgentinas = requestLocalidadesArgentinas.execute();
+    return responseLocalidadesArgentinas.body();
+  }
   }

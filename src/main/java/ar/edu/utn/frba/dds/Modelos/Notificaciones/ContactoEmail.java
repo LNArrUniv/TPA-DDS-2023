@@ -12,8 +12,7 @@ public class ContactoEmail implements MedioDeContacto{
 
   @Override
   public void notificar(Notificacion notificacion) throws Exception {
-    SenderService notificador = SenderService.getInstance();
-    notificador.email(email, notificacion.getEncabezado() , notificacion.getMensajeDeNotificacion());
+    SenderService.getInstance().email(email, notificacion.getEncabezado() , notificacion.getMensajeDeNotificacion());
     //System.out.println(notificacion.getMensajeDeNotificacion());
   }
 }

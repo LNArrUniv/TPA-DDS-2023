@@ -3,7 +3,7 @@ package ar.edu.utn.frba.dds.Modelos;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.ConfiguracionNotificaciones;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.Notificacion;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.NotificacionRevision;
-import ar.edu.utn.frba.dds.Modelos.Ubicacion.Localidad;
+import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Localidad;
 import java.util.ArrayList;
 
 public class Persona extends Usuario {
@@ -22,9 +22,9 @@ public class Persona extends Usuario {
     this.configuracionNotificaciones = configuracionNotificaciones;
   }
 
-  public void setLocalizacion(Localidad ubicacion) throws Exception {
-    this.ubicacion = ubicacion;
-    ArrayList<Incidente> incidentesConMismaLocalizacion = (ArrayList<Incidente>) RepositorioIncidentes.getInstance().getActivos().stream().filter(incidente -> incidente.getUbicacion().getId() == ubicacion.getId());
+  public void setUbicacion(Localidad nuevaUbicacion) throws Exception {
+    this.ubicacion = nuevaUbicacion;
+    ArrayList<Incidente> incidentesConMismaLocalizacion = RepositorioIncidentes.getInstance().incidentesEnUbicacion(nuevaUbicacion);
     for (Incidente incidente: incidentesConMismaLocalizacion) {
       Notificacion notificacion = new NotificacionRevision(incidente);
       notificar(notificacion);

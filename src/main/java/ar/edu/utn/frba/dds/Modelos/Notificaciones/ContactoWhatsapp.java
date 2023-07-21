@@ -8,8 +8,7 @@ public class ContactoWhatsapp implements MedioDeContacto{
 
   @Override
   public void notificar(Notificacion notificacion) {
-    SenderService notificador = SenderService.getInstance();
-    notificador.whatsApp(notificacion.getMensajeDeNotificacion(), telefono);
+    SenderService.getInstance().whatsApp(notificacion.getMensajeDeNotificacion(), telefono);
     //System.out.println(notificacion.getMensajeDeNotificacion());
   }
 }

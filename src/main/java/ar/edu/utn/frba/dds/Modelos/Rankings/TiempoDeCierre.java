@@ -25,8 +25,9 @@ public class TiempoDeCierre implements MetodosRanking {
     return acumulado / entidad.getIncidentes().size();
   }
 
-  private double tiempoReparacion(Incidente incidente) { //TODO puse el tiempo en horas pq creo que era el mejor periodo de tiempo
+  private double tiempoReparacion(Incidente incidente) {
     double diff = ChronoUnit.MINUTES.between(incidente.getFechaHoraCierre(), incidente.getFechaHoraApertura()) / 60.0;
+    // Sigue expresado en horas por el /60, pero lo puse en minutos para que no devuelva 0 cuando se arregla en menos de 1 hora
     return Math.abs(diff);
   }
 }

@@ -42,7 +42,6 @@ public class Comunidad {
   public void informarNuevoIncidente(Incidente incidente){
     Notificacion notificacion = new NotificacionNuevoIncidente(incidente);
     notificarMiembrosYAdmins(notificacion);
-
   }
 
   public void informarIncidenteResuelto(Incidente incidente){
