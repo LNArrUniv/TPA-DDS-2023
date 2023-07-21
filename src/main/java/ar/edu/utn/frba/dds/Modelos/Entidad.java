@@ -5,6 +5,7 @@ import lombok.Getter;
 import java.util.ArrayList;
 
 public class Entidad {
+  @Getter
   private String nombre;
   private String descripcion;
   @Getter
