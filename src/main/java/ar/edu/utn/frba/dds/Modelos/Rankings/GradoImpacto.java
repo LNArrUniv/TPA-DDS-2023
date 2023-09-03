@@ -2,24 +2,50 @@ package ar.edu.utn.frba.dds.Modelos.Rankings;
 
 import ar.edu.utn.frba.dds.Modelos.Entidad;
 import ar.edu.utn.frba.dds.Modelos.Incidente;
+import ar.edu.utn.frba.dds.Modelos.Persona;
+import java.util.List;
+import java.util.stream.ArrayList;
+import java.util.stream.Collectors;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
+public class GradoImpacto implements MetodosRanking {
 
-public class GradoImpacto implements MetodosRanking { //TODO no esta bien definido en el TP pero hay que establecer alguna relacion entre incidente-entidad-comunidad
+    final private Integer CNF = 1; //TODO: cambiar  (Preguntar al ayudante!)
 
-    private Double calcularImpacto(Incidente incidente){
-        int totalMiembros = incidente.getComunidad().totalMiembros();
-        // Ver en un futuro como se calcula el impacto dado la cantidad de miembros
-        double impacto=0;
-        return impacto;
+    public List<Persona> personasAfectadas(Incidente incidente){
+        return incidente.stream().map( i -> i.getComunidad().getMiembros() );
+    }
+
+    public List<Persona> calculoImpactoIncidente(Incidente incidente){
+        return personasAfectadas(incidente).stream().distinct().collect(Collectors.toList());;
+    }
+
+    public Integer cantidadPersonasImpactadasPorIncidente(Incidente incidente){
+        return calculoImpactoIncidente(incidente).size();
+    }
+
+    public Integer calculoImpacto(List<Incidente> incidentes){
+        Integer cantIncidentesNoResueltos = incidentes.stream().filter( i -> !i.resuelto ).count();
+        Integer tiempoResolucionIncidente = incidentes.stream()
+           .filter(i -> i.isResuelto())
+           .mapToInt(i -> (int) (i.getFechaHoraCierre() - i.getFechaHoraApertura()))
+           .sum();
+        
+        Integer totalPersonasImpactadas = incidentes.mapToInt( i -> cantidadPersonasImpactadasPorIncidente(i) ).sum();
+
+        return (tiempoResolucionIncidente + cantIncidentesNoResueltos * CNF) * totalPersonasImpactadas ;
     }
 
     @Override
-    public void generarRanking(ArrayList<Entidad> entidades) {
-        for (Entidad entidad:entidades) {
-            entidad.getIncidentes().forEach(incidente -> calcularImpacto(incidente));//.forEach(incidente -> calcularImpacto(incidente));
+    public List<ItemRanking> generarRanking(List<Entidad> entidades) {
+        List<ItemRanking> ranking = new ArrayList<>();
+        for (Entidad entidad : entidades) {
+            double impactoTotal = entidad.getIncidentes().stream()
+                .mapToDouble(incidente -> calculoImpacto(incidente))
+                .sum();
+
+            ranking.add(new ItemRanking(entidad, impactoTotal));
         }
+        return ranking;
     }
+
 }

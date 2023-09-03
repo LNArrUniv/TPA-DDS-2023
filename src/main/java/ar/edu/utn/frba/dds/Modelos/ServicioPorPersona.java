@@ -7,7 +7,7 @@ public class ServicioPorPersona {
 
   private String tipoDeUsuario;
 
-  public ServicioPorPersona(Servicio servicioElegido, String tipoDeInteres) {
+  public ServicioPorPersona(Servicio servicioElegido, String tipoDeUsuario) {
     this.servicioElegido = servicioElegido;
     this.tipoDeUsuario = tipoDeUsuario;
   }
