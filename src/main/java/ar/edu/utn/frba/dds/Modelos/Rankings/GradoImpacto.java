@@ -3,12 +3,16 @@ package ar.edu.utn.frba.dds.Modelos.Rankings;
 import ar.edu.utn.frba.dds.Modelos.Entidad;
 import ar.edu.utn.frba.dds.Modelos.Incidente;
 import ar.edu.utn.frba.dds.Modelos.Persona;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.ArrayList;
 import java.util.stream.Collectors;
 
 public class GradoImpacto implements MetodosRanking {
+    @Override
+    public void generarRanking(ArrayList<Entidad> entidades) {
 
+    }
+    /*
     final private Integer CNF = 1; //TODO: cambiar  (Preguntar al ayudante!)
 
     public List<Persona> personasAfectadas(Incidente incidente){
@@ -47,5 +51,5 @@ public class GradoImpacto implements MetodosRanking {
         }
         return ranking;
     }
-
+    */
 }
