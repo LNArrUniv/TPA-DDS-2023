@@ -24,10 +24,10 @@ public class GeneradorDeInformesTest {
     generadorDeInformes = mock(GeneradorDeInformes.class);
     doAnswer(invocationOnMock -> null).when(generadorDeInformes).generarInforme(any(ArrayList.class));
 
-    Entidad entidad1 = new Entidad("Entidad 1", null, null);
-    Entidad entidad2 = new Entidad("Entidad 2", null, null);
-    Entidad entidad3 = new Entidad("Entidad 3", null, null);
-    Entidad entidad4 = new Entidad("Entidad 4", null, null);
+    Entidad entidad1 = new Entidad("Entidad 1", null, null, null);
+    Entidad entidad2 = new Entidad("Entidad 2", null, null, null);
+    Entidad entidad3 = new Entidad("Entidad 3", null, null, null);
+    Entidad entidad4 = new Entidad("Entidad 4", null, null, null);
 
     ItemRanking item = new ItemRanking(entidad1, 1.0);
     ItemRanking item2 = new ItemRanking(entidad2, 2.0);

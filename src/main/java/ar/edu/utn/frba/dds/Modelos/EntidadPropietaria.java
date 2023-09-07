@@ -1,23 +1,43 @@
 package ar.edu.utn.frba.dds.Modelos;
 
+import ar.edu.utn.frba.dds.Persistencia.EntidadPersistente;
 import lombok.Getter;
-import java.util.ArrayList;
+import lombok.Setter;
+import org.hibernate.annotations.Type;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-public class EntidadPropietaria {
+@Entity
+@Table(name = "entidad_propietaria")
+public class EntidadPropietaria extends EntidadPersistente {
   @Getter
+  @Column
   private String nombre;
   @Getter
+  @Column
+  @Type(type = "text")
   private String descripcion;
-  private Usuario encargado;
-  private ArrayList<Entidad> entidades;
+  @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+  private PersonaDesignada encargado;
 
-  public EntidadPropietaria(String nombre, String descripcion, Usuario encargado) {
+  @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+  @JoinColumn(name = "organismoDeControl_id", referencedColumnName = "id")
+  @Setter
+  private OrganismoDeControl organismoDeControl;
+
+  public EntidadPropietaria(String nombre, String descripcion, PersonaDesignada encargado, OrganismoDeControl organismoDeControl) {
     this.nombre = nombre;
     this.descripcion = descripcion;
     this.encargado = encargado;
+    this.organismoDeControl = organismoDeControl;
   }
 
-  private void agregarEntidad(Entidad entidad) {
-    entidades.add(entidad);
+  public EntidadPropietaria() {
+
   }
 }

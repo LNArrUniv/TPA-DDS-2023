@@ -24,7 +24,7 @@ public class RegistradorEmpresasService {
         reader.readNext(); // Leer la primera línea y descartarla (encabezados)
         String[] campos;
         while ((campos = reader.readNext()) != null) {
-            entidadesPrestadoras.add(new EntidadPropietaria(campos[0], campos[1], null));
+            entidadesPrestadoras.add(new EntidadPropietaria(campos[0], campos[1], null, null));
         }
         reader.close();
     }

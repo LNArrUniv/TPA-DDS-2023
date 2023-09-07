@@ -26,8 +26,8 @@ public class CalculoRankingsTest {
 
   @BeforeEach
   public void init() {
-    bancoNacion = new Entidad("Banco Nacion", "", null);
-    bancoProvincia = new Entidad("Bancio Provincia", "", null);
+    bancoNacion = new Entidad("Banco Nacion", "", null, null);
+    bancoProvincia = new Entidad("Bancio Provincia", "", null, null);
     Establecimiento sucursalAlmagroNac = new Establecimiento("Sucursal Almagro del Banco Nacion", "", null);
     Establecimiento sucursalAlmagroProv = new Establecimiento("Sucursal Almagro del Banco Provincia", "", null);
     bancoNacion.agregarEstablecimiento(sucursalAlmagroNac);
