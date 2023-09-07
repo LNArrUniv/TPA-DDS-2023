@@ -11,7 +11,7 @@ public class ListadoDeLocalidades extends PageInterface {
     public List<String> campos;
   }
 
-  public Optional<Localidad> localidadDeId(int id){
+  public Optional<Localidad> localidadDeId(long id){
     return this.localidades.stream()
         .filter(l -> l.id == id)
         .findFirst();

@@ -30,6 +30,6 @@ public class RepositorioIncidentes {
   }
 
   public ArrayList<Incidente> incidentesEnUbicacion(Localidad ubicacion){
-    return (ArrayList<Incidente>) getActivos().stream().filter(incidente -> incidente.getServicio().getUbicacion().getId() == ubicacion.getId()).collect(Collectors.toList());
+    return (ArrayList<Incidente>) getActivos().stream().filter(incidente -> incidente.getServicio().getEstablecimiento().getUbicacion().getId() == ubicacion.getId()).collect(Collectors.toList());
   }
 }

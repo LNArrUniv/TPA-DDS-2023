@@ -5,8 +5,10 @@ import ar.edu.utn.frba.dds.Persistencia.EntidadPersistente;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
+import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -27,10 +29,8 @@ public class Entidad extends EntidadPersistente {
   @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinColumn(name = "entidadPropietaria_id", referencedColumnName = "id")
   private EntidadPropietaria entidadPropietaria;
-  @Getter
-  @Transient
-  private ArrayList<Establecimiento> establecimientos;
-  @Transient
+  @Embedded
+  @AttributeOverride(name="nombre", column=@Column(name="provincia"))
   private Provincia ubicacion;
   @Getter
   @Transient
@@ -39,7 +39,6 @@ public class Entidad extends EntidadPersistente {
   public Entidad(String nombre, String descripcion, EntidadPropietaria entidadPropietaria, Provincia ubicacion) {
     this.nombre = nombre;
     this.descripcion = descripcion;
-    this.establecimientos = new ArrayList<Establecimiento>();
     this.entidadPropietaria = entidadPropietaria;
     this.ubicacion = ubicacion;
     this.incidentes=new ArrayList<>();
@@ -49,9 +48,6 @@ public class Entidad extends EntidadPersistente {
 
   }
 
-  public void agregarEstablecimiento(Establecimiento establecimiento) {
-    establecimientos.add(establecimiento);
-  }
   public void agregarIncidente(Incidente incidente){
     incidentes.add(incidente);
   }

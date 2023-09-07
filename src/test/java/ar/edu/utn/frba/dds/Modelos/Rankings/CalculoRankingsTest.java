@@ -28,10 +28,8 @@ public class CalculoRankingsTest {
   public void init() {
     bancoNacion = new Entidad("Banco Nacion", "", null, null);
     bancoProvincia = new Entidad("Bancio Provincia", "", null, null);
-    Establecimiento sucursalAlmagroNac = new Establecimiento("Sucursal Almagro del Banco Nacion", "", null);
-    Establecimiento sucursalAlmagroProv = new Establecimiento("Sucursal Almagro del Banco Provincia", "", null);
-    bancoNacion.agregarEstablecimiento(sucursalAlmagroNac);
-    bancoProvincia.agregarEstablecimiento(sucursalAlmagroProv);
+    Establecimiento sucursalAlmagroNac = new Establecimiento("Sucursal Almagro del Banco Nacion", "", null, "Cochabamba 1234", bancoNacion);
+    Establecimiento sucursalAlmagroProv = new Establecimiento("Sucursal Almagro del Banco Provincia", "", null, "Av. Rivadavia 2943", bancoProvincia);
 
     Servicio servicioBNacion = new Servicio("Escalera Mecanica", "", null);
     Servicio otroServicioBNacion = new Servicio("Escalera Mecanica", "", null);

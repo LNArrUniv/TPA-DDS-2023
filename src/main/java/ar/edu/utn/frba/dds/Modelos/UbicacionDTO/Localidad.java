@@ -1,10 +1,16 @@
 package ar.edu.utn.frba.dds.Modelos.UbicacionDTO;
 
 import lombok.Getter;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.Transient;
 
+@Embeddable
 public class Localidad {
   @Getter
-  public int id;
+  @Transient
+  public long id;
+  @Column
   public String nombre;
 
 }

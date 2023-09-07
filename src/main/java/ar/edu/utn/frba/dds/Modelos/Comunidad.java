@@ -25,11 +25,13 @@ public class Comunidad {
   public void eleminarMiembro(Persona miembro) {
     this.miembros.remove(miembro);
   }
+  /*
 
   public void relevarServicio(Servicio servicio, Establecimiento establecimiento) {
     serviciosDeInteres.add(servicio);
     establecimiento.agregarServicio(servicio);
   }
+  */
 
   public void agregarServicioDeInteres(Servicio servicio){
     serviciosDeInteres.add(servicio);
