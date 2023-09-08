@@ -7,10 +7,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import ar.edu.utn.frba.dds.Modelos.Establecimiento;
 import ar.edu.utn.frba.dds.Modelos.Incidente;
-import ar.edu.utn.frba.dds.Modelos.Notificaciones.ContactoEmail;
-import ar.edu.utn.frba.dds.Modelos.Notificaciones.CuandoSuceden;
-import ar.edu.utn.frba.dds.Modelos.Notificaciones.Notificacion;
 import ar.edu.utn.frba.dds.Modelos.Persona;
 import ar.edu.utn.frba.dds.Modelos.RepositorioIncidentes;
 import ar.edu.utn.frba.dds.Modelos.Servicio;
@@ -24,7 +22,7 @@ import java.util.List;
 
 public class NotificacionRevisionTest {
   Persona carlos;
-  ContactoEmail emailDeContacto;
+  MedioNotificacionesEmail emailDeContacto;
   GeoRefAPIService geoRefAPIService;
 
   @BeforeEach
@@ -38,13 +36,14 @@ public class NotificacionRevisionTest {
     listado.localidades = List.of(liniers);
     doReturn(listado).when(geoRefAPIService).listadoDeLocalidades();
 
-    Servicio servicioRandom = new Servicio("Ascensor de la sucursal Liniers del Banco RIO", "null", geoRefAPIService.listadoDeLocalidades().localidadDeId(02063010001).get());
+    Establecimiento sucursalBancoRIO = new Establecimiento("Banco RIO", "", geoRefAPIService.listadoDeLocalidades().localidadDeId(02063010001).get(), "Av. Rivadavia 123", null);
+    Servicio servicioRandom = new Servicio("Ascensor de la sucursal Liniers del Banco RIO", "null", sucursalBancoRIO);
     Incidente incidenteCercano = new Incidente("Ascensor fuera de servicio", null, servicioRandom, null);
     ArrayList<Incidente> activos = new ArrayList<>();
     activos.add(incidenteCercano);
     RepositorioIncidentes.getInstance().setActivos(activos);
 
-    emailDeContacto = mock(ContactoEmail.class);
+    emailDeContacto = mock(String.valueOf(MedioNotificacionesEmail.class));
 
     carlos = new Persona("Carlos", "Rodriguez", "CarlosR", null, new CuandoSuceden(emailDeContacto));
 

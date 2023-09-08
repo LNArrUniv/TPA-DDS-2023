@@ -31,13 +31,11 @@ public class CalculoRankingsTest {
     Establecimiento sucursalAlmagroNac = new Establecimiento("Sucursal Almagro del Banco Nacion", "", null, "Cochabamba 1234", bancoNacion);
     Establecimiento sucursalAlmagroProv = new Establecimiento("Sucursal Almagro del Banco Provincia", "", null, "Av. Rivadavia 2943", bancoProvincia);
 
-    Servicio servicioBNacion = new Servicio("Escalera Mecanica", "", null);
-    Servicio otroServicioBNacion = new Servicio("Escalera Mecanica", "", null);
+    Servicio servicioBNacion = new Servicio("Escalera Mecanica", "", sucursalAlmagroNac);
+    Servicio otroServicioBNacion = new Servicio("Escalera Mecanica", "", sucursalAlmagroNac);
 
-    Servicio servicioBProvincia = new Servicio("Baño", "", null);
-    sucursalAlmagroNac.agregarServicio(servicioBNacion);
-    sucursalAlmagroNac.agregarServicio(otroServicioBNacion);
-    sucursalAlmagroProv.agregarServicio(servicioBProvincia);
+    Servicio servicioBProvincia = new Servicio("Baño", "", sucursalAlmagroProv);
+
 
     Comunidad comunidadAlmagro = new Comunidad("Comunidad de Servicios de Almagro (Bancos)");
 

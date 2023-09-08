@@ -3,7 +3,10 @@ package ar.edu.utn.frba.dds;
 import ar.edu.utn.frba.dds.Modelos.Entidad;
 import ar.edu.utn.frba.dds.Modelos.EntidadPropietaria;
 import ar.edu.utn.frba.dds.Modelos.Establecimiento;
+import ar.edu.utn.frba.dds.Modelos.Notificaciones.CuandoSuceden;
+import ar.edu.utn.frba.dds.Modelos.Notificaciones.MedioNotificacionesEmail;
 import ar.edu.utn.frba.dds.Modelos.OrganismoDeControl;
+import ar.edu.utn.frba.dds.Modelos.Persona;
 import ar.edu.utn.frba.dds.Modelos.PersonaDesignada;
 import ar.edu.utn.frba.dds.Modelos.Servicio;
 import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Localidad;
@@ -14,7 +17,7 @@ import java.io.IOException;
 
 public class MainPrueba {
 
-  public static void main(String[] args) throws IOException {
+  public static void main(String[] args) throws Exception {
     PersonaDesignada pepeEncargadoCNRT = new PersonaDesignada("Pepe", "Jose", "pepejose23", "1234");
     PersonaDesignada manuelEncargadoTrenesArg = new PersonaDesignada("Manuel", "Jose", "manujose674", "4321");
     OrganismoDeControl cnrt = new OrganismoDeControl("Comisión Nacional de Regulación del Transporte", pepeEncargadoCNRT);
@@ -32,8 +35,15 @@ public class MainPrueba {
 
     Servicio servicioBanios = new Servicio("Baños de la Estación", "Servicio de baños de la estación Lobos de la línea Sarmiento", estacionLobos);
 
+
+    MedioNotificacionesEmail medioPreferido = new MedioNotificacionesEmail("juanro@gmail.com");
+    CuandoSuceden config = new CuandoSuceden(medioPreferido);
+    Persona juan = new Persona("Juan", "Rodriguez", "juanro1259", "PXm^cgC#5Ehm3", config);
+    juan.setUbicacion(lobos);
+
     EntityManagerHelper.beginTransaction();
     EntityManagerHelper.persist(servicioBanios);
+    EntityManagerHelper.persist(juan);
     EntityManagerHelper.commit();
   }
 

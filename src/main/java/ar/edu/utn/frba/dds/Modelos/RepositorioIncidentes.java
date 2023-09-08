@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 public class RepositorioIncidentes {
   private static RepositorioIncidentes instance = null;
   @Setter
-  private ArrayList<Incidente> activos;
-  private ArrayList<Incidente> resueltos;
+  private ArrayList<Incidente> activos = new ArrayList<>();
+  private ArrayList<Incidente> resueltos = new ArrayList<>();
 
   private RepositorioIncidentes() {
   }
