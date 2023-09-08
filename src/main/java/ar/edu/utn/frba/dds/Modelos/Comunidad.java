@@ -3,12 +3,23 @@ package ar.edu.utn.frba.dds.Modelos;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.Notificacion;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.NotificacionIncidenteResuelto;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.NotificacionNuevoIncidente;
-import java.util.ArrayList;
+import ar.edu.utn.frba.dds.Persistencia.EntidadPersistente;
 
-public class Comunidad {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import java.util.ArrayList;
+@Entity
+ @Table
+public class Comunidad extends EntidadPersistente {
+  @Column
   private String nombreComunidad;
+  @Transient
   private ArrayList<Servicio> serviciosDeInteres;
+  @Transient
   private ArrayList<Persona> miembros;
+  @Transient
   private ArrayList<Persona> administradores;
 
   public Comunidad(String nombreComunidad) {
@@ -16,6 +27,10 @@ public class Comunidad {
     this.serviciosDeInteres = new ArrayList<>();
     this.miembros = new ArrayList<>();
     this.administradores = new ArrayList<>();
+  }
+
+  public Comunidad() {
+
   }
 
   public void agregarMiembro(Persona nuevoMiembro) {

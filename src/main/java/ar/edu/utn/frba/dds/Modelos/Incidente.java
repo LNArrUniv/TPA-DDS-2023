@@ -1,21 +1,37 @@
 package ar.edu.utn.frba.dds.Modelos;
 
+import ar.edu.utn.frba.dds.Persistencia.EntidadPersistente;
 import lombok.Getter;
 import lombok.Setter;
-import java.time.LocalDateTime;
+import org.hibernate.annotations.Type;
 
-public class Incidente {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import java.time.LocalDateTime;
+//TODO: REVISAR EL DER
+@Entity
+@Table
+public class Incidente  extends EntidadPersistente {
   @Getter
+  @Column
+  @Type(type="text")
   private String descripcion;
   @Setter // Para los tests
+
   private LocalDateTime fechaHoraApertura;
   @Getter
+  @Transient
   private Persona informante;
+  @Column
   private Boolean resuelto;
   private LocalDateTime fechaHoraCierre;
   @Getter
+  @Transient
   private Servicio servicio;
   @Getter
+  @Transient
   private Comunidad comunidad;
 
   public Incidente(String descripcion, Persona informante, Servicio servicio, Comunidad comunidad) {
@@ -24,6 +40,10 @@ public class Incidente {
     this.informante = informante;
     this.servicio = servicio;
     this.comunidad = comunidad;
+  }
+
+  public Incidente() {
+
   }
 
   public void marcarComoResuelto() {
