@@ -7,6 +7,7 @@ import static org.mockito.Mockito.mock;
 import ar.edu.utn.frba.dds.Modelos.Comunidad;
 import ar.edu.utn.frba.dds.Modelos.Incidente;
 import ar.edu.utn.frba.dds.Modelos.Persona;
+import ar.edu.utn.frba.dds.Modelos.Rol;
 import ar.edu.utn.frba.dds.Modelos.Servicio;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -53,8 +54,8 @@ public class NotificacionNuevoIncidenteYResuelto {
 
     unServicio = new Servicio("Escalera mecanica 2do piso", "", null);
     comunidad = new Comunidad("Comunidad1");
-    pepe.darseAltaComunidad(comunidad);
-    jose.darseAltaComunidad(comunidad);
+    pepe.darseAltaComunidad(comunidad, Rol.AFECTADO);
+    jose.darseAltaComunidad(comunidad, Rol.AFECTADO);
     comunidad.agregarServicioDeInteres(unServicio);
 
   }

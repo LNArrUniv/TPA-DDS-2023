@@ -1,13 +1,16 @@
 package ar.edu.utn.frba.dds;
 
+import ar.edu.utn.frba.dds.Modelos.Comunidad;
 import ar.edu.utn.frba.dds.Modelos.Entidad;
 import ar.edu.utn.frba.dds.Modelos.EntidadPropietaria;
 import ar.edu.utn.frba.dds.Modelos.Establecimiento;
+import ar.edu.utn.frba.dds.Modelos.Membresia;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.CuandoSuceden;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.MedioNotificacionesEmail;
 import ar.edu.utn.frba.dds.Modelos.OrganismoDeControl;
 import ar.edu.utn.frba.dds.Modelos.Persona;
 import ar.edu.utn.frba.dds.Modelos.PersonaDesignada;
+import ar.edu.utn.frba.dds.Modelos.Rol;
 import ar.edu.utn.frba.dds.Modelos.Servicio;
 import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Localidad;
 import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Provincia;
@@ -40,9 +43,14 @@ public class MainPrueba {
     CuandoSuceden config = new CuandoSuceden(medioPreferido);
     Persona juan = new Persona("Juan", "Rodriguez", "juanro1259", "PXm^cgC#5Ehm3", config);
     juan.setUbicacion(lobos);
+    juan.agregarEntidadDeInteres(lineaSarmiento);
+    juan.agregarServicioDeInteres(servicioBanios);
+
+    Comunidad comunidadLobos = new Comunidad("Comunidad de Lobos");
+    comunidadLobos.agregarServicioDeInteres(servicioBanios);
+    juan.darseAltaComunidad(comunidadLobos, Rol.AFECTADO);
 
     EntityManagerHelper.beginTransaction();
-    EntityManagerHelper.persist(servicioBanios);
     EntityManagerHelper.persist(juan);
     EntityManagerHelper.commit();
   }
