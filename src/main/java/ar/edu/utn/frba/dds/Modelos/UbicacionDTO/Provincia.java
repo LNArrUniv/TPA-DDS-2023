@@ -1,7 +1,13 @@
 package ar.edu.utn.frba.dds.Modelos.UbicacionDTO;
 
-public class Provincia {
-  public int id;
-  public String nombre;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.Transient;
 
+@Embeddable
+public class Provincia {
+  @Transient
+  public long id;
+  @Column
+  public String nombre;
 }

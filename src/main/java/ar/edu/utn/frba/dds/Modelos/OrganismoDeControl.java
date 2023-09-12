@@ -1,18 +1,28 @@
 package ar.edu.utn.frba.dds.Modelos;
 
+import ar.edu.utn.frba.dds.Persistencia.EntidadPersistente;
 import lombok.Getter;
-import lombok.Setter;
-import java.util.ArrayList;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-public class OrganismoDeControl {
+@Entity
+@Table(name = "organismo_de_control")
+public class OrganismoDeControl extends EntidadPersistente {
   @Getter
+  @Column
   private String nombre;
-  private Usuario encargado;
-  @Setter
-  private ArrayList<EntidadPropietaria> entidadesControladas = new ArrayList<>();
+  @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+  private PersonaDesignada encargado;
 
-  public OrganismoDeControl(String nombre, Usuario encargado) {
+  public OrganismoDeControl(String nombre, PersonaDesignada encargado) {
     this.nombre = nombre;
     this.encargado = encargado;
+  }
+
+  public OrganismoDeControl() {
+
   }
 }

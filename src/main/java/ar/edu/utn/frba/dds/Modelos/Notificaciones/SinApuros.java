@@ -1,5 +1,13 @@
 package ar.edu.utn.frba.dds.Modelos.Notificaciones;
 
+import ar.edu.utn.frba.dds.Persistencia.converters.HorariosDeNotificacionAttributeConverter;
+import ar.edu.utn.frba.dds.Persistencia.converters.MedioDeContactoPreferidoAttributeConverter;
+import lombok.Getter;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -8,18 +16,30 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.TreeSet;
 
-
-public class SinApuros implements ConfiguracionNotificaciones{
-  private MedioDeContacto medioDeContacto;
+@Entity
+@DiscriminatorValue(value = "Sin apuros")
+public class SinApuros extends ConfiguracionNotificaciones{
+  @Convert(converter = MedioDeContactoPreferidoAttributeConverter.class)
+  @Column(name = "contacto")
+  private MedioDeNotificacionesPreferido medio;
+  @Getter
+  @Convert(converter = HorariosDeNotificacionAttributeConverter.class)
+  @Column(name = "horariosDeNotificacion")
   private TreeSet<LocalTime> horariosDeNotificacion;
+  @Transient
   private Boolean running;
+  @Transient
   private ArrayList<Notificacion> notificacionesPendientes;
 
-  public SinApuros(MedioDeContacto medioDeContacto) {
-    this.medioDeContacto = medioDeContacto;
+  public SinApuros(MedioDeNotificacionesPreferido medio) {
+    this.medio = medio;
     this.running = false;
-    this.horariosDeNotificacion = new TreeSet<>();
+    this.horariosDeNotificacion = new TreeSet<LocalTime>();
     this.notificacionesPendientes = new ArrayList<>();
+  }
+
+  public SinApuros() {
+
   }
 
   @Override
@@ -39,7 +59,7 @@ public class SinApuros implements ConfiguracionNotificaciones{
   private void notificarPendientes(){
     notificacionesPendientes.forEach(notificacion -> {
       try {
-        medioDeContacto.notificar(notificacion);
+        medio.notificar(notificacion);
       } catch (Exception e) {
         throw new RuntimeException(e);
       }

@@ -3,11 +3,11 @@ package ar.edu.utn.frba.dds.Modelos.Notificaciones;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
 
 import ar.edu.utn.frba.dds.Modelos.Comunidad;
 import ar.edu.utn.frba.dds.Modelos.Incidente;
 import ar.edu.utn.frba.dds.Modelos.Persona;
+import ar.edu.utn.frba.dds.Modelos.Rol;
 import ar.edu.utn.frba.dds.Modelos.Servicio;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,7 +24,7 @@ public class NotificacionNuevoIncidenteYResuelto {
 
   @BeforeEach
   public void init() throws Exception {
-    ContactoEmail medioDeContactoPepe = mock(ContactoEmail.class); //new ContactoEmail("pepe@gmail.com");
+    MedioNotificacionesEmail medioDeContactoPepe = mock(MedioNotificacionesEmail.class); //new ContactoEmail("pepe@gmail.com");
     SinApuros configPepe = new SinApuros(medioDeContactoPepe);
     configPepe.agregarHorario(LocalTime.now().plus(10, ChronoUnit.SECONDS));
     configPepe.agregarHorario(LocalTime.of(20,30,0));
@@ -39,7 +39,7 @@ public class NotificacionNuevoIncidenteYResuelto {
     }).when(medioDeContactoPepe).notificar(any(Notificacion.class));
 
 
-    ContactoEmail medioDeContactoJose = mock(ContactoEmail.class); //new ContactoEmail("jose@gmail.com");
+    MedioDeNotificacionesPreferido medioDeContactoJose = mock(MedioNotificacionesEmail.class); //new ContactoEmail("jose@gmail.com");
     CuandoSuceden configJose = new CuandoSuceden(medioDeContactoJose);
 
     doAnswer(invocationOnMock -> {
@@ -54,8 +54,8 @@ public class NotificacionNuevoIncidenteYResuelto {
 
     unServicio = new Servicio("Escalera mecanica 2do piso", "", null);
     comunidad = new Comunidad("Comunidad1");
-    pepe.darseAltaComunidad(comunidad);
-    jose.darseAltaComunidad(comunidad);
+    pepe.darseAltaComunidad(comunidad, Rol.AFECTADO);
+    jose.darseAltaComunidad(comunidad, Rol.AFECTADO);
     comunidad.agregarServicioDeInteres(unServicio);
 
   }

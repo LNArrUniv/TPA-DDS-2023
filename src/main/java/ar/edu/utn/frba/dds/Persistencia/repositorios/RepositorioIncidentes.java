@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 public class RepositorioIncidentes {
   private static RepositorioIncidentes instance = null;
   @Setter
-  private ArrayList<Incidente> activos;
-  private ArrayList<Incidente> resueltos;
+  private ArrayList<Incidente> activos = new ArrayList<>();
+  private ArrayList<Incidente> resueltos = new ArrayList<>();
 
   private RepositorioIncidentes() {
   }
@@ -30,6 +30,6 @@ public class RepositorioIncidentes {
   }
 
   public ArrayList<Incidente> incidentesEnUbicacion(Localidad ubicacion){
-    return (ArrayList<Incidente>) getActivos().stream().filter(incidente -> incidente.getServicio().getUbicacion().getId() == ubicacion.getId()).collect(Collectors.toList());
+    return (ArrayList<Incidente>) getActivos().stream().filter(incidente -> incidente.getServicio().getEstablecimiento().getUbicacion().getId() == ubicacion.getId()).collect(Collectors.toList());
   }
 }

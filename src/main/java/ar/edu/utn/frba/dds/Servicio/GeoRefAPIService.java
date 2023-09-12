@@ -42,4 +42,11 @@ public class GeoRefAPIService {
     Response<ListadoDeLocalidades> responseLocalidadesArgentinas = requestLocalidadesArgentinas.execute();
     return responseLocalidadesArgentinas.body();
   }
+
+  public ListadoDeLocalidades localidadPorNombreYProv(String nombre, long idProvincia) throws IOException {
+    GeoRefService geoRefService = this.retrofit.create(GeoRefService.class);
+    Call<ListadoDeLocalidades> requestLocalidadesArgentinas =  geoRefService.localidades(nombre, idProvincia);
+    Response<ListadoDeLocalidades> responseLocalidadesArgentinas = requestLocalidadesArgentinas.execute();
+    return responseLocalidadesArgentinas.body();
+  }
   }
