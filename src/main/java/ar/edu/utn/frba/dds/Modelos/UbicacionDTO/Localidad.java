@@ -11,6 +11,7 @@ public class Localidad {
   @Transient
   public long id;
   @Column
+  @Getter
   public String nombre;
 
 }

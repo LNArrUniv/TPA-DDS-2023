@@ -2,25 +2,30 @@ package ar.edu.utn.frba.dds.Modelos.Notificaciones;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import ar.edu.utn.frba.dds.Modelos.Establecimiento;
 import ar.edu.utn.frba.dds.Modelos.Incidente;
 import ar.edu.utn.frba.dds.Modelos.Persona;
-import ar.edu.utn.frba.dds.Modelos.RepositorioIncidentes;
+import ar.edu.utn.frba.dds.Persistencia.EntityManagerHelper;
+import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioIncidentes;
 import ar.edu.utn.frba.dds.Modelos.Servicio;
 import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Localidad;
 import ar.edu.utn.frba.dds.Servicio.EntidadesGeoRef.ListadoDeLocalidades;
 import ar.edu.utn.frba.dds.Servicio.GeoRefAPIService;
+import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NotificacionRevisionTest {
+public class NotificacionRevisionTest implements WithSimplePersistenceUnit{
   Persona carlos;
   MedioNotificacionesEmail emailDeContacto;
   GeoRefAPIService geoRefAPIService;
@@ -39,9 +44,11 @@ public class NotificacionRevisionTest {
     Establecimiento sucursalBancoRIO = new Establecimiento("Banco RIO", "", geoRefAPIService.listadoDeLocalidades().localidadDeId(02063010001).get(), "Av. Rivadavia 123", null);
     Servicio servicioRandom = new Servicio("Ascensor de la sucursal Liniers del Banco RIO", "null", sucursalBancoRIO);
     Incidente incidenteCercano = new Incidente("Ascensor fuera de servicio", null, servicioRandom, null);
-    ArrayList<Incidente> activos = new ArrayList<>();
+    List<Incidente> activos = new ArrayList<>();
     activos.add(incidenteCercano);
-    RepositorioIncidentes.getInstance().setActivos(activos);
+
+    RepositorioIncidentes.getInstance().add(incidenteCercano);
+
 
     emailDeContacto = mock(String.valueOf(MedioNotificacionesEmail.class));
 

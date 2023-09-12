@@ -1,20 +1,21 @@
 package ar.edu.utn.frba.dds.Modelos;
 
+import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Localidad;
 import ar.edu.utn.frba.dds.Persistencia.EntidadPersistente;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
-
+import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import java.time.LocalDateTime;
 @Entity
-@Table
+@Table(name = "incidente")
 public class Incidente  extends EntidadPersistente {
   @Getter
   @Column
@@ -40,6 +41,9 @@ public class Incidente  extends EntidadPersistente {
   @JoinColumn(name = "comunidad_id", referencedColumnName = "id")
   private Comunidad comunidad;
   //private Entidad entidad;
+  @Embedded
+  @AttributeOverride(name="nombre", column=@Column(name="localidad"))
+  private Localidad localidad;
 
   public Incidente(String descripcion, Persona informante, Servicio servicio, Comunidad comunidad) {
     this.descripcion = descripcion;
@@ -48,6 +52,7 @@ public class Incidente  extends EntidadPersistente {
     this.servicio = servicio;
     this.comunidad = comunidad;
     this.resuelto = false;
+    this.localidad = servicio.getEstablecimiento().getUbicacion();
   }
 
   public Incidente() {

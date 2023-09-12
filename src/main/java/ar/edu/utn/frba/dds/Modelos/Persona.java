@@ -4,19 +4,17 @@ import ar.edu.utn.frba.dds.Modelos.Notificaciones.ConfiguracionNotificaciones;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.Notificacion;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.NotificacionRevision;
 import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Localidad;
-import org.checkerframework.framework.qual.TargetLocations;
+import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioIncidentes;
 import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +50,7 @@ public class Persona extends Usuario {
 
   public void setUbicacion(Localidad nuevaUbicacion) throws Exception {
     this.ubicacion = nuevaUbicacion;
-    ArrayList<Incidente> incidentesConMismaLocalizacion = RepositorioIncidentes.getInstance().incidentesEnUbicacion(nuevaUbicacion);
+    List<Incidente> incidentesConMismaLocalizacion = RepositorioIncidentes.getInstance().incidentesEnUbicacion(nuevaUbicacion);
     for (Incidente incidente: incidentesConMismaLocalizacion) {
       Notificacion notificacion = new NotificacionRevision(incidente);
       notificar(notificacion);
