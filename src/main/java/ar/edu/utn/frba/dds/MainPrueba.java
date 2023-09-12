@@ -4,9 +4,11 @@ import ar.edu.utn.frba.dds.Modelos.Comunidad;
 import ar.edu.utn.frba.dds.Modelos.Entidad;
 import ar.edu.utn.frba.dds.Modelos.EntidadPropietaria;
 import ar.edu.utn.frba.dds.Modelos.Establecimiento;
+import ar.edu.utn.frba.dds.Modelos.Incidente;
 import ar.edu.utn.frba.dds.Modelos.Membresia;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.CuandoSuceden;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.MedioNotificacionesEmail;
+import ar.edu.utn.frba.dds.Modelos.Notificaciones.SinApuros;
 import ar.edu.utn.frba.dds.Modelos.OrganismoDeControl;
 import ar.edu.utn.frba.dds.Modelos.Persona;
 import ar.edu.utn.frba.dds.Modelos.PersonaDesignada;
@@ -17,6 +19,8 @@ import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Provincia;
 import ar.edu.utn.frba.dds.Persistencia.EntityManagerHelper;
 import ar.edu.utn.frba.dds.Servicio.GeoRefAPIService;
 import java.io.IOException;
+import java.sql.SQLOutput;
+import java.time.LocalTime;
 
 public class MainPrueba {
 
@@ -40,7 +44,11 @@ public class MainPrueba {
 
 
     MedioNotificacionesEmail medioPreferido = new MedioNotificacionesEmail("juanro@gmail.com");
-    CuandoSuceden config = new CuandoSuceden(medioPreferido);
+    SinApuros config = new SinApuros(medioPreferido);
+    config.agregarHorario(LocalTime.of(20, 30, 0));
+    config.agregarHorario(LocalTime.of(7, 45, 0));
+    config.agregarHorario(LocalTime.of(14, 0, 0));
+
     Persona juan = new Persona("Juan", "Rodriguez", "juanro1259", "PXm^cgC#5Ehm3", config);
     juan.setUbicacion(lobos);
     juan.agregarEntidadDeInteres(lineaSarmiento);
@@ -50,8 +58,11 @@ public class MainPrueba {
     comunidadLobos.agregarServicioDeInteres(servicioBanios);
     juan.darseAltaComunidad(comunidadLobos, Rol.AFECTADO);
 
+    Incidente incidente = new Incidente("El servicio de baños de la Estación Lobos está fuera de servicio por el momento", juan, servicioBanios, comunidadLobos);
+
     EntityManagerHelper.beginTransaction();
     EntityManagerHelper.persist(juan);
+    EntityManagerHelper.persist(incidente);
     EntityManagerHelper.commit();
   }
 

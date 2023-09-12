@@ -1,6 +1,8 @@
 package ar.edu.utn.frba.dds.Modelos.Notificaciones;
 
+import ar.edu.utn.frba.dds.Persistencia.converters.HorariosDeNotificacionAttributeConverter;
 import ar.edu.utn.frba.dds.Persistencia.converters.MedioDeContactoPreferidoAttributeConverter;
+import lombok.Getter;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.DiscriminatorValue;
@@ -20,7 +22,9 @@ public class SinApuros extends ConfiguracionNotificaciones{
   @Convert(converter = MedioDeContactoPreferidoAttributeConverter.class)
   @Column(name = "contacto")
   private MedioDeNotificacionesPreferido medio;
-  @Transient
+  @Getter
+  @Convert(converter = HorariosDeNotificacionAttributeConverter.class)
+  @Column(name = "horariosDeNotificacion")
   private TreeSet<LocalTime> horariosDeNotificacion;
   @Transient
   private Boolean running;
@@ -30,7 +34,7 @@ public class SinApuros extends ConfiguracionNotificaciones{
   public SinApuros(MedioDeNotificacionesPreferido medio) {
     this.medio = medio;
     this.running = false;
-    this.horariosDeNotificacion = new TreeSet<>();
+    this.horariosDeNotificacion = new TreeSet<LocalTime>();
     this.notificacionesPendientes = new ArrayList<>();
   }
 

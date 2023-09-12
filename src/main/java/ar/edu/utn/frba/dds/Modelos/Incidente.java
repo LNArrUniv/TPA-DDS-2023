@@ -5,12 +5,14 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.time.LocalDateTime;
-//TODO: REVISAR EL DER
 @Entity
 @Table
 public class Incidente  extends EntidadPersistente {
@@ -19,20 +21,25 @@ public class Incidente  extends EntidadPersistente {
   @Type(type="text")
   private String descripcion;
   @Setter // Para los tests
-
+  @Column
   private LocalDateTime fechaHoraApertura;
   @Getter
-  @Transient
+  @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+  @JoinColumn(name = "informante_id", referencedColumnName = "id")
   private Persona informante;
   @Column
   private Boolean resuelto;
+  @Column
   private LocalDateTime fechaHoraCierre;
   @Getter
-  @Transient
+  @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+  @JoinColumn(name = "servicio_id", referencedColumnName = "id")
   private Servicio servicio;
   @Getter
-  @Transient
+  @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+  @JoinColumn(name = "comunidad_id", referencedColumnName = "id")
   private Comunidad comunidad;
+  //private Entidad entidad;
 
   public Incidente(String descripcion, Persona informante, Servicio servicio, Comunidad comunidad) {
     this.descripcion = descripcion;
@@ -40,6 +47,7 @@ public class Incidente  extends EntidadPersistente {
     this.informante = informante;
     this.servicio = servicio;
     this.comunidad = comunidad;
+    this.resuelto = false;
   }
 
   public Incidente() {
