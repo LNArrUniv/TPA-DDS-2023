@@ -9,7 +9,7 @@ public class HorariosDeNotificacionAttributeConverter implements AttributeConver
   public String convertToDatabaseColumn(TreeSet<LocalTime> treeSet) {
     StringBuilder stringHorarios = new StringBuilder();
     for (LocalTime horario:treeSet) {
-      stringHorarios.append(horario.toString()).append(", ");
+      stringHorarios.append(horario.toString()).append(",");
     }
     return stringHorarios.toString();
   }
@@ -20,7 +20,7 @@ public class HorariosDeNotificacionAttributeConverter implements AttributeConver
     String[] stringArray = s.split(",", 2);
     boolean terminoElParseo = false;
     while (!terminoElParseo) {
-      System.out.println("String befor comma = " + stringArray[0]);
+      if (!stringArray[0].equals("")) treeSet.add(LocalTime.parse(stringArray[0]));
       if (stringArray.length > 1) {
         stringArray = stringArray[1].split(",", 2);
       } else {

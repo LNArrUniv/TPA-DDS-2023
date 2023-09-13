@@ -3,16 +3,24 @@ package ar.edu.utn.frba.dds.Modelos.Notificaciones;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import ar.edu.utn.frba.dds.Modelos.Comunidad;
+import ar.edu.utn.frba.dds.Modelos.Establecimiento;
 import ar.edu.utn.frba.dds.Modelos.Incidente;
 import ar.edu.utn.frba.dds.Modelos.Persona;
 import ar.edu.utn.frba.dds.Modelos.Rol;
 import ar.edu.utn.frba.dds.Modelos.Servicio;
+import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Localidad;
+import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Provincia;
+import ar.edu.utn.frba.dds.Servicio.EntidadesGeoRef.ListadoDeLocalidades;
+import ar.edu.utn.frba.dds.Servicio.EntidadesGeoRef.ListadoDeProvincias;
+import ar.edu.utn.frba.dds.Servicio.GeoRefAPIService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -52,7 +60,11 @@ public class NotificacionNuevoIncidenteYResuelto {
     pepe = new Persona("pepe", "gonzalez", "pepegonz", "askfakof", configPepe);
     jose = new Persona("jose", "gonzalez", "josegonz", "askfakof", configJose);
 
-    unServicio = new Servicio("Escalera mecanica 2do piso", "", null);
+    Localidad localidadRandom = new Localidad();
+    localidadRandom.id = 6;
+    localidadRandom.nombre = "Localidad X";
+    Establecimiento establecimiento = new Establecimiento("", "", localidadRandom, "", null);
+    unServicio = new Servicio("Escalera mecanica 2do piso", "", establecimiento);
     comunidad = new Comunidad("Comunidad1");
     pepe.darseAltaComunidad(comunidad, Rol.AFECTADO);
     jose.darseAltaComunidad(comunidad, Rol.AFECTADO);

@@ -1,35 +1,36 @@
-package ar.edu.utn.frba.dds.Modelos;
+package ar.edu.utn.frba.dds.Persistencia.repositorios;
 
+import ar.edu.utn.frba.dds.Modelos.Incidente;
 import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Localidad;
-import lombok.Setter;
-import java.util.ArrayList;
-import java.util.stream.Collectors;
+import ar.edu.utn.frba.dds.Persistencia.EntityManagerHelper;
+import ar.edu.utn.frba.dds.Persistencia.repositorios.daos.DAO;
+import ar.edu.utn.frba.dds.Persistencia.repositorios.daos.DAOHibernate;
+import java.util.List;
 
-public class RepositorioIncidentes {
+public class RepositorioIncidentes extends Repositorio<Incidente> {
   private static RepositorioIncidentes instance = null;
-  @Setter
-  private ArrayList<Incidente> activos = new ArrayList<>();
-  private ArrayList<Incidente> resueltos = new ArrayList<>();
 
-  private RepositorioIncidentes() {
+  private RepositorioIncidentes(DAO<Incidente> dao) {
+    super(dao);
   }
 
-  public static RepositorioIncidentes getInstance(){
-    if(instance == null){
-      instance = new RepositorioIncidentes();
+  public static RepositorioIncidentes getInstance() {
+    if (instance == null) {
+      instance = new RepositorioIncidentes(new DAOHibernate<>(Incidente.class));
     }
     return instance;
   }
 
-  public ArrayList<Incidente> getActivos() {
-    return activos;
+  public List getActivos() {
+    return EntityManagerHelper.createQuery("from Incidente where resuelto = :false").setParameter("false", false).getResultList();
   }
 
-  public ArrayList<Incidente> getResueltos() {
-    return resueltos;
+  public List getResueltos() {
+    return EntityManagerHelper.createQuery("from Incidente where resuelto = :true").setParameter("true", true).getResultList();
   }
 
-  public ArrayList<Incidente> incidentesEnUbicacion(Localidad ubicacion){
-    return (ArrayList<Incidente>) getActivos().stream().filter(incidente -> incidente.getServicio().getEstablecimiento().getUbicacion().getId() == ubicacion.getId()).collect(Collectors.toList());
+  public List incidentesEnUbicacion(Localidad ubicacion){
+    return EntityManagerHelper.createQuery("from Incidente where localidad = :localidad and resuelto = false").setParameter("localidad", ubicacion).getResultList();
   }
+
 }

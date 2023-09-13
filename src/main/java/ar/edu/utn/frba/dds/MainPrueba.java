@@ -5,8 +5,6 @@ import ar.edu.utn.frba.dds.Modelos.Entidad;
 import ar.edu.utn.frba.dds.Modelos.EntidadPropietaria;
 import ar.edu.utn.frba.dds.Modelos.Establecimiento;
 import ar.edu.utn.frba.dds.Modelos.Incidente;
-import ar.edu.utn.frba.dds.Modelos.Membresia;
-import ar.edu.utn.frba.dds.Modelos.Notificaciones.CuandoSuceden;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.MedioNotificacionesEmail;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.SinApuros;
 import ar.edu.utn.frba.dds.Modelos.OrganismoDeControl;
@@ -17,14 +15,19 @@ import ar.edu.utn.frba.dds.Modelos.Servicio;
 import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Localidad;
 import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Provincia;
 import ar.edu.utn.frba.dds.Persistencia.EntityManagerHelper;
+import ar.edu.utn.frba.dds.Persistencia.repositorios.Repositorio;
+import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioIncidentes;
+import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioPersonas;
 import ar.edu.utn.frba.dds.Servicio.GeoRefAPIService;
-import java.io.IOException;
-import java.sql.SQLOutput;
 import java.time.LocalTime;
+import java.util.List;
 
 public class MainPrueba {
 
   public static void main(String[] args) throws Exception {
+    /*
+    // ********** DATOS PARA PROBAR LA DB **********
+
     PersonaDesignada pepeEncargadoCNRT = new PersonaDesignada("Pepe", "Jose", "pepejose23", "1234");
     PersonaDesignada manuelEncargadoTrenesArg = new PersonaDesignada("Manuel", "Jose", "manujose674", "4321");
     OrganismoDeControl cnrt = new OrganismoDeControl("Comisión Nacional de Regulación del Transporte", pepeEncargadoCNRT);
@@ -60,10 +63,21 @@ public class MainPrueba {
 
     Incidente incidente = new Incidente("El servicio de baños de la Estación Lobos está fuera de servicio por el momento", juan, servicioBanios, comunidadLobos);
 
+
     EntityManagerHelper.beginTransaction();
     EntityManagerHelper.persist(juan);
     EntityManagerHelper.persist(incidente);
     EntityManagerHelper.commit();
-  }
+    */
+    /*
+    // ********** PRUEBA DE LOS REPOS **********
 
+    Provincia bsas = GeoRefAPIService.getInstancia().listadoDeProvincias().provinciaDeId(6).get();
+    Localidad lobos = GeoRefAPIService.getInstancia().localidadPorNombreYProv("Lobos", bsas.id).localidades.get(0);
+
+    List incidentes = RepositorioIncidentes.getInstance().incidentesEnUbicacion(lobos);
+    //List incidentes = RepositorioIncidentes.getInstance().getActivos();
+    System.out.println(incidentes.size());
+    */
+  }
 }
