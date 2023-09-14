@@ -12,7 +12,6 @@ public class GradoImpacto implements MetodosRanking {
     public void generarRanking(ArrayList<Entidad> entidades) {
 
     }
-    /*
     final private Integer CNF = 1; //TODO: cambiar  (Preguntar al ayudante!)
 
     public List<Persona> personasAfectadas(Incidente incidente){
@@ -51,5 +50,4 @@ public class GradoImpacto implements MetodosRanking {
         }
         return ranking;
     }
-    */
 }
