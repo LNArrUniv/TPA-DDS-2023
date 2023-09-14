@@ -4,6 +4,7 @@ import ar.edu.utn.frba.dds.Modelos.Notificaciones.Notificacion;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.NotificacionIncidenteResuelto;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.NotificacionNuevoIncidente;
 import ar.edu.utn.frba.dds.Persistencia.EntidadPersistente;
+import lombok.Getter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -25,6 +26,7 @@ public class Comunidad extends EntidadPersistente {
   @JoinColumn (name = "servicio_por_comunidad")
   private List<Servicio> serviciosDeInteres;
   @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "comunidad")
+  @Getter
   private List<Membresia> miembros;
 
   public Comunidad(String nombreComunidad) {
@@ -41,7 +43,7 @@ public class Comunidad extends EntidadPersistente {
     this.miembros.add(nuevoMiembro);
   }
 
-  public void eleminarMiembro(Membresia miembro) {
+  public void eliminarMiembro(Membresia miembro) {
     this.miembros.remove(miembro);
   }
   /*

@@ -28,6 +28,7 @@ public class Incidente  extends EntidadPersistente {
   @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
   @JoinColumn(name = "informante_id", referencedColumnName = "id")
   private Persona informante;
+  @Getter
   @Column
   private Boolean resuelto;
   @Column
