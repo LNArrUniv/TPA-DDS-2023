@@ -66,7 +66,7 @@ public class Persona extends Usuario {
 
   public void darseBajaComunidad(Membresia membresia) {
     this.comunidades.remove(membresia);
-    membresia.getComunidad().eleminarMiembro(membresia);
+    membresia.getComunidad().eliminarMiembro(membresia);
 
     // DELETE membresia?
   }

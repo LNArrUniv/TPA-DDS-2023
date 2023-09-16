@@ -4,6 +4,8 @@ import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Localidad;
 import ar.edu.utn.frba.dds.Persistencia.EntidadPersistente;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongNVarcharJdbcType;
 import org.hibernate.annotations.Type;
 import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
@@ -14,12 +16,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+
+
 @Entity
 @Table(name = "incidente")
 public class Incidente  extends EntidadPersistente {
   @Getter
   @Column
-  @Type(type="text")
+  @JdbcType(LongNVarcharJdbcType.class)
   private String descripcion;
   @Setter // Para los tests
   @Column

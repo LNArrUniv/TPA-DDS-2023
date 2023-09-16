@@ -1,6 +1,6 @@
 package ar.edu.utn.frba.dds.Controller;
 
-import ar.edu.utn.frba.dds.Modelos.Rankings.GradoImpactoService;
+import ar.edu.utn.frba.dds.Modelos.Rankings.*;
 import ar.edu.utn.frba.dds.Modelos.Incidente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -5,6 +5,8 @@ import ar.edu.utn.frba.dds.Persistencia.EntidadPersistente;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongNVarcharJdbcType;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -20,7 +22,7 @@ public class Servicio extends EntidadPersistente {
   @Column
   private String nombre;
   @Column
-  @Type(type = "text")
+  @JdbcType(LongNVarcharJdbcType.class)
   private String descripcion;
   /*
   @Getter
