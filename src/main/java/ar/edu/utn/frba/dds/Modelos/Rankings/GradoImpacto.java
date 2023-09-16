@@ -3,11 +3,13 @@ package ar.edu.utn.frba.dds.Modelos.Rankings;
 import ar.edu.utn.frba.dds.Modelos.Entidad;
 import ar.edu.utn.frba.dds.Modelos.Incidente;
 import ar.edu.utn.frba.dds.Modelos.Membresia;
-import ar.edu.utn.frba.dds.Modelos.Persona;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class GradoImpacto implements MetodosRanking {
     @Override
     public void generarRanking(ArrayList<Entidad> entidades) {
