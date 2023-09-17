@@ -1,25 +1,10 @@
 package ar.edu.utn.frba.dds;
 
-import ar.edu.utn.frba.dds.Modelos.Comunidad;
-import ar.edu.utn.frba.dds.Modelos.Entidad;
-import ar.edu.utn.frba.dds.Modelos.EntidadPropietaria;
-import ar.edu.utn.frba.dds.Modelos.Establecimiento;
-import ar.edu.utn.frba.dds.Modelos.Incidente;
-import ar.edu.utn.frba.dds.Modelos.Notificaciones.MedioNotificacionesEmail;
-import ar.edu.utn.frba.dds.Modelos.Notificaciones.SinApuros;
-import ar.edu.utn.frba.dds.Modelos.OrganismoDeControl;
-import ar.edu.utn.frba.dds.Modelos.Persona;
-import ar.edu.utn.frba.dds.Modelos.PersonaDesignada;
-import ar.edu.utn.frba.dds.Modelos.Rol;
-import ar.edu.utn.frba.dds.Modelos.Servicio;
-import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Localidad;
-import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Provincia;
-import ar.edu.utn.frba.dds.Persistencia.EntityManagerHelper;
-import ar.edu.utn.frba.dds.Persistencia.repositorios.Repositorio;
-import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioIncidentes;
-import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioPersonas;
-import ar.edu.utn.frba.dds.Servicio.GeoRefAPIService;
-import java.time.LocalTime;
+import ar.edu.utn.frba.dds.Servicio.gradoDeImpacto.CalculadorGradoDeImpactoService;
+import ar.edu.utn.frba.dds.Servicio.gradoDeImpacto.ListadoDeResultados;
+import ar.edu.utn.frba.dds.Servicio.gradoDeImpacto.ListadoDeValores;
+import ar.edu.utn.frba.dds.Servicio.gradoDeImpacto.ValoresFormula;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainPrueba {
@@ -79,5 +64,21 @@ public class MainPrueba {
     //List incidentes = RepositorioIncidentes.getInstance().getActivos();
     System.out.println(incidentes.size());
     */
+
+    ValoresFormula valoresFormula1 = new ValoresFormula(1, 1, 1, 1, 1);
+    ValoresFormula valoresFormula2 = new ValoresFormula(2, 1, 2, 1, 1);
+    ValoresFormula valoresFormula3 = new ValoresFormula(3, 1, 3, 1, 1);
+    List<ValoresFormula> valores = new ArrayList();
+    valores.add(valoresFormula1);
+    valores.add(valoresFormula2);
+    valores.add(valoresFormula3);
+    ListadoDeValores listado = new ListadoDeValores(valores);
+    CalculadorGradoDeImpactoService.getInstancia().calcularGradoDeImpacto(listado);
+
+    ListadoDeResultados resultados = CalculadorGradoDeImpactoService.getInstancia().obtenerResultados();
+    System.out.println(resultados.valorDeEntidad(1).get().entidad_id + " " + resultados.valorDeEntidad(1).get().resultadoGradoImpacto);
+    System.out.println(resultados.valorDeEntidad(2).get().entidad_id + " " + resultados.valorDeEntidad(2).get().resultadoGradoImpacto);
+    System.out.println(resultados.valorDeEntidad(3).get().entidad_id + " " + resultados.valorDeEntidad(3).get().resultadoGradoImpacto);
+
   }
 }

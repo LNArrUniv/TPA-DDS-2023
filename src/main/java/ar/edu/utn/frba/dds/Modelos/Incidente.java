@@ -40,7 +40,9 @@ public class Incidente  extends EntidadPersistente {
   @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
   @JoinColumn(name = "comunidad_id", referencedColumnName = "id")
   private Comunidad comunidad;
-  //private Entidad entidad;
+  @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+  @JoinColumn(name = "entidad_id", referencedColumnName = "id")
+  private Entidad entidad;
   @Embedded
   @AttributeOverride(name="nombre", column=@Column(name="localidad"))
   private Localidad localidad;
