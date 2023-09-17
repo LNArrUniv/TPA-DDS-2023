@@ -5,8 +5,6 @@ import ar.edu.utn.frba.dds.Persistencia.EntidadPersistente;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
-import org.hibernate.annotations.JdbcType;
-import org.hibernate.type.descriptor.jdbc.LongNVarcharJdbcType;
 import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -25,7 +23,7 @@ public class Entidad extends EntidadPersistente {
   @Column
   private String nombre;
   @Column
-  @JdbcType(LongNVarcharJdbcType.class)
+  @Type(type = "text")
   private String descripcion;
   @Setter
   @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
