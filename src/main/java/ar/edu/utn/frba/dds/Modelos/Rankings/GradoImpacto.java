@@ -6,12 +6,14 @@ import ar.edu.utn.frba.dds.Servicio.gradoDeImpacto.CalculadorGradoDeImpactoServi
 import ar.edu.utn.frba.dds.Servicio.gradoDeImpacto.ListadoDeResultados;
 import ar.edu.utn.frba.dds.Servicio.gradoDeImpacto.ListadoDeValores;
 import ar.edu.utn.frba.dds.Servicio.gradoDeImpacto.ValoresFormula;
+import lombok.Getter;
 import java.io.IOException;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GradoImpacto implements MetodosRanking {
+    @Getter
     private ArrayList<ItemRanking> rankingGradoDeImpacto = new ArrayList<>();
 
     final private Integer CNF = 1; //TODO: cambiar  (Preguntar al ayudante!)
@@ -25,7 +27,7 @@ public class GradoImpacto implements MetodosRanking {
     private void enviarValoresAAPI(List<Entidad> entidades){
         List<ValoresFormula> listaValores = new ArrayList<>();
         for (Entidad entidad:entidades) {
-            Integer cantIncidentesNoResueltos = Math.toIntExact(entidad.getIncidentes().stream().filter(i -> !i.getEstaResuelto()).count());
+            Integer cantIncidentesNoResueltos = Math.toIntExact(entidad.getIncidentes().stream().filter(i -> i.getEstaResuelto().equals(false)).count());
             double tiempoResolucionIncidente = entidad.getIncidentes().stream()
                 .filter(Incidente::getEstaResuelto)
                 .mapToDouble(this::tiempoReparacion)
@@ -43,7 +45,6 @@ public class GradoImpacto implements MetodosRanking {
         enviarValoresAAPI(entidades);
         ListadoDeResultados resultados = CalculadorGradoDeImpactoService.getInstancia().obtenerResultados();
         for (Entidad entidad : entidades) {
-
             rankingGradoDeImpacto.add(new ItemRanking(entidad, resultados.valorDeEntidad(entidad.getId()).get().getResultadoGradoImpacto()));
         }
     }

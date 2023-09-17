@@ -12,9 +12,11 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "entidad")
@@ -33,8 +35,8 @@ public class Entidad extends EntidadPersistente {
   @AttributeOverride(name="nombre", column=@Column(name="provincia"))
   private Provincia ubicacion;
   @Getter
-  @Transient
-  private ArrayList<Incidente> incidentes;
+  @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "entidad")
+  private List<Incidente> incidentes;
 
   public Entidad(String nombre, String descripcion, EntidadPropietaria entidadPropietaria, Provincia ubicacion) {
     this.nombre = nombre;

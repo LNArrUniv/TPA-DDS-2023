@@ -22,15 +22,15 @@ public class RepositorioIncidentes extends Repositorio<Incidente> {
   }
 
   public List getActivos() {
-    return EntityManagerHelper.createQuery("from Incidente where resuelto = :false").setParameter("false", false).getResultList();
+    return EntityManagerHelper.createQuery("from Incidente where estaResuelto = :false").setParameter("false", false).getResultList();
   }
 
   public List getResueltos() {
-    return EntityManagerHelper.createQuery("from Incidente where resuelto = :true").setParameter("true", true).getResultList();
+    return EntityManagerHelper.createQuery("from Incidente where estaResuelto = :true").setParameter("true", true).getResultList();
   }
 
   public List incidentesEnUbicacion(Localidad ubicacion){
-    return EntityManagerHelper.createQuery("from Incidente where localidad = :localidad and resuelto = false").setParameter("localidad", ubicacion).getResultList();
+    return EntityManagerHelper.createQuery("from Incidente where localidad = :localidad and estaResuelto = false").setParameter("localidad", ubicacion).getResultList();
   }
 
 }

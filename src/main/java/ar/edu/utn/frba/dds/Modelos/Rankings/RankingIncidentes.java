@@ -3,6 +3,7 @@ package ar.edu.utn.frba.dds.Modelos.Rankings;
 import ar.edu.utn.frba.dds.Modelos.Entidad;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.SinApuros;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.time.temporal.ChronoUnit;
@@ -32,7 +33,13 @@ public class RankingIncidentes {
 
     @Override
     public void run() {
-      metodosRankings.forEach(metodo -> metodo.generarRanking(entidades));
+      metodosRankings.forEach(metodo -> {
+        try {
+          metodo.generarRanking(entidades);
+        } catch (IOException e) {
+          throw new RuntimeException(e);
+        }
+      });
     }
   }
 }

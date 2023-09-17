@@ -22,16 +22,16 @@ import java.util.List;
 @Table(name = "persona")
 public class Persona extends Usuario {
   @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-  @JoinTable(name = "entidades_por_persona")
+  @JoinTable(name = "entidadesInteres_por_persona")
   private List<Entidad> entidadesDeInteres;
   @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-  @JoinTable(name = "servicios_por_persona")
+  @JoinTable(name = "serviciosInteres_por_persona")
   private List<Servicio> serviciosDeInteres;
   @Embedded
   @AttributeOverride(name="nombre", column=@Column(name="localidad"))
   private Localidad ubicacion;
   @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "miembro")
-  private List<Membresia> comunidades;
+  private List<Membresia> membresiasAComunidades;
 
   @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
   private ConfiguracionNotificaciones configuracionNotificaciones;
@@ -40,7 +40,7 @@ public class Persona extends Usuario {
     super(nombre, apellido, username, contrasenia);
     this.entidadesDeInteres = new ArrayList<>();
     this.serviciosDeInteres = new ArrayList<>();
-    this.comunidades = new ArrayList<>();
+    this.membresiasAComunidades = new ArrayList<>();
     this.configuracionNotificaciones = configuracionNotificaciones;
   }
 
@@ -60,12 +60,12 @@ public class Persona extends Usuario {
   public void darseAltaComunidad(Comunidad comunidad, Rol rolComunidad) {
     Membresia membresia = new Membresia(comunidad, rolComunidad, this, CargoComunidad.MIEMBRO);
 
-    comunidades.add(membresia);
+    membresiasAComunidades.add(membresia);
     comunidad.agregarMiembro(membresia);
   }
 
   public void darseBajaComunidad(Membresia membresia) {
-    this.comunidades.remove(membresia);
+    this.membresiasAComunidades.remove(membresia);
     membresia.getComunidad().eleminarMiembro(membresia);
 
     // DELETE membresia?
