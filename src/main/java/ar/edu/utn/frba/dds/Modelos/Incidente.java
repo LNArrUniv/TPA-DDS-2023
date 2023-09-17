@@ -28,8 +28,9 @@ public class Incidente  extends EntidadPersistente {
   @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
   @JoinColumn(name = "informante_id", referencedColumnName = "id")
   private Persona informante;
+  @Getter
   @Column
-  private Boolean resuelto;
+  private Boolean estaResuelto;
   @Column
   private LocalDateTime fechaHoraCierre;
   @Getter
@@ -53,7 +54,7 @@ public class Incidente  extends EntidadPersistente {
     this.informante = informante;
     this.servicio = servicio;
     this.comunidad = comunidad;
-    this.resuelto = false;
+    this.estaResuelto = false;
     this.localidad = servicio.getEstablecimiento().getUbicacion();
   }
 
@@ -63,7 +64,7 @@ public class Incidente  extends EntidadPersistente {
 
   public void marcarComoResuelto() {
     this.fechaHoraCierre = LocalDateTime.now();
-    this.resuelto = true;
+    this.estaResuelto = true;
   }
 
   public LocalDateTime getFechaHoraApertura() {

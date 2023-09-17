@@ -18,6 +18,7 @@ public class Membresia extends EntidadPersistente {
   @Getter
   @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   private Persona miembro;
+  @Getter
   @Enumerated(EnumType.STRING)
   private Rol tipoDeUsuario;
   @Enumerated(EnumType.STRING)

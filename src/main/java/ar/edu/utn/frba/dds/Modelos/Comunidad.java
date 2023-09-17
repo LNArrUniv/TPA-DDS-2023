@@ -60,6 +60,10 @@ public class Comunidad extends EntidadPersistente {
     return miembros.size();
   }
 
+  public int totalMiembrosAfectados(){
+    return (int) miembros.stream().filter(membresia -> membresia.getTipoDeUsuario().equals(Rol.AFECTADO)).count();
+  }
+
   public void informarNuevoIncidente(Incidente incidente){
     Notificacion notificacion = new NotificacionNuevoIncidente(incidente);
     notificarMiembros(notificacion);
