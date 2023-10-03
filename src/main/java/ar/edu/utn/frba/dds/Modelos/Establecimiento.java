@@ -27,6 +27,7 @@ public class Establecimiento extends EntidadPersistente {
   private Localidad ubicacion;
   @Column
   private String direccion;
+  @Getter
   @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinColumn(name = "entidad_id", referencedColumnName = "id")
   private Entidad entidad;

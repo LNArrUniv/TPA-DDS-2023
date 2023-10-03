@@ -55,6 +55,7 @@ public class Incidente  extends EntidadPersistente {
     this.comunidad = comunidad;
     this.estaResuelto = false;
     this.localidad = servicio.getEstablecimiento().getUbicacion();
+    this.entidad = servicio.getEstablecimiento().getEntidad();
   }
 
   public Incidente() {
