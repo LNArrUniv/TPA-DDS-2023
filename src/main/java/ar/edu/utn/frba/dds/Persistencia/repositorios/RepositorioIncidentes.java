@@ -34,7 +34,7 @@ public class RepositorioIncidentes extends Repositorio<Incidente> {
   }
 
   public Boolean hayIncidentesActivosEnServicioDeComunidad(Long servicioId, Long comunidadId){
-    List resultados = EntityManagerHelper.createQuery("from Incidente where servicio_id = :servicio and comunidad_id = :comunidad and estaResuelto = 1").setParameter("servicio", servicioId).setParameter("comunidad", comunidadId).getResultList();
+    List resultados = EntityManagerHelper.createQuery("from Incidente where servicio_id = :servicio and comunidad_id = :comunidad and estaResuelto = 0").setParameter("servicio", servicioId).setParameter("comunidad", comunidadId).getResultList();
     return !resultados.isEmpty();
   }
 

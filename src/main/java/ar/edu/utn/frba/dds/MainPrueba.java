@@ -17,7 +17,9 @@ import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Provincia;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.Usuario;
 import ar.edu.utn.frba.dds.Persistencia.EntityManagerHelper;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioComunidades;
+import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioIncidentes;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioPersonas;
+import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioServicios;
 import ar.edu.utn.frba.dds.Servicio.GeoRefAPIService;
 import java.time.LocalTime;
 
@@ -103,6 +105,8 @@ public class MainPrueba {
     System.out.println(persona.esAdmin(comunidadMiembro));
     System.out.println(persona.esAdmin(comunidadAdmin));
     */
+    //RepositorioComunidades.getInstance().get(2);
+    //RepositorioServicios.getInstance().get(1);
 
   }
 }
