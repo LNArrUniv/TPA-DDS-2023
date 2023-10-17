@@ -57,6 +57,12 @@ public class MainPrueba {
     juan.agregarEntidadDeInteres(lineaSarmiento);
     juan.agregarServicioDeInteres(servicioBanios);
 
+    Usuario usuarioJose = new Usuario("josero1259", "123");
+    Persona jose = new Persona("Jose", "Rodriguez", usuarioJose, config);
+    jose.setUbicacion(lobos);
+    jose.agregarEntidadDeInteres(lineaSarmiento);
+    jose.agregarServicioDeInteres(servicioBanios);
+
     Comunidad comunidadLobos = new Comunidad("Comunidad de Lobos");
     comunidadLobos.agregarServicioDeInteres(servicioBanios);
     juan.darseAltaComunidad(comunidadLobos, RolComunidad.AFECTADO);
@@ -71,6 +77,7 @@ public class MainPrueba {
 
     EntityManagerHelper.beginTransaction();
     EntityManagerHelper.persist(juan);
+    EntityManagerHelper.persist(jose);
     EntityManagerHelper.persist(incidente);
     EntityManagerHelper.persist(incidente2);
     EntityManagerHelper.persist(incidente3);

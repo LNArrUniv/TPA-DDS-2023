@@ -83,6 +83,12 @@ public class Persona extends EntidadPersistente {
     return this.usuario.getUsername();
   }
 
+  public void darseAltaComunidadCreada(Comunidad comunidad) {
+    Membresia membresia = new Membresia(comunidad, RolComunidad.AFECTADO, this, CargoComunidad.ADMINISTRADOR);
+    membresiasAComunidades.add(membresia);
+    comunidad.agregarMiembro(membresia);
+  }
+
   public void darseAltaComunidad(Comunidad comunidad, RolComunidad rolComunidad) {
     Membresia membresia = new Membresia(comunidad, rolComunidad, this, CargoComunidad.MIEMBRO);
 

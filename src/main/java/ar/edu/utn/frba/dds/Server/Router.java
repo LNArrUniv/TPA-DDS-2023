@@ -28,6 +28,9 @@ public class Router {
             post("login", ((LoginController) FactoryController.controller("Login"))::post);
             get("comunidades", ((ComunidadesController) FactoryController.controller("Comunidades"))::index);
             get("comunidades/crear", ((ComunidadesController) FactoryController.controller("Comunidades"))::create);
+            post("comunidades/crear", ((ComunidadesController) FactoryController.controller("Comunidades"))::save);
+            get("comunidades/unirse", ((ComunidadesController) FactoryController.controller("Comunidades"))::unirse);
+            post("comunidades/unirse", ((ComunidadesController) FactoryController.controller("Comunidades"))::update);
             get("comunidades/{id}/servicios", ((ComunidadesController) FactoryController.controller("Comunidades"))::show);
             get("comunidades/{id}/servicios/{idServicio}", ((ServiciosController) FactoryController.controller("Servicios"))::index);
         });

@@ -5,6 +5,7 @@ import ar.edu.utn.frba.dds.Modelos.Notificaciones.Notificacion;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.NotificacionIncidenteResuelto;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.NotificacionNuevoIncidente;
 import ar.edu.utn.frba.dds.Modelos.Servicio;
+import ar.edu.utn.frba.dds.Modelos.Usuarios.Persona;
 import ar.edu.utn.frba.dds.Persistencia.EntidadPersistente;
 import lombok.Getter;
 
@@ -87,5 +88,9 @@ public class Comunidad extends EntidadPersistente {
         throw new RuntimeException(e);
       }
     });
+  }
+
+  public Boolean personaFormaParteDeLaComunidad(Persona persona) {
+    return !this.miembros.stream().filter(membresia -> membresia.getMiembro().equals(persona)).toList().isEmpty();
   }
 }

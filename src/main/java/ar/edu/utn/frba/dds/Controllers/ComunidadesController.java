@@ -2,13 +2,18 @@ package ar.edu.utn.frba.dds.Controllers;
 
 import ar.edu.utn.frba.dds.Modelos.Comunidades.Comunidad;
 import ar.edu.utn.frba.dds.Modelos.Comunidades.Membresia;
+import ar.edu.utn.frba.dds.Modelos.Comunidades.RolComunidad;
 import ar.edu.utn.frba.dds.Modelos.Servicio;
+import ar.edu.utn.frba.dds.Modelos.Usuarios.Persona;
+import ar.edu.utn.frba.dds.Modelos.Usuarios.Rol;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioComunidades;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioIncidentes;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioMembresias;
+import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioPersonas;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioServicios;
 import ar.edu.utn.frba.dds.Server.Utils.ICrudViewsHandler;
 import io.javalin.http.Context;
+import io.javalin.http.HttpStatus;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +33,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
 
     Map<String, Object> model = new HashMap<>();
     model.put("comunidades", comunidades);
-    context.render("comunidades.hbs", model);
+    context.render("comunidades/comunidades.hbs", model);
   }
 
   @Override
@@ -54,12 +59,17 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
 
   @Override
   public void create(Context context) {
-
+    context.render("comunidades/crear_comunidad.hbs");
   }
 
   @Override
   public void save(Context context) {
-
+    Comunidad comunidadNueva = new Comunidad(context.formParam("nombreComunidad"));
+    long id = context.sessionAttribute("id");
+    RepositorioPersonas.getInstance().get(id).darseAltaComunidadCreada(comunidadNueva);
+    RepositorioComunidades.getInstance().add(comunidadNueva);
+    context.status(HttpStatus.CREATED);
+    context.redirect("/comunidades");
   }
 
   @Override
@@ -67,9 +77,25 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
 
   }
 
+  public void unirse(Context context) {
+    Map<String, Object> model = new HashMap<>();
+    List comunidadesQueNoFormaParte = RepositorioComunidades.getInstance().all().stream().filter(comunidad -> !comunidad.personaFormaParteDeLaComunidad(RepositorioPersonas.getInstance().get(context.sessionAttribute("id")))).toList();
+    model.put("comunidades", comunidadesQueNoFormaParte);
+    model.put("roles", RolComunidad.values());
+    context.render("comunidades/unirse_comunidad.hbs", model);
+  }
+
   @Override
   public void update(Context context) {
+    Comunidad comunidad = RepositorioComunidades.getInstance().get(Long.parseLong(context.formParam("comunidad")));
+    Persona persona = RepositorioPersonas.getInstance().get(context.sessionAttribute("id"));
+    persona.darseAltaComunidad(comunidad, RolComunidad.valueOf(context.formParam("rol")));
 
+    RepositorioComunidades.getInstance().update(comunidad);
+    RepositorioPersonas.getInstance().update(persona);
+
+    context.status(HttpStatus.OK);
+    context.redirect("/comunidades");
   }
 
   @Override
