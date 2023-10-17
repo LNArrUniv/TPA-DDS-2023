@@ -9,7 +9,10 @@
                     <h3 class="card-title mt-3 align-self-center">{{this.nombre}}</h3>
                     <p class="card-text fw-bold">{{this.establecimiento.nombre}} - {{this.establecimiento.entidad.nombre}}</p>
                     <p class="card-body h-100" style="max-height: 18rem; overflow: hidden">{{this.descripcion}}</p>
-                    <a href="/comunidades/{{comunidad}}/servicios/agregar/{{this.id}}" class="btn btn-primario mb-4">Agregar Servicio</a>
+                    <form method="POST" action="/comunidades/{{comunidad}}/servicios/agregar" class="login-form">
+                        <input type="hidden" id="idServicio" name="idServicio" value="{{this.id}}">
+                        <button type="submit" class="btn btn-primario mb-4">Agregar Servicio</button>
+                    </form>
                 </div>
             {{/each}}
         </div>

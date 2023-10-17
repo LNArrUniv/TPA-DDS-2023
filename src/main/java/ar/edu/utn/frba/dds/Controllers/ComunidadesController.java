@@ -109,7 +109,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
 
   public void agregarServicio(Context context) {
     Comunidad comunidad = RepositorioComunidades.getInstance().get(Long.parseLong(context.pathParam("id")));
-    Servicio servicio = RepositorioServicios.getInstance().get(Long.parseLong(context.pathParam("idServicio")));
+    Servicio servicio = RepositorioServicios.getInstance().get(Long.parseLong(context.formParam("idServicio")));
     comunidad.agregarServicioDeInteres(servicio);
 
     RepositorioComunidades.getInstance().update(comunidad);
