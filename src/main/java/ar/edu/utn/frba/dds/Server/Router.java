@@ -27,6 +27,7 @@ public class Router {
             get("login", ((LoginController) FactoryController.controller("Login"))::get);
             post("login", ((LoginController) FactoryController.controller("Login"))::post);
             get("comunidades", ((ComunidadesController) FactoryController.controller("Comunidades"))::index);
+            get("comunidades/crear", ((ComunidadesController) FactoryController.controller("Comunidades"))::create);
             get("comunidades/{id}/servicios", ((ComunidadesController) FactoryController.controller("Comunidades"))::show);
             get("comunidades/{id}/servicios/{idServicio}", ((ServiciosController) FactoryController.controller("Servicios"))::index);
         });
