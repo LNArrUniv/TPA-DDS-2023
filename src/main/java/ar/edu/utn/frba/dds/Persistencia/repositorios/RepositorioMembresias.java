@@ -27,4 +27,10 @@ public class RepositorioMembresias extends Repositorio<Membresia> {
 
     return resultados;
   }
+
+  public Membresia membresiaDePersonaEnComunidad(long idPersona, long idComunidad) {
+    List resultados = EntityManagerHelper.createQuery("from Membresia where miembro_id = :miembro and comunidad_id = :comunidad").setParameter("miembro", idPersona).setParameter("comunidad", idComunidad).getResultList();
+
+    return (Membresia) resultados.get(0);
+  }
 }

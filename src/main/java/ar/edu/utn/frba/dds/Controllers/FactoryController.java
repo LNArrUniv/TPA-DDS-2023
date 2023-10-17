@@ -8,6 +8,7 @@ public class FactoryController {
             case "Login": controller = new LoginController(); break;
             case "Comunidades": controller = new ComunidadesController(); break;
             case "Servicios": controller = new ServiciosController(); break;
+            case "Incidentes": controller = new IncidentesController(); break;
         }
         return controller;
     }

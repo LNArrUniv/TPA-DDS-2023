@@ -27,6 +27,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.sound.midi.SysexMessage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,6 +51,7 @@ public class Persona extends EntidadPersistente {
   @Embedded
   @AttributeOverride(name="nombre", column=@Column(name="localidad"))
   private Localidad ubicacion;
+  @Getter
   @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "miembro")
   private List<Membresia> membresiasAComunidades;
 
@@ -103,6 +105,11 @@ public class Persona extends EntidadPersistente {
     // DELETE membresia?
   }
 
+  public Boolean esAdmin(Comunidad comunidad){
+    Membresia mem = this.getMembresiasAComunidades().stream().filter(membresia -> membresia.getComunidad().equals(comunidad)).toList().get(0);
+
+    return mem.getCargoDentroDeComunidad().equals(CargoComunidad.ADMINISTRADOR);
+  }
 
   public void notificar(Notificacion notificacion) throws Exception {
     configuracionNotificaciones.notificarMiembro(notificacion);

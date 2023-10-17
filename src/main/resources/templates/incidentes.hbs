@@ -31,7 +31,8 @@
                                 </div>
                                 <div class="modal-btns d-flex justify-content-center mb-4 flex-lg-row align-items-center">
                                     <button type="button" class="btn btn-secundario ms-0 me-lg-5 border-success border-1 fs-5 pt-2 pb-2 pe-5 ps-5" data-bs-dismiss="modal">Cerrar</button>
-                                    <button type="button" class="btn btn-primario ms-0 ms-lg-5 fs-5 pt-2 pb-2 pe-5 ps-5">Resuelto</button>
+                                    <!-- <button type="button" class="btn btn-primario ms-0 ms-lg-5 fs-5 pt-2 pb-2 pe-5 ps-5">Resuelto</button> -->
+                                    <a href="/comunidades/{{comunidad.id}}/servicios/{{servicio.id}}/resolver/{{this.id}}" class="btn btn-primario ms-0 ms-lg-5 fs-5 pt-2 pb-2 pe-5 ps-5">Resuelto</a>
                                 </div>
                             </div>
                         </div>
@@ -48,13 +49,13 @@
                         <h1 class="modal-title fs-3" id="nuevoIncidenteLabel">Informar nuevo incidente</h1>
                         </div>
                         <div class="modal-body">
-                            <form action="" class="col-12">
+                            <form method="POST" action="/comunidades/{{comunidad}}/servicios/{{servicio.id}}/crear_incidente" class="col-12" id="incidente-desc">
                                 <textarea class="col-12 rounded-3 p-2" name="descripcion" id="" cols="30" rows="10" placeholder="Añade una breve descripción sobre el incidente ..." style="resize: none;"></textarea>
                             </form>
                         </div>
                         <div class="modal-btns d-flex justify-content-center mb-4 flex-lg-row align-items-center">
                         <button type="button" class="btn btn-secundario ms-0 me-lg-5 border-success border-1 fs-5 pt-2 pb-2 pe-5 ps-5" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primario ms-0 ms-lg-5 fs-5 pt-2 pb-2 pe-5 ps-5">Informar</button>
+                        <button type="submit" form="incidente-desc" class="btn btn-primario ms-0 ms-lg-5 fs-5 pt-2 pb-2 pe-5 ps-5">Informar</button>
                         </div>
                     </div>
                 </div>

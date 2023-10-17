@@ -22,6 +22,7 @@ public class Membresia extends EntidadPersistente {
   @Getter
   @Enumerated(EnumType.STRING)
   private RolComunidad tipoDeUsuario;
+  @Getter
   @Enumerated(EnumType.STRING)
   private CargoComunidad cargoDentroDeComunidad;
 

@@ -19,6 +19,16 @@ public class ServiciosController extends Controller implements ICrudViewsHandler
 
   @Override
   public void index(Context context) {
+    List servicios = RepositorioServicios.getInstance().all();
+    Map<String, Object> model = new HashMap<>();
+    model.put("servicios", servicios);
+    model.put("comunidad", context.pathParam("id"));
+
+    context.render("agregar_servicio.hbs", model);
+  }
+
+  @Override
+  public void show(Context context) {
     List<Incidente> incidentes = RepositorioIncidentes.getInstance().incidentesDeServicioYComunidad(Long.parseLong(context.pathParam("idServicio")), Long.parseLong(context.pathParam("id")));
     List<Incidente> incidentesResueltos = incidentes.stream().filter(incidente -> incidente.getEstaResuelto() == true).collect(Collectors.toList());
     List<Incidente> incidentesAbiertos = incidentes.stream().filter(incidente -> incidente.getEstaResuelto() == false).collect(Collectors.toList());
@@ -26,15 +36,11 @@ public class ServiciosController extends Controller implements ICrudViewsHandler
 
     Map<String, Object> model = new HashMap<>();
     model.put("servicio", servicio);
+    model.put("comunidad", context.pathParam("id"));
     model.put("incidentesAbiertos", incidentesAbiertos);
     model.put("incidentesResueltos", incidentesResueltos);
 
     context.render("incidentes.hbs", model);
-  }
-
-  @Override
-  public void show(Context context) {
-
   }
 
   @Override

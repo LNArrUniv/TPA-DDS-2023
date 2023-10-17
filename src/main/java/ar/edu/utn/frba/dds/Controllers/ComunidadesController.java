@@ -1,5 +1,6 @@
 package ar.edu.utn.frba.dds.Controllers;
 
+import ar.edu.utn.frba.dds.Modelos.Comunidades.CargoComunidad;
 import ar.edu.utn.frba.dds.Modelos.Comunidades.Comunidad;
 import ar.edu.utn.frba.dds.Modelos.Comunidades.Membresia;
 import ar.edu.utn.frba.dds.Modelos.Comunidades.RolComunidad;
@@ -54,6 +55,10 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
     model.put("serviciosSinIncidentes", serviciosSinIncidentes);
     model.put("serviciosConIncidentes", serviciosConIncidentes);
 
+    Persona user = RepositorioPersonas.getInstance().get(context.sessionAttribute("id"));
+    Boolean esAdmin = user.esAdmin(comunidad);
+    model.put("admin", esAdmin);
+
     context.render("servicios.hbs", model);
   }
 
@@ -66,8 +71,11 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
   public void save(Context context) {
     Comunidad comunidadNueva = new Comunidad(context.formParam("nombreComunidad"));
     long id = context.sessionAttribute("id");
-    RepositorioPersonas.getInstance().get(id).darseAltaComunidadCreada(comunidadNueva);
     RepositorioComunidades.getInstance().add(comunidadNueva);
+    Persona user = RepositorioPersonas.getInstance().get(id);
+    user.darseAltaComunidadCreada(comunidadNueva);
+    RepositorioPersonas.getInstance().update(user);
+
     context.status(HttpStatus.CREATED);
     context.redirect("/comunidades");
   }
@@ -93,9 +101,21 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
 
     RepositorioComunidades.getInstance().update(comunidad);
     RepositorioPersonas.getInstance().update(persona);
+    System.out.println(persona.getNombre());
 
     context.status(HttpStatus.OK);
     context.redirect("/comunidades");
+  }
+
+  public void agregarServicio(Context context) {
+    Comunidad comunidad = RepositorioComunidades.getInstance().get(Long.parseLong(context.pathParam("id")));
+    Servicio servicio = RepositorioServicios.getInstance().get(Long.parseLong(context.pathParam("idServicio")));
+    comunidad.agregarServicioDeInteres(servicio);
+
+    RepositorioComunidades.getInstance().update(comunidad);
+
+    context.status(HttpStatus.OK);
+    context.redirect("/comunidades/".concat(context.pathParam("id")).concat("/servicios"));
   }
 
   @Override
