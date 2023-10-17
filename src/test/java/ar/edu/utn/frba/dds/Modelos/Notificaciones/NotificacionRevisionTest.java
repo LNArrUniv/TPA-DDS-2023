@@ -2,17 +2,15 @@ package ar.edu.utn.frba.dds.Modelos.Notificaciones;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 import ar.edu.utn.frba.dds.Modelos.Establecimiento;
 import ar.edu.utn.frba.dds.Modelos.Incidente;
-import ar.edu.utn.frba.dds.Modelos.Persona;
-import ar.edu.utn.frba.dds.Persistencia.EntityManagerHelper;
+import ar.edu.utn.frba.dds.Modelos.Usuarios.Persona;
+import ar.edu.utn.frba.dds.Modelos.Usuarios.Usuario;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioIncidentes;
 import ar.edu.utn.frba.dds.Modelos.Servicio;
 import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Localidad;
@@ -21,7 +19,6 @@ import ar.edu.utn.frba.dds.Servicio.GeoRefAPIService;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +49,8 @@ public class NotificacionRevisionTest implements WithSimplePersistenceUnit{
 
     emailDeContacto = mock(String.valueOf(MedioNotificacionesEmail.class));
 
-    carlos = new Persona("Carlos", "Rodriguez", "CarlosR", null, new CuandoSuceden(emailDeContacto));
+    Usuario usuarioCarlos = new Usuario("CarlosR", "19r10jasd");
+    carlos = new Persona("Carlos", "Rodriguez", usuarioCarlos, new CuandoSuceden(emailDeContacto));
 
     doAnswer(invocationOnMock -> {
       Object[] args = invocationOnMock.getArguments();

@@ -1,9 +1,12 @@
-package ar.edu.utn.frba.dds.Modelos;
+package ar.edu.utn.frba.dds.Modelos.Comunidades;
 
+import ar.edu.utn.frba.dds.Modelos.Incidente;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.Notificacion;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.NotificacionIncidenteResuelto;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.NotificacionNuevoIncidente;
+import ar.edu.utn.frba.dds.Modelos.Servicio;
 import ar.edu.utn.frba.dds.Persistencia.EntidadPersistente;
+import lombok.Getter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,7 +15,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +22,11 @@ import java.util.List;
 @Table(name = "comunidad")
 public class Comunidad extends EntidadPersistente {
   @Column
+  @Getter
   private String nombreComunidad;
   @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinColumn (name = "servicio_por_comunidad")
+  @Getter
   private List<Servicio> serviciosDeInteres;
   @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "comunidad")
   private List<Membresia> miembros;
@@ -61,7 +65,7 @@ public class Comunidad extends EntidadPersistente {
   }
 
   public int totalMiembrosAfectados(){
-    return (int) miembros.stream().filter(membresia -> membresia.getTipoDeUsuario().equals(Rol.AFECTADO)).count();
+    return (int) miembros.stream().filter(membresia -> membresia.getTipoDeUsuario().equals(RolComunidad.AFECTADO)).count();
   }
 
   public void informarNuevoIncidente(Incidente incidente){

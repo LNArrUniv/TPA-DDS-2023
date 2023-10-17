@@ -1,32 +1,23 @@
 package ar.edu.utn.frba.dds.Modelos.Rankings;
 
-import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
-import ar.edu.utn.frba.dds.Modelos.Comunidad;
+import ar.edu.utn.frba.dds.Modelos.Comunidades.Comunidad;
 import ar.edu.utn.frba.dds.Modelos.Entidad;
 import ar.edu.utn.frba.dds.Modelos.Establecimiento;
 import ar.edu.utn.frba.dds.Modelos.Incidente;
-import ar.edu.utn.frba.dds.Modelos.Persona;
-import ar.edu.utn.frba.dds.Modelos.Rol;
+import ar.edu.utn.frba.dds.Modelos.Usuarios.Persona;
+import ar.edu.utn.frba.dds.Modelos.Comunidades.RolComunidad;
 import ar.edu.utn.frba.dds.Modelos.Servicio;
-import ar.edu.utn.frba.dds.Servicio.GeoRefAPIService;
-import ar.edu.utn.frba.dds.Servicio.gradoDeImpacto.CalculadorGradoDeImpactoService;
-import ar.edu.utn.frba.dds.Servicio.gradoDeImpacto.EntidadValor;
-import ar.edu.utn.frba.dds.Servicio.gradoDeImpacto.ListadoDeResultados;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
 public class CalculoRankingsTest {
   Incidente incidenteEscaleraMec;
@@ -71,13 +62,13 @@ public class CalculoRankingsTest {
     rankingMayorCantidadIncidentes = new MayorCantidadIncidentes();
     rankingGradoDeImpacto = new GradoImpacto();
 
-    Persona miembro1 = new Persona("", "", "", "", null);
-    Persona miembro2 = new Persona("", "", "", "", null);
-    Persona miembro3 = new Persona("", "", "", "", null);
+    Persona miembro1 = new Persona("", "", null, null);
+    Persona miembro2 = new Persona("", "", null, null);
+    Persona miembro3 = new Persona("", "", null, null);
 
-    miembro1.darseAltaComunidad(comunidadAlmagro, Rol.AFECTADO);
-    miembro2.darseAltaComunidad(comunidadAlmagro, Rol.OBSERVADOR);
-    miembro3.darseAltaComunidad(comunidadAlmagro, Rol.AFECTADO);
+    miembro1.darseAltaComunidad(comunidadAlmagro, RolComunidad.AFECTADO);
+    miembro2.darseAltaComunidad(comunidadAlmagro, RolComunidad.OBSERVADOR);
+    miembro3.darseAltaComunidad(comunidadAlmagro, RolComunidad.AFECTADO);
   }
 
   @Test

@@ -1,15 +1,27 @@
-package ar.edu.utn.frba.dds.Modelos;
+package ar.edu.utn.frba.dds.Modelos.Usuarios;
 
+import ar.edu.utn.frba.dds.Modelos.Comunidades.CargoComunidad;
+import ar.edu.utn.frba.dds.Modelos.Comunidades.Comunidad;
+import ar.edu.utn.frba.dds.Modelos.Entidad;
+import ar.edu.utn.frba.dds.Modelos.Incidente;
+import ar.edu.utn.frba.dds.Modelos.Comunidades.Membresia;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.ConfiguracionNotificaciones;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.Notificacion;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.NotificacionRevision;
+import ar.edu.utn.frba.dds.Modelos.Comunidades.RolComunidad;
+import ar.edu.utn.frba.dds.Modelos.Servicio;
 import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Localidad;
+import ar.edu.utn.frba.dds.Persistencia.EntidadPersistente;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioIncidentes;
+import lombok.Getter;
 import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -20,7 +32,15 @@ import java.util.List;
 
 @Entity
 @Table(name = "persona")
-public class Persona extends Usuario {
+public class Persona extends EntidadPersistente {
+  @Getter
+  @Column
+  private String nombre;
+  @Getter
+  @Column
+  private String apellido;
+  @Embedded
+  private Usuario usuario;
   @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinTable(name = "entidadesInteres_por_persona")
   private List<Entidad> entidadesDeInteres;
@@ -36,8 +56,10 @@ public class Persona extends Usuario {
   @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
   private ConfiguracionNotificaciones configuracionNotificaciones;
 
-  public Persona(String nombre, String apellido, String username, String contrasenia, ConfiguracionNotificaciones configuracionNotificaciones) {
-    super(nombre, apellido, username, contrasenia);
+  public Persona(String nombre, String apellido, Usuario usuario, ConfiguracionNotificaciones configuracionNotificaciones) {
+    this.nombre = nombre;
+    this.apellido = apellido;
+    this.usuario = usuario;
     this.entidadesDeInteres = new ArrayList<>();
     this.serviciosDeInteres = new ArrayList<>();
     this.membresiasAComunidades = new ArrayList<>();
@@ -57,7 +79,11 @@ public class Persona extends Usuario {
     }
   }
 
-  public void darseAltaComunidad(Comunidad comunidad, Rol rolComunidad) {
+  public String getUsername(){
+    return this.usuario.getUsername();
+  }
+
+  public void darseAltaComunidad(Comunidad comunidad, RolComunidad rolComunidad) {
     Membresia membresia = new Membresia(comunidad, rolComunidad, this, CargoComunidad.MIEMBRO);
 
     membresiasAComunidades.add(membresia);

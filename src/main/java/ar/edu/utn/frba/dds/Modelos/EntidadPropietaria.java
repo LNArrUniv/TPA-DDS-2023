@@ -1,5 +1,6 @@
 package ar.edu.utn.frba.dds.Modelos;
 
+import ar.edu.utn.frba.dds.Modelos.Usuarios.PersonaDesignada;
 import ar.edu.utn.frba.dds.Persistencia.EntidadPersistente;
 import lombok.Getter;
 import lombok.Setter;

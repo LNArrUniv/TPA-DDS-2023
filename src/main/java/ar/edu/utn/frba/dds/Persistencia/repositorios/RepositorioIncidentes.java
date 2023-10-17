@@ -33,4 +33,13 @@ public class RepositorioIncidentes extends Repositorio<Incidente> {
     return EntityManagerHelper.createQuery("from Incidente where localidad = :localidad and estaResuelto = false").setParameter("localidad", ubicacion).getResultList();
   }
 
+  public Boolean hayIncidentesActivosEnServicioDeComunidad(Long servicioId, Long comunidadId){
+    List resultados = EntityManagerHelper.createQuery("from Incidente where servicio_id = :servicio and comunidad_id = :comunidad and estaResuelto = 1").setParameter("servicio", servicioId).setParameter("comunidad", comunidadId).getResultList();
+    return !resultados.isEmpty();
+  }
+
+  public List incidentesDeServicioYComunidad(Long servicioId, Long comunidadId){
+    List resultados = EntityManagerHelper.createQuery("from Incidente where servicio_id = :servicio and comunidad_id = :comunidad").setParameter("servicio", servicioId).setParameter("comunidad", comunidadId).getResultList();
+    return resultados;
+  }
 }

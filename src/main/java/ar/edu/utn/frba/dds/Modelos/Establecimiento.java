@@ -17,6 +17,7 @@ import javax.persistence.Table;
 @Table(name = "establecimiento")
 public class Establecimiento extends EntidadPersistente {
   @Column
+  @Getter
   private String nombre;
   @Column
   @Type(type = "text")

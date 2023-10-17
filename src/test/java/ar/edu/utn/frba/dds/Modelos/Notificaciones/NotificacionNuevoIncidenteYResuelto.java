@@ -3,24 +3,19 @@ package ar.edu.utn.frba.dds.Modelos.Notificaciones;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
-import ar.edu.utn.frba.dds.Modelos.Comunidad;
+import ar.edu.utn.frba.dds.Modelos.Comunidades.Comunidad;
 import ar.edu.utn.frba.dds.Modelos.Establecimiento;
 import ar.edu.utn.frba.dds.Modelos.Incidente;
-import ar.edu.utn.frba.dds.Modelos.Persona;
-import ar.edu.utn.frba.dds.Modelos.Rol;
+import ar.edu.utn.frba.dds.Modelos.Usuarios.Persona;
+import ar.edu.utn.frba.dds.Modelos.Comunidades.RolComunidad;
 import ar.edu.utn.frba.dds.Modelos.Servicio;
 import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Localidad;
-import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Provincia;
-import ar.edu.utn.frba.dds.Servicio.EntidadesGeoRef.ListadoDeLocalidades;
-import ar.edu.utn.frba.dds.Servicio.EntidadesGeoRef.ListadoDeProvincias;
-import ar.edu.utn.frba.dds.Servicio.GeoRefAPIService;
+import ar.edu.utn.frba.dds.Modelos.Usuarios.Usuario;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -57,8 +52,10 @@ public class NotificacionNuevoIncidenteYResuelto {
       return null;
     }).when(medioDeContactoJose).notificar(any(Notificacion.class));
 
-    pepe = new Persona("pepe", "gonzalez", "pepegonz", "askfakof", configPepe);
-    jose = new Persona("jose", "gonzalez", "josegonz", "askfakof", configJose);
+    Usuario usuarioPepe = new Usuario("pepegonz", "askfakof");
+    Usuario usuarioJuan = new Usuario("josegonz", "askfakof");
+    pepe = new Persona("pepe", "gonzalez", usuarioPepe, configPepe);
+    jose = new Persona("jose", "gonzalez", usuarioJuan, configJose);
 
     Localidad localidadRandom = new Localidad();
     localidadRandom.id = 6;
@@ -66,8 +63,8 @@ public class NotificacionNuevoIncidenteYResuelto {
     Establecimiento establecimiento = new Establecimiento("", "", localidadRandom, "", null);
     unServicio = new Servicio("Escalera mecanica 2do piso", "", establecimiento);
     comunidad = new Comunidad("Comunidad1");
-    pepe.darseAltaComunidad(comunidad, Rol.AFECTADO);
-    jose.darseAltaComunidad(comunidad, Rol.AFECTADO);
+    pepe.darseAltaComunidad(comunidad, RolComunidad.AFECTADO);
+    jose.darseAltaComunidad(comunidad, RolComunidad.AFECTADO);
     comunidad.agregarServicioDeInteres(unServicio);
 
   }
