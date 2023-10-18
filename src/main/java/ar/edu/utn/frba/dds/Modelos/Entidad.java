@@ -27,6 +27,7 @@ public class Entidad extends EntidadPersistente {
   @Column
   @Type(type = "text")
   private String descripcion;
+  @Getter
   @Setter
   @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinColumn(name = "entidadPropietaria_id", referencedColumnName = "id")

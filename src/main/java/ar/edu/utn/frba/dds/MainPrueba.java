@@ -21,6 +21,7 @@ import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioIncidentes;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioPersonas;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioServicios;
 import ar.edu.utn.frba.dds.Servicio.GeoRefAPIService;
+import org.hibernate.bytecode.enhance.internal.bytebuddy.EnhancerImpl;
 import java.time.LocalTime;
 
 public class MainPrueba {
@@ -39,6 +40,7 @@ public class MainPrueba {
         manuelEncargadoTrenesArg, cnrt);
 
     Provincia bsas = GeoRefAPIService.getInstancia().listadoDeProvincias().provinciaDeId(6).get();
+    Entidad lineaMitre = new Entidad("Linea Mitre", "ghuwghoughnaoiganga", trenesArg, bsas);
     Entidad lineaSarmiento = new Entidad("Linea Sarmiento",
         "Una de las 7 líneas suburbanas de los Ferrocarriles metropolitanos de Buenos Aires, presta servicios de pasajeros entre las estaciones Once, en el barrio porteño de Balvanera, y las estaciones de Moreno, Lobos y Mercedes en el oeste del Gran Buenos Aires.",
         trenesArg, bsas);
@@ -86,6 +88,7 @@ public class MainPrueba {
     EntityManagerHelper.persist(incidente2);
     EntityManagerHelper.persist(incidente3);
     EntityManagerHelper.persist(incidente4);
+    EntityManagerHelper.persist(lineaMitre);
     EntityManagerHelper.commit();
 
     /*

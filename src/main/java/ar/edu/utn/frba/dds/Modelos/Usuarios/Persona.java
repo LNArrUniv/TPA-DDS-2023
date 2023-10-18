@@ -42,9 +42,11 @@ public class Persona extends EntidadPersistente {
   private String apellido;
   @Embedded
   private Usuario usuario;
+  @Getter
   @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinTable(name = "entidadesInteres_por_persona")
   private List<Entidad> entidadesDeInteres;
+  @Getter
   @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinTable(name = "serviciosInteres_por_persona")
   private List<Servicio> serviciosDeInteres;
