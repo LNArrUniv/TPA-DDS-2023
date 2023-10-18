@@ -1,0 +1,29 @@
+{{#partial "contenido"}}
+    <div class="page-title text-center p-5">
+        <h1 class="white-text">Entidades Prestadoras y Organismos de Control</h1>
+    </div>
+    <div>
+        <button type="submit" class="btn ver-comunidad btn-primario shadow-lg w-50 mt-4 border-0 fs-4 p-1">Subir CSV</button>
+        <div>
+            <h3 class= "gray-text mb-3 mt-4"> Entidades y Organismos del Sistema</h3>
+            <table>
+                <tr>
+                    <th class = "">Entidades Prestadoras</th>
+                </tr>
+                <tr>
+                    <th> Nombre</th>
+                    <th> Descripcion</th>
+                </tr>
+                {{#each entidad}}
+                    <tr>
+                        <td> this.nombre</td>
+                        <td>this.descripcion</td>
+                    </tr>
+                {{/each}}
+            </table>
+        </div>
+    </div>
+
+
+{{/partial}}
+{{> templates/base }}
