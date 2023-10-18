@@ -45,7 +45,6 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
 
     ArrayList<Servicio> serviciosSinIncidentes = new ArrayList<>();
     ArrayList<Servicio> serviciosConIncidentes = new ArrayList<>();
-    System.out.println(RepositorioIncidentes.getInstance().hayIncidentesActivosEnServicioDeComunidad(comunidad.getServiciosDeInteres().get(0).getId(), comunidad.getId()));
     for (Servicio s:comunidad.getServiciosDeInteres()) {
       if (RepositorioIncidentes.getInstance().hayIncidentesActivosEnServicioDeComunidad(s.getId(), comunidad.getId())){
         serviciosConIncidentes.add(RepositorioServicios.getInstance().get(s.getId()));

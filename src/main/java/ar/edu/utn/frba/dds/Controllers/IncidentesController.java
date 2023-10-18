@@ -23,8 +23,12 @@ public class IncidentesController extends Controller implements ICrudViewsHandle
 
   @Override
   public void create(Context context) {
+
+  }
+
+  @Override
+  public void save(Context context) {
     int cantIncidentes = RepositorioIncidentes.getInstance().incidentesDeServicioYComunidad(Long.parseLong(context.pathParam("idServicio")), Long.parseLong(context.pathParam("id"))).size();
-    // String nombre, String descripcion, Persona informante, Servicio servicio, Comunidad comunidad
     Incidente incidente = new Incidente("Incidente "+(cantIncidentes+1),
         context.formParam("descripcion"),
         RepositorioPersonas.getInstance().get(context.sessionAttribute("id")),
@@ -35,11 +39,6 @@ public class IncidentesController extends Controller implements ICrudViewsHandle
 
     context.status(HttpStatus.CREATED);
     context.redirect("/comunidades/"+context.pathParam("id")+"/servicios/"+context.pathParam("idServicio"));
-  }
-
-  @Override
-  public void save(Context context) {
-
   }
 
   @Override

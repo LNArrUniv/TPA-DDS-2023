@@ -16,7 +16,7 @@
                 <div class="card m-sm-2 m-md-4 shadow border-light rounded-4" style="max-width: 18rem; min-width: 18rem; height: 28rem">
                     <h3 class="card-title mt-3 align-self-center">{{this.nombre}}</h3>
                     <p class="card-text fw-bold">Informado por <span class="gray-text">{{this.informante.nombre}} {{this.informante.apellido}}</span></p>
-                    <p class="card-body h-100">{{this.descripcion}}</p>
+                    <p class="card-body h-100" style="max-height: 18rem; overflow: hidden">{{this.descripcion}}</p>
                     <a href="#" class="btn btn-primario mb-4" data-bs-toggle="modal" data-bs-target="#infoIncidente{{this.id}}">Ver Incidente</a>
                     <!-- Modal -->
                     <div class="modal fade" id="infoIncidente{{this.id}}" tabindex="-1" aria-labelledby="infoIncidenteLabel" aria-hidden="true">
@@ -73,7 +73,7 @@
                 <div class="card m-sm-2 m-md-4 shadow border-light rounded-4" style="max-width: 18rem; min-width: 18rem; height: 28rem;">
                     <h3 class="card-title mt-3 align-self-center">{{this.nombre}}</h3>
                     <p class="card-text fw-bold">Informado por <span class="gray-text">{{this.informante.nombre}} {{this.informante.apellido}}</span></p>
-                    <p class="card-body h-100">{{this.descripcion}}</p>
+                    <p class="card-body h-100" style="max-height: 18rem; overflow: hidden">{{this.descripcion}}</p>
                     <a href="#" class="btn btn-primario mb-4" data-bs-toggle="modal" data-bs-target="#infoIncidente{{this.id}}">Ver Incidente</a>
                     <div class="modal fade" id="infoIncidente{{this.id}}" tabindex="-1" aria-labelledby="infoIncidenteLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg">
