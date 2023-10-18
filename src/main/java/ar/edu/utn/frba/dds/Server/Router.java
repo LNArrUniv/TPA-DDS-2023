@@ -2,11 +2,7 @@ package ar.edu.utn.frba.dds.Server;
 
 import static io.javalin.apibuilder.ApiBuilder.*;
 
-import ar.edu.utn.frba.dds.Controllers.ComunidadesController;
-import ar.edu.utn.frba.dds.Controllers.FactoryController;
-import ar.edu.utn.frba.dds.Controllers.IncidentesController;
-import ar.edu.utn.frba.dds.Controllers.LoginController;
-import ar.edu.utn.frba.dds.Controllers.ServiciosController;
+import ar.edu.utn.frba.dds.Controllers.*;
 
 public class Router {
 
@@ -23,7 +19,10 @@ public class Router {
             context.redirect("/login");
         });
 
-
+       /* Server.app().get("/csv",context -> {
+            context.result("ohola");
+        });
+        */
         Server.app().routes(() -> {
             get("login", ((LoginController) FactoryController.controller("Login"))::get);
             post("login", ((LoginController) FactoryController.controller("Login"))::post);
@@ -40,6 +39,7 @@ public class Router {
             get("comunidades/{id}/servicios/{idServicio}", ((ServiciosController) FactoryController.controller("Servicios"))::show);
             post("comunidades/{id}/servicios/{idServicio}/crear_incidente", ((IncidentesController) FactoryController.controller("Incidentes"))::save);
             post("/comunidades/{id}/servicios/{idServicio}/resolver/", ((IncidentesController) FactoryController.controller("Incidentes"))::edit);
+            get("/csv",((CSVController) FactoryController.controller("Csv"))::index);
         });
     }
 }

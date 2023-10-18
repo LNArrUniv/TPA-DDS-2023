@@ -9,6 +9,7 @@ public class FactoryController {
             case "Comunidades": controller = new ComunidadesController(); break;
             case "Servicios": controller = new ServiciosController(); break;
             case "Incidentes": controller = new IncidentesController(); break;
+            case "Csv": controller = new CSVController(); break;
         }
         return controller;
     }
