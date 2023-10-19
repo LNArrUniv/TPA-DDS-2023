@@ -24,6 +24,7 @@ public class Entidad extends EntidadPersistente {
   @Getter
   @Column
   private String nombre;
+  @Getter
   @Column
   @Type(type = "text")
   private String descripcion;
