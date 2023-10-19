@@ -35,23 +35,15 @@ public class Entidad extends EntidadPersistente {
   @Embedded
   @AttributeOverride(name="nombre", column=@Column(name="provincia"))
   private Provincia ubicacion;
-  @Getter
-  @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "entidad")
-  private List<Incidente> incidentes;
 
   public Entidad(String nombre, String descripcion, EntidadPropietaria entidadPropietaria, Provincia ubicacion) {
     this.nombre = nombre;
     this.descripcion = descripcion;
     this.entidadPropietaria = entidadPropietaria;
     this.ubicacion = ubicacion;
-    this.incidentes=new ArrayList<>();
   }
 
   public Entidad() {
 
-  }
-
-  public void agregarIncidente(Incidente incidente){
-    incidentes.add(incidente);
   }
 }

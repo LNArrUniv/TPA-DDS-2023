@@ -40,7 +40,7 @@ public class NotificacionRevisionTest implements WithSimplePersistenceUnit{
 
     Establecimiento sucursalBancoRIO = new Establecimiento("Banco RIO", "", geoRefAPIService.listadoDeLocalidades().localidadDeId(02063010001).get(), "Av. Rivadavia 123", null);
     Servicio servicioRandom = new Servicio("Ascensor de la sucursal Liniers del Banco RIO", "null", sucursalBancoRIO);
-    Incidente incidenteCercano = new Incidente("Ascensor fuera de servicio", null, servicioRandom, null);
+    Incidente incidenteCercano = new Incidente(null, "Ascensor fuera de servicio", null, servicioRandom, null);
     List<Incidente> activos = new ArrayList<>();
     activos.add(incidenteCercano);
 

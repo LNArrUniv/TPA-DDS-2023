@@ -8,6 +8,11 @@ import ar.edu.utn.frba.dds.Modelos.Incidente;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.MedioNotificacionesEmail;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.SinApuros;
 import ar.edu.utn.frba.dds.Modelos.OrganismoDeControl;
+import ar.edu.utn.frba.dds.Modelos.Rankings.ItemRanking;
+import ar.edu.utn.frba.dds.Modelos.Rankings.MayorCantidadIncidentes;
+import ar.edu.utn.frba.dds.Modelos.Rankings.MetodosRanking;
+import ar.edu.utn.frba.dds.Modelos.Rankings.RankingIncidentes;
+import ar.edu.utn.frba.dds.Modelos.Rankings.TiempoDeCierre;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.Persona;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.PersonaDesignada;
 import ar.edu.utn.frba.dds.Modelos.Comunidades.RolComunidad;
@@ -17,12 +22,16 @@ import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Provincia;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.Usuario;
 import ar.edu.utn.frba.dds.Persistencia.EntityManagerHelper;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioComunidades;
+import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioEntidades;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioIncidentes;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioPersonas;
+import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioRankings;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioServicios;
 import ar.edu.utn.frba.dds.Servicio.GeoRefAPIService;
 import org.hibernate.bytecode.enhance.internal.bytebuddy.EnhancerImpl;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainPrueba {
 
@@ -90,6 +99,18 @@ public class MainPrueba {
     EntityManagerHelper.persist(incidente4);
     EntityManagerHelper.persist(lineaMitre);
     EntityManagerHelper.commit();
+
+
+    List<MetodosRanking> rankings = RankingIncidentes.getInstance().getMetodosRankings();
+    EntityManagerHelper.beginTransaction();
+    for (MetodosRanking ranking:rankings) {
+      EntityManagerHelper.persist(ranking);
+    }
+    EntityManagerHelper.commit();
+
+
+    RankingIncidentes.getInstance().generarRankings();
+
 
     /*
     // ********** PRUEBA DE LOS REPOS **********

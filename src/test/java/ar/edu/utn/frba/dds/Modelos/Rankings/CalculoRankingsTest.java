@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 public class CalculoRankingsTest {
   Incidente incidenteEscaleraMec;
@@ -47,11 +48,11 @@ public class CalculoRankingsTest {
 
     Comunidad comunidadAlmagro = new Comunidad("Comunidad de Servicios de Almagro (Bancos)");
 
-    incidenteEscaleraMec = new Incidente("No anda la Escalera Mecanica", null, servicioBNacion, comunidadAlmagro);
-    incidenteBanio = new Incidente("El baño esta fuera de servicio", null, servicioBProvincia, comunidadAlmagro);
+    incidenteEscaleraMec = new Incidente(null, "No anda la Escalera Mecanica", null, servicioBNacion, comunidadAlmagro);
+    incidenteBanio = new Incidente(null, "El baño esta fuera de servicio", null, servicioBProvincia, comunidadAlmagro);
     bancoNacion.agregarIncidente(incidenteEscaleraMec);
     bancoProvincia.agregarIncidente(incidenteBanio);
-    incidenteAscensor = new Incidente("El ascensor no funciona", null, otroServicioBNacion, comunidadAlmagro);
+    incidenteAscensor = new Incidente(null, "El ascensor no funciona", null, otroServicioBNacion, comunidadAlmagro);
     bancoNacion.agregarIncidente(incidenteAscensor);
 
     entidades = new ArrayList<>();
@@ -81,7 +82,7 @@ public class CalculoRankingsTest {
     incidenteBanio.marcarComoResuelto();
 
     rankingPromedioTiempoDeCierre.generarRanking(entidades);
-    ArrayList<ItemRanking> ranking = rankingPromedioTiempoDeCierre.getRankingTiempoPromedio();
+    List<ItemRanking> ranking = rankingPromedioTiempoDeCierre.getRankingTiempoPromedio();
     ranking.sort(Comparator.comparing(ItemRanking::getValorParametro));
 
     System.out.println("Ranking Mejor promedio de cierre");
@@ -101,7 +102,7 @@ public class CalculoRankingsTest {
     incidenteBanio.marcarComoResuelto();
 
     rankingMayorCantidadIncidentes.generarRanking(entidades);
-    ArrayList<ItemRanking> ranking = rankingMayorCantidadIncidentes.getRankingCantidadIncidentes();
+    List<ItemRanking> ranking = rankingMayorCantidadIncidentes.getRankingCantidadIncidentes();
     ranking.sort(Comparator.comparing(ItemRanking::getValorParametro));
     Collections.reverse(ranking); // Mas arriba en el ranking peor, o sea, mas incidentes
 
@@ -123,7 +124,7 @@ public class CalculoRankingsTest {
     //Banco nacion: (1 + 1 * 1) * 4 (2 miembros afectados por c/indente) = 8.0
     //Banco prov.: (1 + 0 * 1) * 2 = 2.0
     rankingGradoDeImpacto.generarRanking(entidades);
-    ArrayList<ItemRanking> ranking = rankingGradoDeImpacto.getRankingGradoDeImpacto();
+    List<ItemRanking> ranking = rankingGradoDeImpacto.getRankingGradoDeImpacto();
 
     System.out.println("Ranking grado de impacto");
     System.out.println(ranking.get(0).getEntidad().getNombre() + " - " + ranking.get(0).getValorParametro());
