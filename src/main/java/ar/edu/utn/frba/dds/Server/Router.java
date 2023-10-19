@@ -2,16 +2,13 @@ package ar.edu.utn.frba.dds.Server;
 
 import static io.javalin.apibuilder.ApiBuilder.*;
 
-<<<<<<< HEAD
 import ar.edu.utn.frba.dds.Controllers.ComunidadesController;
 import ar.edu.utn.frba.dds.Controllers.FactoryController;
 import ar.edu.utn.frba.dds.Controllers.IncidentesController;
 import ar.edu.utn.frba.dds.Controllers.LoginController;
 import ar.edu.utn.frba.dds.Controllers.PersonasController;
 import ar.edu.utn.frba.dds.Controllers.ServiciosController;
-=======
 import ar.edu.utn.frba.dds.Controllers.*;
->>>>>>> e44b543fa317dfb20f58c74a9bed683cf83249fc
 
 public class Router {
 
@@ -35,6 +32,8 @@ public class Router {
         Server.app().routes(() -> {
             get("login", ((LoginController) FactoryController.controller("Login"))::get);
             post("login", ((LoginController) FactoryController.controller("Login"))::post);
+            get("registro", ((PersonasController) FactoryController.controller("Personas"))::create);
+            post("registro", ((PersonasController) FactoryController.controller("Personas"))::save);
 
             get("comunidades", ((ComunidadesController) FactoryController.controller("Comunidades"))::index);
             get("comunidades/crear", ((ComunidadesController) FactoryController.controller("Comunidades"))::create);
