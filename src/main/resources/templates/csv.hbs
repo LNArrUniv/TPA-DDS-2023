@@ -3,27 +3,68 @@
         <h1 class="white-text">Entidades Prestadoras y Organismos de Control</h1>
     </div>
     <div>
-        <button type="submit" class="btn ver-comunidad btn-primario shadow-lg w-50 mt-4 border-0 fs-4 p-1">Subir CSV</button>
+        <button  id="btnSubirCSV" class="btn btn-primario shadow-lg w-50 mt-4 border-0 fs-4 p-1">Subir CSV</button>
+        <input type="file" id="archivoCSV" style="display: none;">
+        <script>
+            const btnSubirCSV = document.getElementById('btnSubirCSV');
+            const archivoCSV = document.getElementById('archivoCSV');
+
+            btnSubirCSV.addEventListener('click', () => {
+                archivoCSV.click();
+            });
+
+            archivoCSV.addEventListener('change', () => {
+                // Aquí puedes agregar el código para manejar el archivo cargado
+                const archivoSeleccionado = archivoCSV.files[0];
+                if (archivoSeleccionado) {
+                    console.log('Archivo seleccionado:', archivoSeleccionado.name);
+                    // Puedes realizar operaciones adicionales con el archivo aquí
+                }
+            });
+        </script>
         <div>
-            <h3 class= "gray-text mb-3 mt-4"> Entidades y Organismos del Sistema</h3>
-            <table>
-                <tr>
-                    <th class = "">Entidades Prestadoras</th>
-                </tr>
-                <tr>
-                    <th> Nombre</th>
-                    <th> Descripcion</th>
-                </tr>
-                {{#each entidad}}
-                    <tr>
-                        <td> this.nombre</td>
-                        <td>this.descripcion</td>
-                    </tr>
-                {{/each}}
-            </table>
+            <h3 class="gray-text mb-3 mt-4">Entidades y Organismos del Sistema</h3>
+            <div class="table table-striped">
+                <table>
+                    <table>
+                        <tr>
+                            <th class="">Entidades Prestadoras</th>
+                        </tr>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                        </tr>
+                        {{#each entidades}}
+                            <tr>
+                                <td>{{this.nombre}}</td>
+                                <td>{{this.descripcion}}</td>
+                            </tr>
+                        {{/each}}
+                    </table>
+                </table>
+            </div>
+            <div class="table table-hover">
+                <table>
+                    <table>
+                        <tr>
+                            <th class="">Organismos de Control</th>
+                        </tr>
+                        <tr>
+                            <th>Nombre</th>
+                        </tr>
+                        {{#each organismos}}
+                            <tr>
+                                <td>{{this.nombre}}</td>
+                            </tr>
+                        {{/each}}
+                    </table>
+                </table>
+            </div>
+
+
+
+
         </div>
     </div>
-
-
 {{/partial}}
 {{> templates/base }}
