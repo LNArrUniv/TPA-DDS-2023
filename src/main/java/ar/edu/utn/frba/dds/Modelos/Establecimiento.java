@@ -2,6 +2,7 @@ package ar.edu.utn.frba.dds.Modelos;
 
 import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Localidad;
 import ar.edu.utn.frba.dds.Persistencia.EntidadPersistente;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import org.hibernate.annotations.Type;
 import javax.persistence.AttributeOverride;
@@ -28,6 +29,7 @@ public class Establecimiento extends EntidadPersistente {
   private Localidad ubicacion;
   @Column
   private String direccion;
+  @JsonIgnore
   @Getter
   @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinColumn(name = "entidad_id", referencedColumnName = "id")

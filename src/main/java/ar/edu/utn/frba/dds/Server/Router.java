@@ -27,7 +27,7 @@ public class Router {
         Server.app().routes(() -> {
             get("login", ((LoginController) FactoryController.controller("Login"))::get);
             post("login", ((LoginController) FactoryController.controller("Login"))::post);
-
+            get("comunidades/obtenerTodas", ((ComunidadesController) FactoryController.controller("Comunidades"))::obtenerComunidades);
             get("comunidades", ((ComunidadesController) FactoryController.controller("Comunidades"))::index);
             get("comunidades/crear", ((ComunidadesController) FactoryController.controller("Comunidades"))::create);
             post("comunidades/crear", ((ComunidadesController) FactoryController.controller("Comunidades"))::save);
@@ -39,6 +39,9 @@ public class Router {
             get("comunidades/{id}/servicios/{idServicio}", ((ServiciosController) FactoryController.controller("Servicios"))::show);
             post("comunidades/{id}/servicios/{idServicio}/crear_incidente", ((IncidentesController) FactoryController.controller("Incidentes"))::create);
             post("/comunidades/{id}/servicios/{idServicio}/resolver/", ((IncidentesController) FactoryController.controller("Incidentes"))::edit);
+            /*Integracion del servicio 1 */
+            get("/obtenerPosiblesFusiones", ((ComunidadesController) FactoryController.controller("Comunidades"))::obtenerPosiblesFusiones);
+            post("comunidades/fusionar", ((ComunidadesController) FactoryController.controller("Comunidades"))::fusionarComunidades);
         });
     }
 }

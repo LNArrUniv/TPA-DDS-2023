@@ -2,6 +2,7 @@ package ar.edu.utn.frba.dds.Modelos.Comunidades;
 
 import ar.edu.utn.frba.dds.Modelos.Usuarios.Persona;
 import ar.edu.utn.frba.dds.Persistencia.EntidadPersistente;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -13,9 +14,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "membresia")
 public class Membresia extends EntidadPersistente {
+  @JsonIgnore
   @Getter
   @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   private Comunidad comunidad;
+  @JsonIgnore
   @Getter
   @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   private Persona miembro;

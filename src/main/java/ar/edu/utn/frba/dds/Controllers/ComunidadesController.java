@@ -1,24 +1,33 @@
 package ar.edu.utn.frba.dds.Controllers;
 
-import ar.edu.utn.frba.dds.Modelos.Comunidades.CargoComunidad;
 import ar.edu.utn.frba.dds.Modelos.Comunidades.Comunidad;
+import ar.edu.utn.frba.dds.Modelos.DTOServicio1.ComunidadDTO;
 import ar.edu.utn.frba.dds.Modelos.Comunidades.Membresia;
 import ar.edu.utn.frba.dds.Modelos.Comunidades.RolComunidad;
+import ar.edu.utn.frba.dds.Modelos.DTOServicio1.PropuestaDeFusionDTO;
 import ar.edu.utn.frba.dds.Modelos.Servicio;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.Persona;
-import ar.edu.utn.frba.dds.Modelos.Usuarios.Rol;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioComunidades;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioIncidentes;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioMembresias;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioPersonas;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioServicios;
 import ar.edu.utn.frba.dds.Server.Utils.ICrudViewsHandler;
+import ar.edu.utn.frba.dds.Server.Utils.Servicio1;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
+import retrofit2.Call;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ComunidadesController extends Controller implements ICrudViewsHandler {
 
@@ -86,6 +95,17 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
 
   }
 
+  public void obtenerComunidades(Context context) {
+    List<Comunidad> comunidades = RepositorioComunidades.getInstance().all();
+
+    List<ComunidadDTO> comunidadesDTO = comunidades.stream()
+        .map(Comunidad::toDTO)
+        .collect(Collectors.toList());
+
+    context.json(comunidadesDTO);
+  }
+
+
   public void unirse(Context context) {
     Map<String, Object> model = new HashMap<>();
     List comunidadesQueNoFormaParte = RepositorioComunidades.getInstance().all().stream().filter(comunidad -> !comunidad.personaFormaParteDeLaComunidad(RepositorioPersonas.getInstance().get(context.sessionAttribute("id")))).toList();
@@ -119,6 +139,54 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
     context.redirect("/comunidades/".concat(context.pathParam("id")).concat("/servicios"));
   }
 
+  public void fusionarComunidades(Context context) {
+    try {
+      // Convertir el cuerpo del request a un objeto PropuestaDeFusionDTO
+      PropuestaDeFusionDTO propuestaDTO = context.bodyAsClass(PropuestaDeFusionDTO.class);
+
+      // Crear una instancia de Retrofit
+      Retrofit retrofit = new Retrofit.Builder()
+          .baseUrl("http://localhost:8081")
+          .addConverterFactory(GsonConverterFactory.create())
+          .build();
+
+      // Usar la instancia para hacer una llamada POST a /fusionarcomunidades
+      Servicio1 service = retrofit.create(Servicio1.class);
+      retrofit2.Response<String> response = service.fusionarComunidades(propuestaDTO).execute();
+
+      if (response.isSuccessful()) {
+        String resultado = response.body();
+        context.status(200).result(resultado);
+      } else {
+        context.status(response.code()).result("Error al fusionar comunidades");
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      context.status(500).result("Error interno del servidor");
+    }
+  }
+
+  public void obtenerPosiblesFusiones(Context context) {
+    try {
+      Retrofit retrofit = new Retrofit.Builder()
+          .baseUrl("http://localhost:8081")
+          .addConverterFactory(GsonConverterFactory.create())
+          .build();
+
+      Servicio1 service = retrofit.create(Servicio1.class);
+      retrofit2.Response<String> response = service.obtenerPosiblesFusiones().execute();
+
+      if (response.isSuccessful()) {
+        String propuestasJson = response.body();
+        context.status(200).result(propuestasJson);
+      } else {
+        context.status(response.code()).result("Error al obtener propuestas de fusión");
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      context.status(500).result("Error interno del servidor");
+    }
+  }
   @Override
   public void delete(Context context) {
 

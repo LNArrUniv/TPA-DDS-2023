@@ -13,21 +13,18 @@ import ar.edu.utn.frba.dds.Modelos.Servicio;
 import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Localidad;
 import ar.edu.utn.frba.dds.Persistencia.EntidadPersistente;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioIncidentes;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.sound.midi.SysexMessage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +48,7 @@ public class Persona extends EntidadPersistente {
   @Embedded
   @AttributeOverride(name="nombre", column=@Column(name="localidad"))
   private Localidad ubicacion;
+  @JsonIgnore
   @Getter
   @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "miembro")
   private List<Membresia> membresiasAComunidades;
@@ -100,9 +98,9 @@ public class Persona extends EntidadPersistente {
 
   public void darseBajaComunidad(Membresia membresia) {
     this.membresiasAComunidades.remove(membresia);
-    membresia.getComunidad().eleminarMiembro(membresia);
+    membresia.getComunidad().eliminarMiembro(membresia);
 
-    // DELETE membresia?
+    //TODO: DELETE membresia?
   }
 
   public Boolean esAdmin(Comunidad comunidad){

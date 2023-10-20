@@ -2,6 +2,7 @@ package ar.edu.utn.frba.dds.Modelos;
 
 import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Localidad;
 import ar.edu.utn.frba.dds.Persistencia.EntidadPersistente;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
@@ -23,6 +24,7 @@ public class Servicio extends EntidadPersistente {
   @Type(type = "text")
   @Getter
   private String descripcion;
+  @JsonIgnore
   @Setter
   @Getter
   @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
