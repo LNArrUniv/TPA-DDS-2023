@@ -1,6 +1,5 @@
 package ar.edu.utn.frba.dds.Persistencia.repositorios;
 
-import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Localidad;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.Persona;
 import ar.edu.utn.frba.dds.Persistencia.EntityManagerHelper;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.daos.DAO;
@@ -32,5 +31,11 @@ public class RepositorioPersonas extends Repositorio<Persona> {
     List<Persona> resultados = EntityManagerHelper.createQuery("from Persona where username = :user and contrasenia = :pass").setParameter("user", user).setParameter("pass", pass).getResultList();
     long id = resultados.get(0).getId();
     return id;
+  }
+
+  public List<String> todosLosUsuarios(){
+    List<Persona> resultados = EntityManagerHelper.createQuery("from Persona").getResultList();
+
+    return resultados.stream().map(p -> p.getUsername()).toList();
   }
 }

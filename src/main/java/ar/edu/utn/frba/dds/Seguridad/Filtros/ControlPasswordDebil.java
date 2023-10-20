@@ -6,8 +6,8 @@ import java.io.FileReader;
 public class ControlPasswordDebil implements FiltroInterface {
   private static String commonPasswordsPath;
 
-  public ControlPasswordDebil(String path) {
-    commonPasswordsPath = path;
+  public ControlPasswordDebil() {
+    commonPasswordsPath = "src/main/java/ar/edu/utn/frba/dds/Seguridad/Filtros/common-passwords.txt";
   }
 
   @Override

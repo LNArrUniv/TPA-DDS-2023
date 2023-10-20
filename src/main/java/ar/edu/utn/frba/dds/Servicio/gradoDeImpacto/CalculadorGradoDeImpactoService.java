@@ -45,16 +45,7 @@ public class CalculadorGradoDeImpactoService {
     CalculadorGradoDeImpactoAPIService calculadorGradoDeImpacto = this.retrofit.create(CalculadorGradoDeImpactoAPIService.class);
     Call<List<EntidadValor>> requestResultados = calculadorGradoDeImpacto.obtenerResultados();
     Response<List<EntidadValor>> responseResultados = requestResultados.execute();
-    return new ListadoDeResultados(responseResultados.body());
+    ListadoDeResultados listado = new ListadoDeResultados(responseResultados.body());
+    return listado;
   }
-
-
-    /*
-    public ListadoDeProvincias listadoDeProvincias() throws IOException {
-      GeoRefService geoRefService = this.retrofit.create(GeoRefService.class);
-      Call<ListadoDeProvincias> requestProvinciasArgentinas =  geoRefService.provincias();
-      Response<ListadoDeProvincias> responseProvinciasArgentinas = requestProvinciasArgentinas.execute();
-      return responseProvinciasArgentinas.body();
-    }
-     */
 }

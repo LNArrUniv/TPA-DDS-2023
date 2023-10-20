@@ -1,5 +1,6 @@
 package ar.edu.utn.frba.dds.Persistencia.repositorios;
 
+import ar.edu.utn.frba.dds.Modelos.Entidad;
 import ar.edu.utn.frba.dds.Modelos.Incidente;
 import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Localidad;
 import ar.edu.utn.frba.dds.Persistencia.EntityManagerHelper;
@@ -40,6 +41,12 @@ public class RepositorioIncidentes extends Repositorio<Incidente> {
 
   public List incidentesDeServicioYComunidad(Long servicioId, Long comunidadId){
     List resultados = EntityManagerHelper.createQuery("from Incidente where servicio_id = :servicio and comunidad_id = :comunidad").setParameter("servicio", servicioId).setParameter("comunidad", comunidadId).getResultList();
+    return resultados;
+  }
+
+  public List incidentesDeEntidad(Entidad entidad){
+    List resultados = EntityManagerHelper.createQuery("from Incidente where entidad_id = :entidad").setParameter("entidad", entidad.getId()).getResultList();
+
     return resultados;
   }
 }

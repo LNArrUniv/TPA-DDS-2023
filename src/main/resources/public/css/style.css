@@ -77,6 +77,13 @@
     color: #005a3c !important;
 }
 
+.tabla-container {
+    margin-left: 20px;
+    width: 1700px;
+    height: 316px;
+    flex-shrink: 0;
+}
+
 .nav-link:hover {
     font-size: 1.3rem !important;
 }
@@ -95,10 +102,10 @@
 .volver:hover {
     color: var(--main-primary-color);
 }
+
 .volver:active {
     color: var(--main-active-primary-color);
 }
-
 .btn-close {
     position: absolute;
     right: 2rem;

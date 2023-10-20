@@ -2,21 +2,39 @@ package ar.edu.utn.frba.dds.Modelos.Rankings;
 
 import ar.edu.utn.frba.dds.Modelos.Entidad;
 import ar.edu.utn.frba.dds.Modelos.Incidente;
+import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioIncidentes;
+import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositoriosItemsRankings;
 import ar.edu.utn.frba.dds.Servicio.gradoDeImpacto.CalculadorGradoDeImpactoService;
 import ar.edu.utn.frba.dds.Servicio.gradoDeImpacto.ListadoDeResultados;
 import ar.edu.utn.frba.dds.Servicio.gradoDeImpacto.ListadoDeValores;
 import ar.edu.utn.frba.dds.Servicio.gradoDeImpacto.ValoresFormula;
 import lombok.Getter;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GradoImpacto implements MetodosRanking {
+@Entity
+public class GradoImpacto extends MetodosRanking {
     @Getter
-    private ArrayList<ItemRanking> rankingGradoDeImpacto = new ArrayList<>();
+    @Column
+    private String nombre = "Mayor grado de impacto de las problemáticas";
+    /*
+    @Getter
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "ranking")
+    private List<ItemRanking> rankingGradoDeImpacto;
 
+     */
     final private Integer CNF = 1; //TODO: cambiar  (Preguntar al ayudante!)
+
+    public GradoImpacto() {
+        //this.rankingGradoDeImpacto = new ArrayList<>();
+    }
 
     private double tiempoReparacion(Incidente incidente) {
         double diff = ChronoUnit.MINUTES.between(incidente.getFechaHoraCierre(), incidente.getFechaHoraApertura()) / 60.0;
@@ -27,12 +45,13 @@ public class GradoImpacto implements MetodosRanking {
     private void enviarValoresAAPI(List<Entidad> entidades){
         List<ValoresFormula> listaValores = new ArrayList<>();
         for (Entidad entidad:entidades) {
-            Integer cantIncidentesNoResueltos = Math.toIntExact(entidad.getIncidentes().stream().filter(i -> i.getEstaResuelto().equals(false)).count());
-            double tiempoResolucionIncidente = entidad.getIncidentes().stream()
+            List<Incidente> incidentesEntidad = RepositorioIncidentes.getInstance().incidentesDeEntidad(entidad);
+            int cantIncidentesNoResueltos = incidentesEntidad.stream().filter(incidente -> !incidente.getEstaResuelto()).toList().size();
+            double tiempoResolucionIncidente = incidentesEntidad.stream()
                 .filter(Incidente::getEstaResuelto)
                 .mapToDouble(this::tiempoReparacion)
                 .sum();
-            int totalPersonasImpactadas = entidad.getIncidentes().stream().mapToInt(i -> i.getComunidad().totalMiembrosAfectados()).sum();
+            int totalPersonasImpactadas = incidentesEntidad.stream().mapToInt(i -> i.getComunidad().totalMiembrosAfectados()).sum();
 
             listaValores.add(new ValoresFormula(entidad.getId(), (int) tiempoResolucionIncidente, cantIncidentesNoResueltos, CNF, totalPersonasImpactadas));
         }
@@ -41,11 +60,13 @@ public class GradoImpacto implements MetodosRanking {
     }
 
     @Override
-    public void generarRanking(ArrayList<Entidad> entidades) throws IOException {
+    public void generarRanking(List<Entidad> entidades) throws IOException {
         enviarValoresAAPI(entidades);
         ListadoDeResultados resultados = CalculadorGradoDeImpactoService.getInstancia().obtenerResultados();
         for (Entidad entidad : entidades) {
-            rankingGradoDeImpacto.add(new ItemRanking(entidad, resultados.valorDeEntidad(entidad.getId()).get().getResultadoGradoImpacto()));
+            ItemRanking item = new ItemRanking(entidad, resultados.valorDeEntidad(entidad.getId()).getResultadoGradoImpacto(), LocalDateTime.now(), this);
+            //rankingGradoDeImpacto.add(item);
+            RepositoriosItemsRankings.getInstance().add(item);
         }
     }
 }

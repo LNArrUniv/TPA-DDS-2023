@@ -1,11 +1,25 @@
 package ar.edu.utn.frba.dds.Modelos.Rankings;
 
 import ar.edu.utn.frba.dds.Modelos.Entidad;
+import ar.edu.utn.frba.dds.Persistencia.EntidadPersistente;
 
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
-public interface MetodosRanking {
+@Entity
+@Table(name = "rankings")
+//@DiscriminatorColumn(name = "nombre", discriminatorType = DiscriminatorType.STRING)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public abstract class MetodosRanking extends EntidadPersistente {
 
-  public void generarRanking(ArrayList<Entidad> entidades) throws IOException;
+  public void generarRanking(List<Entidad> entidades) throws IOException {
+
+  }
 }

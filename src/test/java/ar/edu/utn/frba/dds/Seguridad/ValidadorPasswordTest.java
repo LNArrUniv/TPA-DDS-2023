@@ -15,7 +15,7 @@ public class ValidadorPasswordTest {
   @BeforeEach
   public void init(){
     validador = new ValidadorPassword();
-    ControlPasswordDebil filtro1 = new ControlPasswordDebil("src/main/java/ar/edu/utn/frba/dds/Seguridad/Filtros/common-passwords.txt");
+    ControlPasswordDebil filtro1 = new ControlPasswordDebil();
     PoliticaNist800 filtro2 = new PoliticaNist800();
     validador.addFiltro(filtro1);
     validador.addFiltro(filtro2);
