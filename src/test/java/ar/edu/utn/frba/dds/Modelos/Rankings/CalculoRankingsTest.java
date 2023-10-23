@@ -81,8 +81,7 @@ public class CalculoRankingsTest {
     incidenteBanio.setFechaHoraApertura(LocalDateTime.now().minusHours(3));
     incidenteBanio.marcarComoResuelto();
 
-    rankingPromedioTiempoDeCierre.generarRanking(entidades);
-    List<ItemRanking> ranking = rankingPromedioTiempoDeCierre.getRankingTiempoPromedio();
+    List<ItemRanking> ranking = rankingPromedioTiempoDeCierre.generarRanking(entidades);
     ranking.sort(Comparator.comparing(ItemRanking::getValorParametro));
 
     System.out.println("Ranking Mejor promedio de cierre");
@@ -101,8 +100,7 @@ public class CalculoRankingsTest {
     incidenteBanio.setFechaHoraApertura(LocalDateTime.now().minusHours(3));
     incidenteBanio.marcarComoResuelto();
 
-    rankingMayorCantidadIncidentes.generarRanking(entidades);
-    List<ItemRanking> ranking = rankingMayorCantidadIncidentes.getRankingCantidadIncidentes();
+    List<ItemRanking> ranking = rankingMayorCantidadIncidentes.generarRanking(entidades);
     ranking.sort(Comparator.comparing(ItemRanking::getValorParametro));
     Collections.reverse(ranking); // Mas arriba en el ranking peor, o sea, mas incidentes
 
@@ -123,8 +121,7 @@ public class CalculoRankingsTest {
     //(tiempoResolucionIncidente + cantIncidentesNoResueltos * cnf) * totalPersonasImpactadas;
     //Banco nacion: (1 + 1 * 1) * 4 (2 miembros afectados por c/indente) = 8.0
     //Banco prov.: (1 + 0 * 1) * 2 = 2.0
-    rankingGradoDeImpacto.generarRanking(entidades);
-    List<ItemRanking> ranking = rankingGradoDeImpacto.getRankingGradoDeImpacto();
+    List<ItemRanking> ranking = rankingGradoDeImpacto.generarRanking(entidades);
 
     System.out.println("Ranking grado de impacto");
     System.out.println(ranking.get(0).getEntidad().getNombre() + " - " + ranking.get(0).getValorParametro());

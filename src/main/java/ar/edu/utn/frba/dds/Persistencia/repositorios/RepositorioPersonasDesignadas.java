@@ -28,7 +28,7 @@ public class RepositorioPersonasDesignadas extends Repositorio<PersonaDesignada>
   }
 
   public Long getId(String user, String pass) {
-    List<Persona> resultados = EntityManagerHelper.createQuery("from Persona where username = :user and contrasenia = :pass").setParameter("user", user).setParameter("pass", pass).getResultList();
+    List<PersonaDesignada> resultados = EntityManagerHelper.createQuery("from PersonaDesignada where username = :user and contrasenia = :pass").setParameter("user", user).setParameter("pass", pass).getResultList();
     long id = resultados.get(0).getId();
     return id;
   }

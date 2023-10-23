@@ -56,6 +56,9 @@ public class Router {
             get("/obtenerPosiblesFusiones", ((ComunidadesController) FactoryController.controller("Comunidades"))::obtenerPosiblesFusiones);
             post("comunidades/fusionar", ((ComunidadesController) FactoryController.controller("Comunidades"))::fusionarComunidades);
 
+            get("rankings", ((RankingsController) FactoryController.controller("Rankings"))::index);
+            get("rankings/{id}", ((RankingsController) FactoryController.controller("Rankings"))::show);
+
         });
     }
 }

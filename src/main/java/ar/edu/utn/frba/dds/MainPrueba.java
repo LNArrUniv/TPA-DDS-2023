@@ -8,6 +8,8 @@ import ar.edu.utn.frba.dds.Modelos.Incidente;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.MedioNotificacionesEmail;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.SinApuros;
 import ar.edu.utn.frba.dds.Modelos.OrganismoDeControl;
+import ar.edu.utn.frba.dds.Modelos.Rankings.MetodosRanking;
+import ar.edu.utn.frba.dds.Modelos.Rankings.RankingIncidentes;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.Persona;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.PersonaDesignada;
 import ar.edu.utn.frba.dds.Modelos.Comunidades.RolComunidad;
@@ -18,13 +20,12 @@ import ar.edu.utn.frba.dds.Modelos.Usuarios.Usuario;
 import ar.edu.utn.frba.dds.Persistencia.EntityManagerHelper;
 import ar.edu.utn.frba.dds.Servicio.GeoRefAPIService;
 import java.time.LocalTime;
+import java.util.List;
 
 public class MainPrueba {
   public static void main(String[] args) throws Exception {
 
     // === Usuarios y Personas Designadas ===
-    Usuario usuarioJuan = new Usuario("juanro1259", "123");
-
     Usuario usuarioPepe = new Usuario("pepejose23", "1234");
     PersonaDesignada pepeEncargadoCNRT = new PersonaDesignada("Pepe", "Jose", usuarioPepe);
 
@@ -114,6 +115,7 @@ public class MainPrueba {
     config.agregarHorario(LocalTime.of(14, 0, 0));
 
     // === Personas ===
+    /*
     Persona pepe = new Persona("Pepe", "Jose", usuarioPepe, config);
     pepe.setUbicacion(localidadW);
     Persona manuel = new Persona("Manuel", "Jose", usuarioManuel, config);
@@ -126,7 +128,8 @@ public class MainPrueba {
     pedro.setUbicacion(lobos);
     Persona rosa = new Persona("Rosa", "Flores", usuarioRosa, config);
     rosa.setUbicacion(localidadW);
-
+    */
+    Usuario usuarioJuan = new Usuario("juanro1259", "123");
     Persona juan = new Persona("Juan", "Rodriguez", usuarioJuan, config);
     juan.setUbicacion(lobos);
     juan.agregarEntidadDeInteres(lineaSarmiento);
@@ -169,12 +172,12 @@ public class MainPrueba {
       // Persistir Usuarios y Personas Designadas
       EntityManagerHelper.persist(juan);
       EntityManagerHelper.persist(jose);
-      EntityManagerHelper.persist(pepe);
-      EntityManagerHelper.persist(manuel);
-      EntityManagerHelper.persist(laura);
-      EntityManagerHelper.persist(anna);
-      EntityManagerHelper.persist(pedro);
-      EntityManagerHelper.persist(rosa);
+      EntityManagerHelper.persist(pepeEncargadoCNRT);
+      EntityManagerHelper.persist(manuelEncargadoTrenesArg);
+      EntityManagerHelper.persist(lauraMetro);
+      EntityManagerHelper.persist(annaAvianca);
+      EntityManagerHelper.persist(pedroAeroControl);
+      EntityManagerHelper.persist(rosaBusLines);
 
       // Persistir Organismos y Entidades Propietarias
       EntityManagerHelper.persist(cnrt);
@@ -219,6 +222,7 @@ public class MainPrueba {
       EntityManagerHelper.persist(incidente2);
       EntityManagerHelper.persist(incidente3);
       EntityManagerHelper.persist(incidente4);
+
 
       EntityManagerHelper.commit();
   }

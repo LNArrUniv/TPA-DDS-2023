@@ -20,7 +20,7 @@ public class LoginController extends Controller {
       context.redirect("/comunidades");
     } else if (RepositorioPersonasDesignadas.getInstance().usuarioYContraseniaCorrectas(context.formParam("username"), context.formParam("password"))) {
       context.sessionAttribute("id", RepositorioPersonasDesignadas.getInstance().getId(context.formParam("username"), context.formParam("password")));
-      context.redirect("/designada");
+      context.redirect("/rankings");
     }
     else {
       context.render("login.hbs", model);

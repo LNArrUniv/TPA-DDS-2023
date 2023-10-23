@@ -11,6 +11,7 @@ public class FactoryController {
             case "Incidentes": controller = new IncidentesController(); break;
             case "Personas": controller = new PersonasController(); break;
             case "Csv": controller = new CSVController(); break;
+            case "Rankings": controller = new RankingsController(); break;
         }
         return controller;
     }

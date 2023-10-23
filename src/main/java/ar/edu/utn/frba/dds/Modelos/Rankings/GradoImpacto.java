@@ -8,22 +8,15 @@ import ar.edu.utn.frba.dds.Servicio.gradoDeImpacto.CalculadorGradoDeImpactoServi
 import ar.edu.utn.frba.dds.Servicio.gradoDeImpacto.ListadoDeResultados;
 import ar.edu.utn.frba.dds.Servicio.gradoDeImpacto.ListadoDeValores;
 import ar.edu.utn.frba.dds.Servicio.gradoDeImpacto.ValoresFormula;
-import lombok.Getter;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class GradoImpacto extends MetodosRanking {
-    @Getter
-    @Column
-    private String nombre = "Mayor grado de impacto de las problemáticas";
     /*
     @Getter
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "ranking")
@@ -33,6 +26,7 @@ public class GradoImpacto extends MetodosRanking {
     final private Integer CNF = 1; //TODO: cambiar  (Preguntar al ayudante!)
 
     public GradoImpacto() {
+        this.nombre = "Mayor grado de impacto de las problemáticas";
         //this.rankingGradoDeImpacto = new ArrayList<>();
     }
 
@@ -60,13 +54,15 @@ public class GradoImpacto extends MetodosRanking {
     }
 
     @Override
-    public void generarRanking(List<Entidad> entidades) throws IOException {
+    public List<ItemRanking> generarRanking(List<Entidad> entidades) throws IOException {
+        List<ItemRanking> rankingGradoDeImpacto = new ArrayList<>();
         enviarValoresAAPI(entidades);
         ListadoDeResultados resultados = CalculadorGradoDeImpactoService.getInstancia().obtenerResultados();
         for (Entidad entidad : entidades) {
-            ItemRanking item = new ItemRanking(entidad, resultados.valorDeEntidad(entidad.getId()).getResultadoGradoImpacto(), LocalDateTime.now(), this);
-            //rankingGradoDeImpacto.add(item);
+            ItemRanking item = new ItemRanking(entidad, resultados.valorDeEntidad(entidad.getId()).getResultadoGradoImpacto(), LocalDate.now(), this);
+            rankingGradoDeImpacto.add(item);
             RepositoriosItemsRankings.getInstance().add(item);
         }
+        return rankingGradoDeImpacto;
     }
 }

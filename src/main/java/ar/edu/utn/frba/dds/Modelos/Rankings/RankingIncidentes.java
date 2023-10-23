@@ -21,6 +21,8 @@ public class RankingIncidentes {
 
   @Getter
   private List<MetodosRanking> metodosRankings = List.of(new TiempoDeCierre(), new MayorCantidadIncidentes(), new GradoImpacto()); //[new TiempoDeCierre(),MayorCantidadIncidentes,GradoImpacto]
+  @Getter
+  private Boolean running = false;
 
   private RankingIncidentes(){
   }
@@ -37,6 +39,7 @@ public class RankingIncidentes {
     LocalDateTime semanaPasada = LocalDateTime.now().minus(7, ChronoUnit.DAYS);
     long duracionSemanaEnMiliseg = semanaPasada.until(LocalDateTime.now(), ChronoUnit.MILLIS);
 
+    running = true;
     // Para que ejecute el generador 1 vez y despues lo haga cada 7 dias
     tempo.scheduleAtFixedRate(new GeneradorRanking(), 0, duracionSemanaEnMiliseg);
   }
