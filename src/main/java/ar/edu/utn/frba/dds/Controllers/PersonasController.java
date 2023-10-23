@@ -104,7 +104,7 @@ public class PersonasController extends Controller implements ICrudViewsHandler 
 
   public void interes(Context context) {
     Map<String, Object> model = new HashMap<>();
-
+    RepositorioPersonas.getInstance().clean();
     Persona user = RepositorioPersonas.getInstance().get(context.sessionAttribute("id"));
 
     model.put("serviciosInteres", user.getServiciosDeInteres());

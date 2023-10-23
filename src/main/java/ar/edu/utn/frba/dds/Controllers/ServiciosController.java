@@ -34,6 +34,7 @@ public class ServiciosController extends Controller implements ICrudViewsHandler
 
   @Override
   public void show(Context context) {
+    RepositorioServicios.getInstance().clean();
     List<Incidente> incidentes = RepositorioIncidentes.getInstance().incidentesDeServicioYComunidad(Long.parseLong(context.pathParam("idServicio")), Long.parseLong(context.pathParam("id")));
     List<Incidente> incidentesResueltos = incidentes.stream().filter(incidente -> incidente.getEstaResuelto() == true).collect(Collectors.toList());
     List<Incidente> incidentesAbiertos = incidentes.stream().filter(incidente -> incidente.getEstaResuelto() == false).collect(Collectors.toList());

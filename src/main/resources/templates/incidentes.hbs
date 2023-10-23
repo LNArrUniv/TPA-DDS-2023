@@ -28,13 +28,13 @@
                                 <div class="modal-body">
                                     <p class="pt-2">{{this.descripcion}}</p>
                                     <p class="gray-text">Informado por {{this.informante.nombre}} {{this.informante.apellido}} - {{this.fechaAperturaString}}</p>
-                                    <form method="POST" action="/comunidades/{{comunidad.id}}/servicios/{{servicio.id}}/resolver/" class="col-12" id="resolver-inc">
+                                    <form method="POST" action="/comunidades/{{comunidad.id}}/servicios/{{servicio.id}}/resolver/" class="col-12" id="resolver-inc{{this.id}}">
                                         <input type="hidden" id="idIncidente" name="idIncidente" value="{{this.id}}">
                                     </form>
                                 </div>
                                 <div class="modal-btns d-flex justify-content-center mb-4 flex-lg-row align-items-center">
                                     <button type="button" class="btn btn-secundario ms-0 me-lg-5 border-success border-1 fs-5 pt-2 pb-2 pe-5 ps-5" data-bs-dismiss="modal">Cerrar</button>
-                                    <button type="submit" form="resolver-inc" class="btn btn-primario ms-0 ms-lg-5 fs-5 pt-2 pb-2 pe-5 ps-5">Resuelto</button>
+                                    <button type="submit" form="resolver-inc{{this.id}}" class="btn btn-primario ms-0 ms-lg-5 fs-5 pt-2 pb-2 pe-5 ps-5">Resuelto</button>
                                     <!-- <a href="/comunidades/{{comunidad.id}}/servicios/{{servicio.id}}/resolver/{{this.id}}" class="btn btn-primario ms-0 ms-lg-5 fs-5 pt-2 pb-2 pe-5 ps-5">Resuelto</a> -->
                                 </div>
                             </div>

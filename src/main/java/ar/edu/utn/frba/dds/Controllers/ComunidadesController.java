@@ -48,6 +48,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
 
   @Override
   public void show(Context context) {
+    RepositorioComunidades.getInstance().clean();
     Comunidad comunidad = RepositorioComunidades.getInstance().get(Long.parseLong(context.pathParam("id")));
     Map<String, Object> model = new HashMap<>();
     model.put("comunidad", comunidad);
@@ -61,6 +62,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
         serviciosSinIncidentes.add(RepositorioServicios.getInstance().get(s.getId()));
       }
     }
+    System.out.println(comunidad.getServiciosDeInteres().size());
     model.put("serviciosSinIncidentes", serviciosSinIncidentes);
     model.put("serviciosConIncidentes", serviciosConIncidentes);
 

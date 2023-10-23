@@ -37,6 +37,9 @@ public class DAOHibernate<T> implements DAO<T> {
     @Override
     public void clean() {
         //
+        EntityManagerHelper.getEntityManager().getTransaction().begin();
+        EntityManagerHelper.getEntityManager().clear();
+        EntityManagerHelper.getEntityManager().getTransaction().commit();
     }
 
     @Override
