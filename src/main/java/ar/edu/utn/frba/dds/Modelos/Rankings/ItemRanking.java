@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @Entity
 public class ItemRanking extends EntidadPersistente {
   @Getter @Setter
-  @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+  @ManyToOne(cascade = {CascadeType.MERGE})
   private Entidad entidad;
   @Getter @Setter
   @Column

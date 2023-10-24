@@ -10,6 +10,7 @@ import ar.edu.utn.frba.dds.Modelos.Notificaciones.NotificacionNuevoIncidente;
 import ar.edu.utn.frba.dds.Modelos.Servicio;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.Persona;
 import ar.edu.utn.frba.dds.Persistencia.EntidadPersistente;
+import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioPersonas;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 
@@ -82,26 +83,44 @@ public class Comunidad extends EntidadPersistente {
   }
 
   public void informarNuevoIncidente(Incidente incidente){
-    Notificacion notificacion = new NotificacionNuevoIncidente(incidente);
-    notificarMiembros(notificacion);
-  }
-
-  public void informarIncidenteResuelto(Incidente incidente){
-    incidente.marcarComoResuelto();
-    Notificacion notificacion = new NotificacionIncidenteResuelto(incidente);
-    notificarMiembros(notificacion);
-  }
-
-  private void notificarMiembros(Notificacion notificacion){
     miembros.forEach(membresia -> {
       try {
-        membresia.getMiembro().notificar(notificacion);
+        Persona miembro = membresia.getMiembro();
+        Notificacion notificacion = new NotificacionNuevoIncidente(incidente, miembro);
+        miembro.notificar(notificacion);
+
       } catch (Exception e) {
         throw new RuntimeException(e);
       }
     });
   }
 
+  public void informarIncidenteResuelto(Incidente incidente){
+    incidente.marcarComoResuelto();
+
+    miembros.forEach(membresia -> {
+      try {
+        Persona miembro = RepositorioPersonas.getInstance().get(membresia.getMiembro().getId());
+        Notificacion notificacion = new NotificacionIncidenteResuelto(incidente, miembro);
+        miembro.notificar(notificacion);
+
+      } catch (Exception e) {
+        throw new RuntimeException(e);
+      }
+    });
+  }
+  /*
+  private void notificarMiembros(Notificacion notificacion){
+    miembros.forEach(membresia -> {
+      try {
+        notificacion.set
+        membresia.getMiembro().notificar(notificacion);
+      } catch (Exception e) {
+        throw new RuntimeException(e);
+      }
+    });
+  }
+  */
   public ComunidadDTO toDTO() {
     return new ComunidadDTO(
         (int) this.getId(),

@@ -19,6 +19,12 @@
     <class>ar.edu.utn.frba.dds.Modelos.OrganismoDeControl</class>
     <class>ar.edu.utn.frba.dds.Modelos.Usuarios.PersonaDesignada</class>
     <class>ar.edu.utn.frba.dds.Modelos.Comunidades.Membresia</class>
+    <class>ar.edu.utn.frba.dds.Modelos.Rankings.ItemRanking</class>
+    <class>ar.edu.utn.frba.dds.Modelos.Rankings.MetodosRanking</class>
+    <class>ar.edu.utn.frba.dds.Modelos.Notificaciones.Notificacion</class>
+    <class>ar.edu.utn.frba.dds.Modelos.Notificaciones.NotificacionIncidenteResuelto</class>
+    <class>ar.edu.utn.frba.dds.Modelos.Notificaciones.NotificacionNuevoIncidente</class>
+    <class>ar.edu.utn.frba.dds.Modelos.Notificaciones.NotificacionRevision</class>
 
     <properties>
       <property name="hibernate.archive.autodetection" value="class"/>

@@ -53,6 +53,8 @@ public class RankingIncidentes {
           metodo.generarRanking(entidades);
         } catch (IOException e) {
           throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+          throw new RuntimeException(e);
         }
       });
     }

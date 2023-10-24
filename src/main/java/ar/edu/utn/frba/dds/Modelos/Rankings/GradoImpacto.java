@@ -54,9 +54,10 @@ public class GradoImpacto extends MetodosRanking {
     }
 
     @Override
-    public List<ItemRanking> generarRanking(List<Entidad> entidades) throws IOException {
+    public List<ItemRanking> generarRanking(List<Entidad> entidades) throws IOException, InterruptedException {
         List<ItemRanking> rankingGradoDeImpacto = new ArrayList<>();
         enviarValoresAAPI(entidades);
+        Thread.sleep(200);
         ListadoDeResultados resultados = CalculadorGradoDeImpactoService.getInstancia().obtenerResultados();
         for (Entidad entidad : entidades) {
             ItemRanking item = new ItemRanking(entidad, resultados.valorDeEntidad(entidad.getId()).getResultadoGradoImpacto(), LocalDate.now(), this);

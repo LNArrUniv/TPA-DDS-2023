@@ -62,7 +62,6 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
         serviciosSinIncidentes.add(RepositorioServicios.getInstance().get(s.getId()));
       }
     }
-    System.out.println(comunidad.getServiciosDeInteres().size());
     model.put("serviciosSinIncidentes", serviciosSinIncidentes);
     model.put("serviciosConIncidentes", serviciosConIncidentes);
 
@@ -123,7 +122,6 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
 
     RepositorioComunidades.getInstance().update(comunidad);
     RepositorioPersonas.getInstance().update(persona);
-    System.out.println(persona.getNombre());
 
     context.status(HttpStatus.OK);
     context.redirect("/comunidades");

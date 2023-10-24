@@ -10,6 +10,7 @@ import ar.edu.utn.frba.dds.Modelos.Incidente;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.Persona;
 import ar.edu.utn.frba.dds.Modelos.Comunidades.RolComunidad;
 import ar.edu.utn.frba.dds.Modelos.Servicio;
+import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioEntidades;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,9 +35,9 @@ public class CalculoRankingsTest {
   @BeforeEach
   public void init() throws IOException {
     bancoNacion = new Entidad("Banco Nacion", "", null, null);
-    bancoNacion.setId(0);
+    //bancoNacion.setId(0);
     bancoProvincia = new Entidad("Bancio Provincia", "", null, null);
-    bancoProvincia.setId(1);
+    //bancoProvincia.setId(1);
     Establecimiento sucursalAlmagroNac = new Establecimiento("Sucursal Almagro del Banco Nacion", "", null, "Cochabamba 1234", bancoNacion);
     Establecimiento sucursalAlmagroProv = new Establecimiento("Sucursal Almagro del Banco Provincia", "", null, "Av. Rivadavia 2943", bancoProvincia);
 
@@ -70,6 +71,9 @@ public class CalculoRankingsTest {
     miembro1.darseAltaComunidad(comunidadAlmagro, RolComunidad.AFECTADO);
     miembro2.darseAltaComunidad(comunidadAlmagro, RolComunidad.OBSERVADOR);
     miembro3.darseAltaComunidad(comunidadAlmagro, RolComunidad.AFECTADO);
+
+    RepositorioEntidades.getInstance().add(bancoNacion);
+    RepositorioEntidades.getInstance().add(bancoProvincia);
   }
 
   @Test
@@ -84,7 +88,9 @@ public class CalculoRankingsTest {
     List<ItemRanking> ranking = rankingPromedioTiempoDeCierre.generarRanking(entidades);
     ranking.sort(Comparator.comparing(ItemRanking::getValorParametro));
 
+    System.out.println("================================");
     System.out.println("Ranking Mejor promedio de cierre");
+    System.out.println("================================");
     System.out.println(ranking.get(0).getEntidad().getNombre() + " - " + ranking.get(0).getValorParametro());
     System.out.println(ranking.get(1).getEntidad().getNombre() + " - " + ranking.get(1).getValorParametro());
     Assertions.assertEquals(ranking.get(0).getEntidad(), bancoNacion);
@@ -104,7 +110,9 @@ public class CalculoRankingsTest {
     ranking.sort(Comparator.comparing(ItemRanking::getValorParametro));
     Collections.reverse(ranking); // Mas arriba en el ranking peor, o sea, mas incidentes
 
+    System.out.println("================================");
     System.out.println("Ranking Mayor cantidad de incidentes");
+    System.out.println("================================");
     System.out.println(ranking.get(0).getEntidad().getNombre() + " - " + ranking.get(0).getValorParametro());
     System.out.println(ranking.get(1).getEntidad().getNombre() + " - " + ranking.get(1).getValorParametro());
     Assertions.assertEquals(ranking.get(0).getEntidad(), bancoNacion);
@@ -112,7 +120,7 @@ public class CalculoRankingsTest {
   }
 
   @Test
-  public void ElBancoNacionTieneUnMayorGradoDeImpactoQueElBancoProvincia() throws IOException {
+  public void ElBancoNacionTieneUnMayorGradoDeImpactoQueElBancoProvincia() throws IOException, InterruptedException {
     incidenteEscaleraMec.setFechaHoraApertura(LocalDateTime.now().minusHours(1));
     incidenteEscaleraMec.marcarComoResuelto();
     incidenteAscensor.setFechaHoraApertura(LocalDateTime.now().minusHours(4));
@@ -123,7 +131,9 @@ public class CalculoRankingsTest {
     //Banco prov.: (1 + 0 * 1) * 2 = 2.0
     List<ItemRanking> ranking = rankingGradoDeImpacto.generarRanking(entidades);
 
+    System.out.println("================================");
     System.out.println("Ranking grado de impacto");
+    System.out.println("================================");
     System.out.println(ranking.get(0).getEntidad().getNombre() + " - " + ranking.get(0).getValorParametro());
     System.out.println(ranking.get(1).getEntidad().getNombre() + " - " + ranking.get(1).getValorParametro());
 

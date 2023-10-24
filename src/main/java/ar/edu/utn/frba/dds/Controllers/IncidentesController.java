@@ -35,6 +35,7 @@ public class IncidentesController extends Controller implements ICrudViewsHandle
         RepositorioServicios.getInstance().get(Long.parseLong(context.pathParam("idServicio"))),
         RepositorioComunidades.getInstance().get(Long.parseLong(context.pathParam("id"))));
 
+    incidente.getComunidad().informarNuevoIncidente(incidente);
     RepositorioIncidentes.getInstance().add(incidente);
 
     context.status(HttpStatus.CREATED);
@@ -44,8 +45,8 @@ public class IncidentesController extends Controller implements ICrudViewsHandle
   @Override
   public void edit(Context context) {
     Incidente incidente = RepositorioIncidentes.getInstance().get(Long.parseLong(context.formParam("idIncidente")));
-    incidente.marcarComoResuelto();
 
+    incidente.getComunidad().informarIncidenteResuelto(incidente);
     RepositorioIncidentes.getInstance().update(incidente);
 
     context.status(HttpStatus.OK);

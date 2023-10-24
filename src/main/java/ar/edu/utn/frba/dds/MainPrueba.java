@@ -5,7 +5,9 @@ import ar.edu.utn.frba.dds.Modelos.Entidad;
 import ar.edu.utn.frba.dds.Modelos.EntidadPropietaria;
 import ar.edu.utn.frba.dds.Modelos.Establecimiento;
 import ar.edu.utn.frba.dds.Modelos.Incidente;
+import ar.edu.utn.frba.dds.Modelos.Notificaciones.CuandoSuceden;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.MedioNotificacionesEmail;
+import ar.edu.utn.frba.dds.Modelos.Notificaciones.MedioNotificacionesWhatsapp;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.SinApuros;
 import ar.edu.utn.frba.dds.Modelos.OrganismoDeControl;
 import ar.edu.utn.frba.dds.Modelos.Rankings.MetodosRanking;
@@ -18,6 +20,7 @@ import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Localidad;
 import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Provincia;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.Usuario;
 import ar.edu.utn.frba.dds.Persistencia.EntityManagerHelper;
+import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioPersonas;
 import ar.edu.utn.frba.dds.Servicio.GeoRefAPIService;
 import java.time.LocalTime;
 import java.util.List;
@@ -135,8 +138,10 @@ public class MainPrueba {
     juan.agregarEntidadDeInteres(lineaSarmiento);
     juan.agregarServicioDeInteres(servicioBanios);
 
+    MedioNotificacionesWhatsapp medioPreferidoJose = new MedioNotificacionesWhatsapp("123123123");
+    CuandoSuceden configJose = new CuandoSuceden(medioPreferidoJose);
     Usuario usuarioJose = new Usuario("josero1259", "123");
-    Persona jose = new Persona("Jose", "Rodriguez", usuarioJose, config);
+    Persona jose = new Persona("Jose", "Rodriguez", usuarioJose, configJose);
     jose.setUbicacion(lobos);
     jose.agregarEntidadDeInteres(lineaSarmiento);
     jose.agregarServicioDeInteres(servicioBanios);
@@ -225,5 +230,9 @@ public class MainPrueba {
 
 
       EntityManagerHelper.commit();
+
+      Persona persona = RepositorioPersonas.getInstance().get(1);
+      SinApuros configprueba = (SinApuros) persona.getConfiguracionNotificaciones();
+      configprueba.getHorariosDeNotificacion().forEach(localTime -> System.out.println(localTime.toString()));
   }
 }

@@ -5,6 +5,7 @@ import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 
 import ar.edu.utn.frba.dds.Modelos.Comunidades.Comunidad;
+import ar.edu.utn.frba.dds.Modelos.Entidad;
 import ar.edu.utn.frba.dds.Modelos.Establecimiento;
 import ar.edu.utn.frba.dds.Modelos.Incidente;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.Persona;
@@ -60,7 +61,8 @@ public class NotificacionNuevoIncidenteYResuelto {
     Localidad localidadRandom = new Localidad();
     localidadRandom.id = 6;
     localidadRandom.nombre = "Localidad X";
-    Establecimiento establecimiento = new Establecimiento("", "", localidadRandom, "", null);
+    Entidad entidad = new Entidad("Una entidad", "", null, null);
+    Establecimiento establecimiento = new Establecimiento("Un establecimiento", "", localidadRandom, "", entidad);
     unServicio = new Servicio("Escalera mecanica 2do piso", "", establecimiento);
     comunidad = new Comunidad("Comunidad1");
     pepe.darseAltaComunidad(comunidad, RolComunidad.AFECTADO);

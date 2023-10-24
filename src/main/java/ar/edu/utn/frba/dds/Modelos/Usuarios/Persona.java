@@ -13,8 +13,10 @@ import ar.edu.utn.frba.dds.Modelos.Servicio;
 import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Localidad;
 import ar.edu.utn.frba.dds.Persistencia.EntidadPersistente;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioIncidentes;
+import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioNotificaciones;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
+import lombok.Setter;
 import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -54,7 +56,8 @@ public class Persona extends EntidadPersistente {
   @Getter
   @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "miembro")
   private List<Membresia> membresiasAComunidades;
-
+  @Getter
+  @Setter
   @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
   private ConfiguracionNotificaciones configuracionNotificaciones;
 
@@ -76,7 +79,7 @@ public class Persona extends EntidadPersistente {
     this.ubicacion = nuevaUbicacion;
     List<Incidente> incidentesConMismaLocalizacion = RepositorioIncidentes.getInstance().incidentesEnUbicacion(nuevaUbicacion);
     for (Incidente incidente: incidentesConMismaLocalizacion) {
-      Notificacion notificacion = new NotificacionRevision(incidente);
+      Notificacion notificacion = new NotificacionRevision(incidente, this);
       notificar(notificacion);
     }
   }
@@ -112,6 +115,7 @@ public class Persona extends EntidadPersistente {
   }
 
   public void notificar(Notificacion notificacion) throws Exception {
+    RepositorioNotificaciones.getInstance().add(notificacion);
     configuracionNotificaciones.notificarMiembro(notificacion);
   }
 

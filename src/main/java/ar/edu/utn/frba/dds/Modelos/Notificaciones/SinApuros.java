@@ -25,17 +25,14 @@ public class SinApuros extends ConfiguracionNotificaciones{
   @Getter
   @Convert(converter = HorariosDeNotificacionAttributeConverter.class)
   @Column(name = "horariosDeNotificacion")
-  private TreeSet<LocalTime> horariosDeNotificacion;
+  private TreeSet<LocalTime> horariosDeNotificacion = new TreeSet<LocalTime>();
   @Transient
-  private Boolean running;
+  private Boolean running = false;
   @Transient
-  private ArrayList<Notificacion> notificacionesPendientes;
+  private ArrayList<Notificacion> notificacionesPendientes = new ArrayList<>();
 
   public SinApuros(MedioDeNotificacionesPreferido medio) {
     this.medio = medio;
-    this.running = false;
-    this.horariosDeNotificacion = new TreeSet<LocalTime>();
-    this.notificacionesPendientes = new ArrayList<>();
   }
 
   public SinApuros() {
@@ -49,7 +46,10 @@ public class SinApuros extends ConfiguracionNotificaciones{
       running = true;
 
       LocalTime horaNotificacion = horariosDeNotificacion.ceiling(LocalTime.now());
-      long tiempoHastaNotificacion = LocalTime.now().until(horaNotificacion, ChronoUnit.MILLIS);
+      long tiempoHastaNotificacion = 0l;
+      if (horaNotificacion != null) {
+        tiempoHastaNotificacion = LocalTime.now().until(horaNotificacion, ChronoUnit.MILLIS);
+      }
 
       Timer timer = new Timer();
       timer.schedule(new Task(), tiempoHastaNotificacion);

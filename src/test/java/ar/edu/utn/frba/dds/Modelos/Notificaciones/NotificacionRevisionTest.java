@@ -7,6 +7,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import ar.edu.utn.frba.dds.Modelos.Entidad;
 import ar.edu.utn.frba.dds.Modelos.Establecimiento;
 import ar.edu.utn.frba.dds.Modelos.Incidente;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.Persona;
@@ -38,7 +39,8 @@ public class NotificacionRevisionTest implements WithSimplePersistenceUnit{
     listado.localidades = List.of(liniers);
     doReturn(listado).when(geoRefAPIService).listadoDeLocalidades();
 
-    Establecimiento sucursalBancoRIO = new Establecimiento("Banco RIO", "", geoRefAPIService.listadoDeLocalidades().localidadDeId(02063010001).get(), "Av. Rivadavia 123", null);
+    Entidad entidad = new Entidad("Banco RIO", "", null, null);
+    Establecimiento sucursalBancoRIO = new Establecimiento("Banco RIO", "", geoRefAPIService.listadoDeLocalidades().localidadDeId(02063010001).get(), "Av. Rivadavia 123", entidad);
     Servicio servicioRandom = new Servicio("Ascensor de la sucursal Liniers del Banco RIO", "null", sucursalBancoRIO);
     Incidente incidenteCercano = new Incidente(null, "Ascensor fuera de servicio", null, servicioRandom, null);
     List<Incidente> activos = new ArrayList<>();

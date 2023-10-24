@@ -21,7 +21,7 @@ public abstract class MetodosRanking extends EntidadPersistente {
   @Column
   protected String nombre;
 
-  public List<ItemRanking> generarRanking(List<Entidad> entidades) throws IOException {
+  public List<ItemRanking> generarRanking(List<Entidad> entidades) throws IOException, InterruptedException {
 
     return null;
   }
