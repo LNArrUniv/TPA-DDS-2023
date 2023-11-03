@@ -11,7 +11,7 @@ public class MedioNotificacionesEmail extends MedioDeNotificacionesPreferido{
 
   @Override
   public void notificar(Notificacion notificacion) throws Exception {
-    SenderService.getInstance().email(super.getEmail(), notificacion.getEncabezado() , notificacion.getMensajeDeNotificacion());
+    //SenderService.getInstance().email(super.getEmail(), notificacion.getEncabezado() , notificacion.getMensajeDeNotificacion());
     //System.out.println(notificacion.getMensajeDeNotificacion());
   }
 }

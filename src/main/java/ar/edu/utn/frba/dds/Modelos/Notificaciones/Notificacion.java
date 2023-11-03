@@ -3,6 +3,7 @@ package ar.edu.utn.frba.dds.Modelos.Notificaciones;
 import ar.edu.utn.frba.dds.Modelos.Incidente;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.Persona;
 import ar.edu.utn.frba.dds.Persistencia.EntidadPersistente;
+import lombok.Getter;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
@@ -14,6 +15,7 @@ import javax.persistence.Table;
 @Table(name = "notificaciones")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Notificacion extends EntidadPersistente {
+  @Getter
   @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   protected Incidente incidente;
   @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})

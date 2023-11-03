@@ -10,7 +10,7 @@ public class MedioNotificacionesWhatsapp extends MedioDeNotificacionesPreferido 
 
   @Override
   public void notificar(Notificacion notificacion) {
-    SenderService.getInstance().whatsApp(notificacion.getMensajeDeNotificacion(), super.getTelefono());
+    //SenderService.getInstance().whatsApp(notificacion.getMensajeDeNotificacion(), super.getTelefono());
     //System.out.println(notificacion.getMensajeDeNotificacion());
   }
 }

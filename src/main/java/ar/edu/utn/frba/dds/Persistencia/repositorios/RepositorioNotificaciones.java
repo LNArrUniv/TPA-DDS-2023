@@ -1,8 +1,10 @@
 package ar.edu.utn.frba.dds.Persistencia.repositorios;
 
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.Notificacion;
+import ar.edu.utn.frba.dds.Persistencia.EntityManagerHelper;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.daos.DAO;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.daos.DAOHibernate;
+import java.util.List;
 
 public class RepositorioNotificaciones extends Repositorio<Notificacion>{
 
@@ -18,4 +20,11 @@ public class RepositorioNotificaciones extends Repositorio<Notificacion>{
     }
     return instance;
   }
+
+  public List getNotificacionesDeUsuario (long id) {
+    List resultados = EntityManagerHelper.createQuery("from Notificacion where usuarioANotificar_id = :usuario").setParameter("usuario", id).getResultList();
+
+    return resultados;
+  }
+
 }

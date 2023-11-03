@@ -1,12 +1,17 @@
 {{#partial "contenido"}}
-    <div class="page-title text-center p-5">
+    <div class="page-title text-center p-5 mb-3">
         <h1 class="white-text">Notificaciones</h1>
     </div>
-    <div class="container">
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <strong>Fecha</strong> Incidente.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    {{#each notificaciones}}
+        <div class="container">
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <span class="gray-text">{{this.incidente.fechaAperturaString}}</span> <strong>{{this.getEncabezado}}</strong>: {{this.getMensajeDeNotificacion}}
+                <form method="POST" action="/notificaciones" class="col-12" id="borrar-notificacion{{this.id}}">
+                    <input type="hidden" id="idNotificacion" name="idNotificacion" value="{{this.id}}">
+                </form>
+                <button type="submit" form="borrar-notificacion{{this.id}}" class="btn-close"></button>
+            </div>
         </div>
-    </div>
+    {{/each}}
 {{/partial}}
 {{> templates/base }}
