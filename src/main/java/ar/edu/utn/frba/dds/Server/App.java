@@ -2,6 +2,7 @@ package ar.edu.utn.frba.dds.Server;
 
 import ar.edu.utn.frba.dds.Modelos.Rankings.RankingIncidentes;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioRankings;
+import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositoriosItemsRankings;
 
 public class App {
 

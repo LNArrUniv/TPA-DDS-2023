@@ -3,8 +3,11 @@ package ar.edu.utn.frba.dds.Modelos.Rankings;
 import ar.edu.utn.frba.dds.Modelos.Entidad;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.SinApuros;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioEntidades;
+import ar.edu.utn.frba.dds.Servicio.GeneradorDeInformes;
+import com.itextpdf.text.DocumentException;
 import lombok.Getter;
 
+import javax.mail.FetchProfile;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -49,9 +52,11 @@ public class RankingIncidentes {
     public void run() {
       metodosRankings.forEach(metodo -> {
         List entidades = RepositorioEntidades.getInstance().all();
+        GeneradorDeInformes generadorDeInformes = new GeneradorDeInformes();
         try {
-          metodo.generarRanking(entidades);
-        } catch (IOException e) {
+          ArrayList<ItemRanking> items = (ArrayList<ItemRanking>) metodo.generarRanking(entidades);
+          generadorDeInformes.generarInforme(items, metodo.nombre);
+        } catch (IOException | DocumentException e) {
           throw new RuntimeException(e);
         } catch (InterruptedException e) {
           throw new RuntimeException(e);

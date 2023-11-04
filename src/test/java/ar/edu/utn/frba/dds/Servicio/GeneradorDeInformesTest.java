@@ -24,7 +24,7 @@ public class GeneradorDeInformesTest {
   public void init() throws DocumentException, FileNotFoundException {
     //generadorDeInformes = new GeneradorDeInformes();
     generadorDeInformes = mock(GeneradorDeInformes.class);
-    doAnswer(invocationOnMock -> null).when(generadorDeInformes).generarInforme(any(ArrayList.class));
+    doAnswer(invocationOnMock -> null).when(generadorDeInformes).generarInforme(any(ArrayList.class), "");
 
     Entidad entidad1 = new Entidad("Entidad 1", null, null, null);
     Entidad entidad2 = new Entidad("Entidad 2", null, null, null);
@@ -44,7 +44,7 @@ public class GeneradorDeInformesTest {
 
   @Test
   public void generarUnPdf() throws DocumentException, FileNotFoundException {
-    generadorDeInformes.generarInforme(listaDeItems);
+    generadorDeInformes.generarInforme(listaDeItems, "");
 
     verify(generadorDeInformes, times(1));
   }

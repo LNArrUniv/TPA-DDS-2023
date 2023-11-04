@@ -20,11 +20,7 @@ public class RankingsController extends Controller implements ICrudViewsHandler 
     List<MetodosRanking> rankings = RepositorioRankings.getInstance().all();
 
     model.put("rankings", rankings);
-    /*
-    if (!RankingIncidentes.getInstance().getRunning()) {
-      RankingIncidentes.getInstance().generarRankings();
-    }
-    */
+
     context.render("rankings.hbs", model);
   }
 
