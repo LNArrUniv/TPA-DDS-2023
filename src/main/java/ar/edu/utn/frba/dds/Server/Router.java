@@ -51,7 +51,9 @@ public class Router {
             post("interes/agregar_servicio", ((PersonasController) FactoryController.controller("Personas"))::interesAgregarServicio);
             get("interes/agregar_entidad", ((PersonasController) FactoryController.controller("Personas"))::interesSeleccionarEntidad);
             post("interes/agregar_entidad", ((PersonasController) FactoryController.controller("Personas"))::interesAgregarEntidad);
+
             get("/csv",((CSVController) FactoryController.controller("Csv"))::index);
+            post("/csv",((CSVController) FactoryController.controller("Csv"))::save);
 
             /*Integracion del servicio 1 */
             get("/obtenerPosiblesFusiones", ((ComunidadesController) FactoryController.controller("Comunidades"))::obtenerPosiblesFusiones);

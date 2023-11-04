@@ -25,4 +25,16 @@ public class RepositorioOrganismoDeControl extends Repositorio<OrganismoDeContro
   public List getOrganismosDeControl(){
     return EntityManagerHelper.createQuery("from OrganismoDeControl").getResultList();
   }
+
+  public Boolean existeOrganismoConElNombre(String nombre){
+    List results = EntityManagerHelper.createQuery("from OrganismoDeControl where nombre = :nombre").setParameter("nombre", nombre).getResultList();
+
+    return !results.isEmpty();
+  }
+
+  public List getOrganismoConElNombre(String nombre){
+    List results = EntityManagerHelper.createQuery("from OrganismoDeControl where nombre = :nombre").setParameter("nombre", nombre).getResultList();
+
+    return results;
+  }
 }
