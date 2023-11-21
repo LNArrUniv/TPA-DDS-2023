@@ -29,7 +29,7 @@ public class ServiciosController extends Controller implements ICrudViewsHandler
     model.put("comunidad", context.pathParam("id"));
     model.put("establecimientos", establecimientos);
 
-    context.render("agregar_servicio.hbs", model);
+    context.render("servicios/agregar_servicio.hbs", model);
   }
 
   @Override
@@ -46,7 +46,7 @@ public class ServiciosController extends Controller implements ICrudViewsHandler
     model.put("incidentesAbiertos", incidentesAbiertos);
     model.put("incidentesResueltos", incidentesResueltos);
 
-    context.render("incidentes.hbs", model);
+    context.render("incidentes/incidentes.hbs", model);
   }
 
   @Override

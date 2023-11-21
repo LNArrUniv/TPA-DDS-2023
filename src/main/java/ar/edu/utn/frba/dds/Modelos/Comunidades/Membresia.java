@@ -49,12 +49,8 @@ public class Membresia extends EntidadPersistente {
     }
   }
 
-  public void cambiarCargo(){
-    if (cargoDentroDeComunidad.equals(CargoComunidad.MIEMBRO)){
-      this.cargoDentroDeComunidad = CargoComunidad.ADMINISTRADOR;
-    } else {
-      this.cargoDentroDeComunidad = CargoComunidad.MIEMBRO;
-    }
+  public void cambiarCargo(CargoComunidad cargo){
+    this.cargoDentroDeComunidad = cargo;
   }
 
 }

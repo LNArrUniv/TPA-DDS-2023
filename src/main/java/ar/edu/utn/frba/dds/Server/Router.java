@@ -37,6 +37,10 @@ public class Router {
             post("comunidades/crear", ((ComunidadesController) FactoryController.controller("Comunidades"))::save);
             get("comunidades/unirse", ((ComunidadesController) FactoryController.controller("Comunidades"))::unirse);
             post("comunidades/unirse", ((ComunidadesController) FactoryController.controller("Comunidades"))::update);
+            get("comunidades/{id}/editar", ((ComunidadesController) FactoryController.controller("Comunidades"))::edit); // asjkdalsdjaslkdjl
+            post("comunidades/{id}/editar/eliminar_miembro", ((ComunidadesController) FactoryController.controller("Comunidades"))::eliminarMiembro);
+            post("comunidades/{id}/editar/editar_cargo_miembro", ((ComunidadesController) FactoryController.controller("Comunidades"))::editarCargoMiembro);
+            post("comunidades/{id}/editar", ((ComunidadesController) FactoryController.controller("Comunidades"))::editarComunidad);
             get("comunidades/{id}/servicios", ((ComunidadesController) FactoryController.controller("Comunidades"))::show);
             get("comunidades/{id}/servicios/agregar", ((ServiciosController) FactoryController.controller("Servicios"))::index);
             post("comunidades/{id}/servicios/agregar", ((ComunidadesController) FactoryController.controller("Comunidades"))::agregarServicio);

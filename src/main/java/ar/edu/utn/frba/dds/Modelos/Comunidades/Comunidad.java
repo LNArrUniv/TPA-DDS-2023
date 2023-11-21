@@ -13,6 +13,7 @@ import ar.edu.utn.frba.dds.Persistencia.EntidadPersistente;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioPersonas;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -30,6 +31,7 @@ import java.util.stream.Collectors;
 public class Comunidad extends EntidadPersistente {
   @Column
   @Getter
+  @Setter
   private String nombreComunidad;
   @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinColumn (name = "servicio_por_comunidad")

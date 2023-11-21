@@ -33,4 +33,10 @@ public class RepositorioMembresias extends Repositorio<Membresia> {
 
     return (Membresia) resultados.get(0);
   }
+
+  public List membresiasDeComunidad(Comunidad comunidad){
+    List resultados = EntityManagerHelper.createQuery("from Membresia where comunidad_id = :comunidad").setParameter("comunidad", comunidad.getId()).getResultList();
+
+    return resultados;
+  }
 }

@@ -104,8 +104,6 @@ public class Persona extends EntidadPersistente {
   public void darseBajaComunidad(Membresia membresia) {
     this.membresiasAComunidades.remove(membresia);
     membresia.getComunidad().eliminarMiembro(membresia);
-
-    //TODO: DELETE membresia?
   }
 
   public Boolean esAdmin(Comunidad comunidad){

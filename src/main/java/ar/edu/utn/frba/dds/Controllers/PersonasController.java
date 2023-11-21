@@ -83,7 +83,7 @@ public class PersonasController extends Controller implements ICrudViewsHandler 
       model.put("contraseniaInvalida", !contraseniaValida);
       model.put("usernameInvalido", !usernameValido);
 
-      context.render("registro.hbs", model);
+      context.render("personas/registro.hbs", model);
     }
   }
 
@@ -110,7 +110,7 @@ public class PersonasController extends Controller implements ICrudViewsHandler 
     model.put("serviciosInteres", user.getServiciosDeInteres());
     model.put("entidadesInteres", user.getEntidadesDeInteres());
 
-    context.render("interes.hbs", model);
+    context.render("personas/intereses/interes.hbs", model);
   }
 
   public void interesSeleccionarServicio(Context context) {
@@ -122,7 +122,7 @@ public class PersonasController extends Controller implements ICrudViewsHandler 
 
     model.put("servicios", serviciosQueLaPersonaNoTiene);
 
-    context.render("agregar_svc_interes.hbs", model);
+    context.render("personas/intereses/agregar_svc_interes.hbs", model);
   }
 
   public void interesAgregarServicio(Context context) {
@@ -145,7 +145,7 @@ public class PersonasController extends Controller implements ICrudViewsHandler 
 
     model.put("entidades", entidadesQueLaPersonaNoTiene);
 
-    context.render("agregar_entidad_interes.hbs", model);
+    context.render("personas/intereses/agregar_entidad_interes.hbs", model);
   }
 
   public void interesAgregarEntidad(Context context) {

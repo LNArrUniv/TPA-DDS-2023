@@ -22,6 +22,7 @@ public class GeneradorDeInformes {
 
     document.open();
     document.newPage();
+    document.addTitle(title);
     PdfPTable table = new PdfPTable(2);
     addTableHeader(table);
 

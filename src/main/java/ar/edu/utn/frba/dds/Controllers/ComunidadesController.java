@@ -1,5 +1,6 @@
 package ar.edu.utn.frba.dds.Controllers;
 
+import ar.edu.utn.frba.dds.Modelos.Comunidades.CargoComunidad;
 import ar.edu.utn.frba.dds.Modelos.Comunidades.Comunidad;
 import ar.edu.utn.frba.dds.Modelos.DTOServicio1.ComunidadDTO;
 import ar.edu.utn.frba.dds.Modelos.Comunidades.Membresia;
@@ -69,7 +70,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
     Boolean esAdmin = user.esAdmin(comunidad);
     model.put("admin", esAdmin);
 
-    context.render("servicios.hbs", model);
+    context.render("servicios/servicios.hbs", model);
   }
 
   @Override
@@ -92,7 +93,47 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
 
   @Override
   public void edit(Context context) {
+    RepositorioMembresias.getInstance().clean();
+    Map<String, Object> model = new HashMap<>();
+    Comunidad comunidad = RepositorioComunidades.getInstance().get(Long.parseLong(context.pathParam("id")));
+    List membresias = RepositorioMembresias.getInstance().membresiasDeComunidad(comunidad);
 
+
+    model.put("comunidad", comunidad);
+    model.put("membresias", membresias);
+    model.put("cargos", CargoComunidad.values());
+
+    context.render("/comunidades/editar_comunidad.hbs", model);
+  }
+
+  public void eliminarMiembro(Context context){
+    Membresia membresia = RepositorioMembresias.getInstance().membresiaDePersonaEnComunidad(Long.parseLong(context.formParam("idMiembro")), Long.parseLong(context.pathParam("id")));
+
+    membresia.getMiembro().darseBajaComunidad(membresia);
+    RepositorioPersonas.getInstance().update(membresia.getMiembro());
+    RepositorioMembresias.getInstance().delete(membresia);
+
+    context.status(HttpStatus.OK);
+    context.redirect("/comunidades/".concat(context.pathParam("id")).concat("/editar"));
+  }
+
+  public void editarCargoMiembro(Context context){
+    Membresia membresia = RepositorioMembresias.getInstance().membresiaDePersonaEnComunidad(Long.parseLong(context.formParam("idMiembro")), Long.parseLong(context.pathParam("id")));
+
+    membresia.cambiarCargo(CargoComunidad.valueOf(context.formParam("cargoM")));
+    RepositorioMembresias.getInstance().update(membresia);
+
+    context.status(HttpStatus.OK);
+    context.redirect("/comunidades/".concat(context.pathParam("id")).concat("/editar"));
+  }
+
+  public void editarComunidad(Context context){
+    Comunidad comunidad = RepositorioComunidades.getInstance().get(Long.parseLong(context.pathParam("id")));
+    comunidad.setNombreComunidad(context.formParam("nombre"));
+
+    RepositorioComunidades.getInstance().update(comunidad);
+
+    context.redirect("/comunidades/".concat(context.pathParam("id")).concat("/servicios"));
   }
 
   public void obtenerComunidades(Context context) {
