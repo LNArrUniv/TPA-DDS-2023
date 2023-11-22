@@ -177,8 +177,8 @@ public class PersonasController extends Controller implements ICrudViewsHandler 
 
       persona.setNombre(context.formParam("nombre"));
       persona.setApellido(context.formParam("apellido"));
-      Usuario usuario = new Usuario(context.formParam("username"), context.formParam("password"), Rol.NORMAL);
-      persona.setUsuario(usuario);
+      persona.getUsuario().setUsername(context.formParam("username"));
+      persona.getUsuario().setContrasenia(context.formParam("password"));
       persona.setConfiguracionNotificaciones(config);
 
       try {
@@ -194,6 +194,7 @@ public class PersonasController extends Controller implements ICrudViewsHandler 
     } else {
       Map<String, Object> model = new HashMap<>();
 
+      model.put("user", RepositorioPersonas.getInstance().get(context.sessionAttribute("id")));
       model.put("contraseniaInvalida", !contraseniaValida);
       model.put("usernameInvalido", !usernameValido);
       model.put("ubicacionInvalida", !ubicacionValida);

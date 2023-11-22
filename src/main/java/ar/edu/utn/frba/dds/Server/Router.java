@@ -75,6 +75,9 @@ public class Router {
 
             get("editar_perfil",((PersonasController) FactoryController.controller("Personas"))::edit, Rol.NORMAL);
             post("editar_perfil",((PersonasController) FactoryController.controller("Personas"))::update, Rol.NORMAL);
+
+            get("editar_perfil_designada",((PersonasDesignadasController) FactoryController.controller("PersonasDesignadas"))::edit, Rol.PERSONA_DESIGNADA);
+            post("editar_perfil_designada",((PersonasDesignadasController) FactoryController.controller("PersonasDesignadas"))::update, Rol.PERSONA_DESIGNADA);
         });
     }
 }

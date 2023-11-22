@@ -2,6 +2,7 @@ package ar.edu.utn.frba.dds.Modelos.Usuarios;
 
 import ar.edu.utn.frba.dds.Persistencia.EntidadPersistente;
 import lombok.Getter;
+import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
@@ -16,9 +17,11 @@ import javax.persistence.InheritanceType;
 @Embeddable
 public class Usuario {
   @Getter
+  @Setter
   @Column
   private String username;
   @Getter
+  @Setter
   @Column
   private String contrasenia;
   @Getter
