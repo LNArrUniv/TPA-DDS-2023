@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.Modelos.Notificaciones;
 
 import ar.edu.utn.frba.dds.Persistencia.converters.MedioDeContactoPreferidoAttributeConverter;
+import lombok.Getter;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.DiscriminatorValue;
@@ -9,6 +10,7 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue(value = "Cuando suceden")
 public class CuandoSuceden extends ConfiguracionNotificaciones{
+  @Getter
   @Convert(converter = MedioDeContactoPreferidoAttributeConverter.class)
   @Column(name = "contacto")
   private MedioDeNotificacionesPreferido medio;

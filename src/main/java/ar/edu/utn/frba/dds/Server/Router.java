@@ -72,6 +72,9 @@ public class Router {
 
             get("notificaciones",((NotificacionesController) FactoryController.controller("Notificaciones"))::index, Rol.NORMAL);
             post("notificaciones",((NotificacionesController) FactoryController.controller("Notificaciones"))::delete, Rol.NORMAL);
+
+            get("editar_perfil",((PersonasController) FactoryController.controller("Personas"))::edit, Rol.NORMAL);
+            post("editar_perfil",((PersonasController) FactoryController.controller("Personas"))::update, Rol.NORMAL);
         });
     }
 }

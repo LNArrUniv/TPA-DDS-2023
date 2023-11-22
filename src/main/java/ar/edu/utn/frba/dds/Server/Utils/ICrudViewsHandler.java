@@ -9,7 +9,7 @@ public interface ICrudViewsHandler {
     void show(Context context);
     void create(Context context);
     void save(Context context) throws IOException, CsvValidationException;
-    void edit(Context context);
-    void update(Context context);
+    void edit(Context context) throws IOException;
+    void update(Context context) throws IOException;
     void delete(Context context);
 }

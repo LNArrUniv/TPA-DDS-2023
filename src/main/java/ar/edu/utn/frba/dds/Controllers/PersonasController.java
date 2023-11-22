@@ -8,21 +8,29 @@ import ar.edu.utn.frba.dds.Modelos.Notificaciones.MedioNotificacionesEmail;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.MedioNotificacionesWhatsapp;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.SinApuros;
 import ar.edu.utn.frba.dds.Modelos.Servicio;
+import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Localidad;
+import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Provincia;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.Persona;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.Rol;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.Usuario;
+import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioConfiguracionNotificaciones;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioEntidades;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioPersonas;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioServicios;
 import ar.edu.utn.frba.dds.Seguridad.Filtros.ControlPasswordDebil;
 import ar.edu.utn.frba.dds.Seguridad.ValidadorPassword;
 import ar.edu.utn.frba.dds.Server.Utils.ICrudViewsHandler;
+import ar.edu.utn.frba.dds.Servicio.GeoRefAPIService;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
+import java.io.IOException;
 import java.time.LocalTime;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class PersonasController extends Controller implements ICrudViewsHandler {
   @Override
@@ -89,13 +97,109 @@ public class PersonasController extends Controller implements ICrudViewsHandler 
   }
 
   @Override
-  public void edit(Context context) {
+  public void edit(Context context) throws IOException {
+    Map<String, Object> model = new HashMap<>();
+    Persona persona = RepositorioPersonas.getInstance().get(context.sessionAttribute("id"));
 
+    List<Provincia> provincias = GeoRefAPIService.getInstancia().listadoDeProvincias().provincias;
+    provincias.sort(Comparator.comparing(Provincia::getNombre));
+
+    String tipo = persona.getConfiguracionNotificaciones().getDiscriminatorValue();
+
+    String email = "";
+    String celular = "";
+    if(Objects.equals(tipo, "Sin apuros")){
+      SinApuros config = (SinApuros) persona.getConfiguracionNotificaciones();
+
+      email = config.getMedio().getEmail();
+      celular = config.getMedio().getTelefono();
+
+      model.put("horarios", config.getHorariosDeNotificacion());
+    } else if (Objects.equals(tipo, "Cuando suceden")){
+      CuandoSuceden config = (CuandoSuceden) persona.getConfiguracionNotificaciones();
+      email = config.getMedio().getEmail();
+      celular = config.getMedio().getTelefono();
+    }
+
+    model.put("user", persona);
+    model.put("provincias", provincias);
+    model.put("email", email);
+    model.put("celular", celular);
+
+    context.render("personas/editar_perfil.hbs", model);
   }
 
   @Override
-  public void update(Context context) {
+  public void update(Context context){
+    ValidadorPassword validador = new ValidadorPassword();
+    validador.addFiltro(new ControlPasswordDebil());
 
+    Boolean contraseniaValida = validador.validarPassword(context.formParam("password"));
+
+    List<String> usernames = RepositorioPersonas.getInstance().todosLosUsuarios().stream().filter(s -> !Objects.equals(s, context.formParam("username"))).toList();
+    Boolean usernameValido = !usernames.contains(context.formParam("username"));
+
+    Boolean ubicacionValida = true;
+    Provincia prov = null;
+    Localidad localidad = null;
+    try {
+      prov = GeoRefAPIService.getInstancia().listadoDeProvincias().provincias.stream().filter(provincia -> provincia.id == Long.parseLong(context.formParam("selectProvincia"))).findFirst().get();
+      try {
+        localidad = GeoRefAPIService.getInstancia().localidadPorNombreYProv(context.formParam("localidad"), prov.getId()).localidades.get(0);
+      } catch (IndexOutOfBoundsException e) {
+        ubicacionValida = false;
+      }
+    } catch (IOException e) {
+      ubicacionValida = false;
+    }
+
+    if (contraseniaValida && usernameValido) {
+      MedioDeNotificacionesPreferido medio = null;
+      if (context.formParam("selectMedio").equals("1")) {
+        medio = new MedioNotificacionesWhatsapp(context.formParam("celular"));
+      } else if (context.formParam("selectMedio").equals("2")) {
+        medio = new MedioNotificacionesEmail(context.formParam("email"));
+      }
+
+      ConfiguracionNotificaciones config;
+      if (context.formParam("selectConfig").equals("2")) {
+        config = new SinApuros(medio);
+        for (int i = 1; i <= 4; i++) {
+          if (!context.formParam("horario".concat(String.valueOf(i))).isBlank()) {
+            ((SinApuros) config).agregarHorario(LocalTime.parse(context.formParam("horario".concat(String.valueOf(i)))));
+          }
+        }
+      } else {
+        config = new CuandoSuceden(medio);
+      }
+
+      Persona persona = RepositorioPersonas.getInstance().get(context.sessionAttribute("id"));
+
+      persona.setNombre(context.formParam("nombre"));
+      persona.setApellido(context.formParam("apellido"));
+      Usuario usuario = new Usuario(context.formParam("username"), context.formParam("password"), Rol.NORMAL);
+      persona.setUsuario(usuario);
+      persona.setConfiguracionNotificaciones(config);
+
+      try {
+        persona.setUbicacion(localidad);
+      } catch (Exception e) {
+        throw new RuntimeException(e);
+      }
+
+      RepositorioPersonas.getInstance().update(persona);
+
+      context.status(HttpStatus.OK);
+      context.redirect("/comunidades");
+    } else {
+      Map<String, Object> model = new HashMap<>();
+
+      model.put("contraseniaInvalida", !contraseniaValida);
+      model.put("usernameInvalido", !usernameValido);
+      model.put("ubicacionInvalida", !ubicacionValida);
+
+      context.render("personas/editar_perfil.hbs", model);
+    }
   }
 
   @Override

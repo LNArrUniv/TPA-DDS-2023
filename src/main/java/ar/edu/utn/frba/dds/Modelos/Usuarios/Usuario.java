@@ -18,6 +18,7 @@ public class Usuario {
   @Getter
   @Column
   private String username;
+  @Getter
   @Column
   private String contrasenia;
   @Getter

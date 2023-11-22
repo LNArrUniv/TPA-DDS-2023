@@ -34,12 +34,15 @@ import java.util.List;
 @Table(name = "persona")
 public class Persona extends EntidadPersistente {
   @Getter
+  @Setter
   @Column
   private String nombre;
   @Getter
+  @Setter
   @Column
   private String apellido;
   @Getter
+  @Setter
   @Embedded
   private Usuario usuario;
   @Getter

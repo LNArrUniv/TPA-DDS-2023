@@ -19,6 +19,7 @@ import java.util.TreeSet;
 @Entity
 @DiscriminatorValue(value = "Sin apuros")
 public class SinApuros extends ConfiguracionNotificaciones{
+  @Getter
   @Convert(converter = MedioDeContactoPreferidoAttributeConverter.class)
   @Column(name = "contacto")
   private MedioDeNotificacionesPreferido medio;
