@@ -33,7 +33,7 @@ public class SenderService {
   }
 
   public static SenderService getInstance(){
-    if (instance.equals(null)){
+    if (instance == null){
       instance = new SenderService();
     }
     return instance;

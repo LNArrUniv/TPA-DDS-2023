@@ -1,36 +1,34 @@
-package ar.edu.utn.frba.dds.Modelos;
+package ar.edu.utn.frba.dds.Modelos.Usuarios;
 
 import ar.edu.utn.frba.dds.Persistencia.EntidadPersistente;
 import lombok.Getter;
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
-@Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Usuario {
-  @Id
-  @GeneratedValue(strategy = GenerationType.TABLE)
-  private long id;
-  @Column
-  private String nombre;
-  @Column
-  private String apellido;
+@Embeddable
+public class Usuario {
   @Getter
   @Column
   private String username;
   @Column
   private String contrasenia;
+  @Getter
+  @Enumerated(EnumType.STRING)
+  @Column(name = "tipo")
+  private Rol rol;
 
-  protected Usuario(String nombre, String apellido, String username, String contrasenia) {
-    this.nombre = nombre;
-    this.apellido = apellido;
+  public Usuario(String username, String contrasenia, Rol rol) {
     this.username = username;
     this.contrasenia = contrasenia;
+    this.rol = rol;
   }
 
   public Usuario() {

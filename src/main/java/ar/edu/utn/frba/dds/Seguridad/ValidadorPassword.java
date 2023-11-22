@@ -6,6 +6,10 @@ import java.util.List;
 
 public class ValidadorPassword {
 
+  public ValidadorPassword() {
+    this.filtros = filtros;
+  }
+
   private List<FiltroInterface> filtros = new ArrayList<>();
 
   public Boolean validarPassword(String password) {

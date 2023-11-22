@@ -1,7 +1,6 @@
 package ar.edu.utn.frba.dds.Persistencia.repositorios;
 
-import ar.edu.utn.frba.dds.Modelos.Comunidad;
-import ar.edu.utn.frba.dds.Modelos.Persona;
+import ar.edu.utn.frba.dds.Modelos.Comunidades.Comunidad;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.daos.DAO;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.daos.DAOHibernate;
 

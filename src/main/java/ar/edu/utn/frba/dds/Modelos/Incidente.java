@@ -1,6 +1,8 @@
 package ar.edu.utn.frba.dds.Modelos;
 
+import ar.edu.utn.frba.dds.Modelos.Comunidades.Comunidad;
 import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Localidad;
+import ar.edu.utn.frba.dds.Modelos.Usuarios.Persona;
 import ar.edu.utn.frba.dds.Persistencia.EntidadPersistente;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,13 +16,19 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 @Entity
 @Table(name = "incidente")
-public class Incidente  extends EntidadPersistente {
+public class Incidente extends EntidadPersistente {
   @Getter
   @Column
-  @Type(type="text")
+  private String nombre;
+  @Getter
+  @Column
+  @Type(type = "text")
   private String descripcion;
+  @Getter
   @Setter // Para los tests
   @Column
   private LocalDateTime fechaHoraApertura;
@@ -31,6 +39,7 @@ public class Incidente  extends EntidadPersistente {
   @Getter
   @Column
   private Boolean estaResuelto;
+  @Getter
   @Column
   private LocalDateTime fechaHoraCierre;
   @Getter
@@ -44,10 +53,11 @@ public class Incidente  extends EntidadPersistente {
   @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
   private Entidad entidad;
   @Embedded
-  @AttributeOverride(name="nombre", column=@Column(name="localidad"))
+  @AttributeOverride(name = "nombre", column = @Column(name = "localidad"))
   private Localidad localidad;
 
-  public Incidente(String descripcion, Persona informante, Servicio servicio, Comunidad comunidad) {
+  public Incidente(String nombre, String descripcion, Persona informante, Servicio servicio, Comunidad comunidad) {
+    this.nombre = nombre;
     this.descripcion = descripcion;
     this.fechaHoraApertura = LocalDateTime.now();
     this.informante = informante;
@@ -67,11 +77,15 @@ public class Incidente  extends EntidadPersistente {
     this.estaResuelto = true;
   }
 
-  public LocalDateTime getFechaHoraApertura() {
-    return fechaHoraApertura;
+  public String fechaAperturaString() {
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm, dd-MM-yyy");
+
+    return fechaHoraApertura.format(dateTimeFormatter);
   }
 
-  public LocalDateTime getFechaHoraCierre() {
-    return fechaHoraCierre;
+  public String fechaCierreString() {
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm, dd-MM-yyy");
+
+    return fechaHoraCierre.format(dateTimeFormatter);
   }
 }

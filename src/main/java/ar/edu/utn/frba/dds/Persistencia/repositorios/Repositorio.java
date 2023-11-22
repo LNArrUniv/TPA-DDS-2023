@@ -19,7 +19,7 @@ public class Repositorio<T> {
         return this.dao.all();
     }
 
-    public T get(int id){
+    public T get(long id){
         return this.dao.get(id);
     }
 

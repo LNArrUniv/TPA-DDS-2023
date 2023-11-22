@@ -9,10 +9,10 @@ public class ListadoDeResultados extends PageInterface {
   @Getter
   public List<EntidadValor> entidadValor;
 
-  public Optional<EntidadValor> valorDeEntidad(long id){
+  public EntidadValor valorDeEntidad(long id){
     return this.entidadValor.stream()
-        .filter(l -> l.entidad_id == id)
-        .findFirst();
+        .filter(l -> l.getEntidad_id() == id)
+        .findFirst().get();
   }
 
   public ListadoDeResultados(List<EntidadValor> entidadValor) {

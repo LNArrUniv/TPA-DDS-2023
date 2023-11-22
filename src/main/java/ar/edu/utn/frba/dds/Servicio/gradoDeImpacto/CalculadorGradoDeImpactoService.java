@@ -10,7 +10,7 @@ import java.util.List;
 
 public class CalculadorGradoDeImpactoService {
   private static CalculadorGradoDeImpactoService instancia = null;
-  private  static  final String URLAPI = "http://localhost:8080";
+  private  static  final String URLAPI = "http://localhost:52911";
   private Retrofit retrofit;
 
   private CalculadorGradoDeImpactoService(){
@@ -45,16 +45,7 @@ public class CalculadorGradoDeImpactoService {
     CalculadorGradoDeImpactoAPIService calculadorGradoDeImpacto = this.retrofit.create(CalculadorGradoDeImpactoAPIService.class);
     Call<List<EntidadValor>> requestResultados = calculadorGradoDeImpacto.obtenerResultados();
     Response<List<EntidadValor>> responseResultados = requestResultados.execute();
-    return new ListadoDeResultados(responseResultados.body());
+    ListadoDeResultados listado = new ListadoDeResultados(responseResultados.body());
+    return listado;
   }
-
-
-    /*
-    public ListadoDeProvincias listadoDeProvincias() throws IOException {
-      GeoRefService geoRefService = this.retrofit.create(GeoRefService.class);
-      Call<ListadoDeProvincias> requestProvinciasArgentinas =  geoRefService.provincias();
-      Response<ListadoDeProvincias> responseProvinciasArgentinas = requestProvinciasArgentinas.execute();
-      return responseProvinciasArgentinas.body();
-    }
-     */
 }

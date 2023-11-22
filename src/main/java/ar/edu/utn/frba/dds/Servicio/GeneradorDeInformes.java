@@ -16,12 +16,13 @@ import java.util.stream.Stream;
 
 public class GeneradorDeInformes {
 
-  public void generarInforme(ArrayList<ItemRanking> items) throws FileNotFoundException, DocumentException {
+  public void generarInforme(ArrayList<ItemRanking> items, String title) throws FileNotFoundException, DocumentException {
     Document document = new Document();
-    PdfWriter.getInstance(document, new FileOutputStream("InformeRankings.pdf"));
+    PdfWriter.getInstance(document, new FileOutputStream("src/main/resources/public/files/"+ title +".pdf"));
 
     document.open();
     document.newPage();
+    document.addTitle(title);
     PdfPTable table = new PdfPTable(2);
     addTableHeader(table);
 

@@ -2,6 +2,7 @@ package ar.edu.utn.frba.dds.Modelos;
 
 import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Localidad;
 import ar.edu.utn.frba.dds.Persistencia.EntidadPersistente;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
@@ -21,21 +22,18 @@ public class Servicio extends EntidadPersistente {
   private String nombre;
   @Column
   @Type(type = "text")
-  private String descripcion;
-  /*
   @Getter
-  private Localidad ubicacion;
-   */
+  private String descripcion;
+  @JsonIgnore
   @Setter
   @Getter
   @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinColumn(name = "establecimiento_id", referencedColumnName = "id")
   private Establecimiento establecimiento;
 
-  public Servicio(String nombre, String descripcion, Establecimiento establecimiento) { //(String nombre, String descripcion, Localidad ubicacion, Establecimiento establecimiento)
+  public Servicio(String nombre, String descripcion, Establecimiento establecimiento) {
     this.nombre = nombre;
     this.descripcion = descripcion;
-    //this.ubicacion = ubicacion;
     this.establecimiento = establecimiento;
   }
 
