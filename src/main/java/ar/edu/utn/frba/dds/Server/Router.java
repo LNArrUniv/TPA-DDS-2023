@@ -44,6 +44,7 @@ public class Router {
             post("comunidades/{id}/editar/eliminar_miembro", ((ComunidadesController) FactoryController.controller("Comunidades"))::eliminarMiembro, Rol.NORMAL);
             post("comunidades/{id}/editar/editar_cargo_miembro", ((ComunidadesController) FactoryController.controller("Comunidades"))::editarCargoMiembro, Rol.NORMAL);
             post("comunidades/{id}/editar", ((ComunidadesController) FactoryController.controller("Comunidades"))::editarComunidad, Rol.NORMAL);
+            get("comunidades/{id}/cambiar_rol", ((ComunidadesController) FactoryController.controller("Comunidades"))::editarRolMiembro, Rol.NORMAL);
             get("comunidades/{id}/servicios", ((ComunidadesController) FactoryController.controller("Comunidades"))::show, Rol.NORMAL);
             get("comunidades/{id}/servicios/agregar", ((ServiciosController) FactoryController.controller("Servicios"))::index, Rol.NORMAL);
             post("comunidades/{id}/servicios/agregar", ((ComunidadesController) FactoryController.controller("Comunidades"))::agregarServicio, Rol.NORMAL);

@@ -70,6 +70,9 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
     Boolean esAdmin = user.esAdmin(comunidad);
     model.put("admin", esAdmin);
 
+    Membresia membresia = RepositorioMembresias.getInstance().membresiaDePersonaEnComunidad(context.sessionAttribute("id"), comunidad.getId());
+    model.put("membresia", membresia);
+
     context.render("servicios/servicios.hbs", model);
   }
 
@@ -132,6 +135,16 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
     comunidad.setNombreComunidad(context.formParam("nombre"));
 
     RepositorioComunidades.getInstance().update(comunidad);
+
+    context.redirect("/comunidades/".concat(context.pathParam("id")).concat("/servicios"));
+  }
+
+  public void editarRolMiembro(Context context){
+    RepositorioMembresias.getInstance().clean();
+    Membresia membresia = RepositorioMembresias.getInstance().membresiaDePersonaEnComunidad(context.sessionAttribute("id"), Long.parseLong(context.pathParam("id")));
+    membresia.cambiarRol();
+
+    RepositorioMembresias.getInstance().update(membresia);
 
     context.redirect("/comunidades/".concat(context.pathParam("id")).concat("/servicios"));
   }
