@@ -2,6 +2,7 @@ package ar.edu.utn.frba.dds.Modelos.Usuarios;
 
 import ar.edu.utn.frba.dds.Modelos.Usuarios.Usuario;
 import ar.edu.utn.frba.dds.Persistencia.EntidadPersistente;
+import lombok.Getter;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -14,6 +15,7 @@ public class PersonaDesignada extends EntidadPersistente {
   private String nombre;
   @Column
   private String apellido;
+  @Getter
   @Embedded
   private Usuario usuario;
   public PersonaDesignada(String nombre, String apellido, Usuario usuario) {

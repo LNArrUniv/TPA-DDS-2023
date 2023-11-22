@@ -12,6 +12,7 @@ import ar.edu.utn.frba.dds.Modelos.Usuarios.Persona;
 import ar.edu.utn.frba.dds.Modelos.Comunidades.RolComunidad;
 import ar.edu.utn.frba.dds.Modelos.Servicio;
 import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Localidad;
+import ar.edu.utn.frba.dds.Modelos.Usuarios.Rol;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.Usuario;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -53,8 +54,8 @@ public class NotificacionNuevoIncidenteYResuelto {
       return null;
     }).when(medioDeContactoJose).notificar(any(Notificacion.class));
 
-    Usuario usuarioPepe = new Usuario("pepegonz", "askfakof");
-    Usuario usuarioJuan = new Usuario("josegonz", "askfakof");
+    Usuario usuarioPepe = new Usuario("pepegonz", "askfakof", Rol.NORMAL);
+    Usuario usuarioJuan = new Usuario("josegonz", "askfakof", Rol.NORMAL);
     pepe = new Persona("pepe", "gonzalez", usuarioPepe, configPepe);
     jose = new Persona("jose", "gonzalez", usuarioJuan, configJose);
 

@@ -22,8 +22,12 @@ public class ServiciosController extends Controller implements ICrudViewsHandler
 
   @Override
   public void index(Context context) {
-    List servicios = RepositorioServicios.getInstance().all();
+    RepositorioServicios.getInstance().clean();
+    List todos = RepositorioServicios.getInstance().all();
+    Comunidad comunidad = RepositorioComunidades.getInstance().get(Long.parseLong(context.pathParam("id")));
+    List servicios = todos.stream().filter(s -> !comunidad.getServiciosDeInteres().contains(s)).toList();
     List establecimientos = RepositorioEstablecimiento.getInstance().all();
+
     Map<String, Object> model = new HashMap<>();
     model.put("servicios", servicios);
     model.put("comunidad", context.pathParam("id"));

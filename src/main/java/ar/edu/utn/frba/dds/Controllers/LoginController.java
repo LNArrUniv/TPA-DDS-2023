@@ -9,6 +9,8 @@ import java.util.Map;
 public class LoginController extends Controller {
 
   public void get(Context context) {
+    context.sessionAttribute("id", null);
+    context.sessionAttribute("tipo_rol", null);
     context.render("login.hbs");
   }
 
@@ -16,10 +18,14 @@ public class LoginController extends Controller {
     Map<String, Object> model = new HashMap<>();
     model.put("failed", true);
     if (RepositorioPersonas.getInstance().usuarioYContraseniaCorrectas(context.formParam("username"), context.formParam("password"))) {
-      context.sessionAttribute("id", RepositorioPersonas.getInstance().getId(context.formParam("username"), context.formParam("password")));
+      long idUser = RepositorioPersonas.getInstance().getId(context.formParam("username"), context.formParam("password"));
+      context.sessionAttribute("id", idUser);
+      context.sessionAttribute("tipo_rol", RepositorioPersonas.getInstance().get(idUser).getUsuario().getRol().name());
       context.redirect("/comunidades");
     } else if (RepositorioPersonasDesignadas.getInstance().usuarioYContraseniaCorrectas(context.formParam("username"), context.formParam("password"))) {
-      context.sessionAttribute("id", RepositorioPersonasDesignadas.getInstance().getId(context.formParam("username"), context.formParam("password")));
+      long idUser = RepositorioPersonasDesignadas.getInstance().getId(context.formParam("username"), context.formParam("password"));
+      context.sessionAttribute("id", idUser);
+      context.sessionAttribute("tipo_rol", RepositorioPersonasDesignadas.getInstance().get(idUser).getUsuario().getRol().name());
       context.redirect("/rankings");
     }
     else {

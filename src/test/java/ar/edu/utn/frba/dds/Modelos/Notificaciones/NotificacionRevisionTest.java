@@ -11,6 +11,7 @@ import ar.edu.utn.frba.dds.Modelos.Entidad;
 import ar.edu.utn.frba.dds.Modelos.Establecimiento;
 import ar.edu.utn.frba.dds.Modelos.Incidente;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.Persona;
+import ar.edu.utn.frba.dds.Modelos.Usuarios.Rol;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.Usuario;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioIncidentes;
 import ar.edu.utn.frba.dds.Modelos.Servicio;
@@ -51,7 +52,7 @@ public class NotificacionRevisionTest implements WithSimplePersistenceUnit{
 
     emailDeContacto = mock(String.valueOf(MedioNotificacionesEmail.class));
 
-    Usuario usuarioCarlos = new Usuario("CarlosR", "19r10jasd");
+    Usuario usuarioCarlos = new Usuario("CarlosR", "19r10jasd", Rol.NORMAL);
     carlos = new Persona("Carlos", "Rodriguez", usuarioCarlos, new CuandoSuceden(emailDeContacto));
 
     doAnswer(invocationOnMock -> {

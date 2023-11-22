@@ -39,6 +39,7 @@ public class Persona extends EntidadPersistente {
   @Getter
   @Column
   private String apellido;
+  @Getter
   @Embedded
   private Usuario usuario;
   @Getter

@@ -9,6 +9,7 @@ import ar.edu.utn.frba.dds.Modelos.Notificaciones.MedioNotificacionesWhatsapp;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.SinApuros;
 import ar.edu.utn.frba.dds.Modelos.Servicio;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.Persona;
+import ar.edu.utn.frba.dds.Modelos.Usuarios.Rol;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.Usuario;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioEntidades;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioPersonas;
@@ -36,7 +37,7 @@ public class PersonasController extends Controller implements ICrudViewsHandler 
 
   @Override
   public void create(Context context) {
-    context.render("registro.hbs");
+    context.render("personas/registro.hbs");
   }
 
   @Override
@@ -70,7 +71,7 @@ public class PersonasController extends Controller implements ICrudViewsHandler 
         config = new CuandoSuceden(medio);
       }
 
-      Usuario usuario = new Usuario(context.formParam("username"), context.formParam("password"));
+      Usuario usuario = new Usuario(context.formParam("username"), context.formParam("password"), Rol.NORMAL);
 
       Persona nuevo_user = new Persona(context.formParam("nombre"), context.formParam("apellido"), usuario, config);
       RepositorioPersonas.getInstance().add(nuevo_user);
@@ -116,6 +117,7 @@ public class PersonasController extends Controller implements ICrudViewsHandler 
   public void interesSeleccionarServicio(Context context) {
     Map<String, Object> model = new HashMap<>();
 
+    RepositorioServicios.getInstance().clean();
     List servicios = RepositorioServicios.getInstance().all();
     Persona user = RepositorioPersonas.getInstance().get(context.sessionAttribute("id"));
     List serviciosQueLaPersonaNoTiene = servicios.stream().filter( s -> !user.getServiciosDeInteres().contains(s)).toList();
@@ -139,6 +141,7 @@ public class PersonasController extends Controller implements ICrudViewsHandler 
   public void interesSeleccionarEntidad(Context context) {
     Map<String, Object> model = new HashMap<>();
 
+    RepositorioEntidades.getInstance().clean();
     List entidades = RepositorioEntidades.getInstance().all();
     Persona user = RepositorioPersonas.getInstance().get(context.sessionAttribute("id"));
     List entidadesQueLaPersonaNoTiene = entidades.stream().filter( e -> !user.getEntidadesDeInteres().contains(e)).toList();

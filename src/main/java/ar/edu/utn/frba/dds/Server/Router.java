@@ -9,10 +9,12 @@ import ar.edu.utn.frba.dds.Controllers.LoginController;
 import ar.edu.utn.frba.dds.Controllers.PersonasController;
 import ar.edu.utn.frba.dds.Controllers.ServiciosController;
 import ar.edu.utn.frba.dds.Controllers.*;
+import ar.edu.utn.frba.dds.Modelos.Usuarios.Rol;
 
 public class Router {
 
     public static void init() {
+        /*
         Server.app().get("/persona", context -> {
             context.result("hola");
         });
@@ -20,6 +22,7 @@ public class Router {
         Server.app().get("/designada", context -> {
             context.result("chau");
         });
+        */
 
         Server.app().get("/", context -> {
             context.redirect("/login");
@@ -27,47 +30,47 @@ public class Router {
 
 
         Server.app().routes(() -> {
-            get("login", ((LoginController) FactoryController.controller("Login"))::get);
-            post("login", ((LoginController) FactoryController.controller("Login"))::post);
-            get("comunidades/obtenerTodas", ((ComunidadesController) FactoryController.controller("Comunidades"))::obtenerComunidades);
             get("registro", ((PersonasController) FactoryController.controller("Personas"))::create);
             post("registro", ((PersonasController) FactoryController.controller("Personas"))::save);
-            get("comunidades", ((ComunidadesController) FactoryController.controller("Comunidades"))::index);
-            get("comunidades/crear", ((ComunidadesController) FactoryController.controller("Comunidades"))::create);
-            post("comunidades/crear", ((ComunidadesController) FactoryController.controller("Comunidades"))::save);
-            get("comunidades/unirse", ((ComunidadesController) FactoryController.controller("Comunidades"))::unirse);
-            post("comunidades/unirse", ((ComunidadesController) FactoryController.controller("Comunidades"))::update);
-            get("comunidades/{id}/editar", ((ComunidadesController) FactoryController.controller("Comunidades"))::edit); // asjkdalsdjaslkdjl
-            post("comunidades/{id}/editar/eliminar_miembro", ((ComunidadesController) FactoryController.controller("Comunidades"))::eliminarMiembro);
-            post("comunidades/{id}/editar/editar_cargo_miembro", ((ComunidadesController) FactoryController.controller("Comunidades"))::editarCargoMiembro);
-            post("comunidades/{id}/editar", ((ComunidadesController) FactoryController.controller("Comunidades"))::editarComunidad);
-            get("comunidades/{id}/servicios", ((ComunidadesController) FactoryController.controller("Comunidades"))::show);
-            get("comunidades/{id}/servicios/agregar", ((ServiciosController) FactoryController.controller("Servicios"))::index);
-            post("comunidades/{id}/servicios/agregar", ((ComunidadesController) FactoryController.controller("Comunidades"))::agregarServicio);
-            post("comunidades/{id}/servicios/crear", ((ServiciosController) FactoryController.controller("Servicios"))::save);
-            get("comunidades/{id}/servicios/{idServicio}", ((ServiciosController) FactoryController.controller("Servicios"))::show);
-            post("comunidades/{id}/servicios/{idServicio}/crear_incidente", ((IncidentesController) FactoryController.controller("Incidentes"))::save);
+            get("login", ((LoginController) FactoryController.controller("Login"))::get);
+            post("login", ((LoginController) FactoryController.controller("Login"))::post);
+            get("comunidades/obtenerTodas", ((ComunidadesController) FactoryController.controller("Comunidades"))::obtenerComunidades, Rol.NORMAL);
+            get("comunidades", ((ComunidadesController) FactoryController.controller("Comunidades"))::index, Rol.NORMAL);
+            get("comunidades/crear", ((ComunidadesController) FactoryController.controller("Comunidades"))::create, Rol.NORMAL);
+            post("comunidades/crear", ((ComunidadesController) FactoryController.controller("Comunidades"))::save, Rol.NORMAL);
+            get("comunidades/unirse", ((ComunidadesController) FactoryController.controller("Comunidades"))::unirse, Rol.NORMAL);
+            post("comunidades/unirse", ((ComunidadesController) FactoryController.controller("Comunidades"))::update, Rol.NORMAL);
+            get("comunidades/{id}/editar", ((ComunidadesController) FactoryController.controller("Comunidades"))::edit, Rol.NORMAL); // asjkdalsdjaslkdjl
+            post("comunidades/{id}/editar/eliminar_miembro", ((ComunidadesController) FactoryController.controller("Comunidades"))::eliminarMiembro, Rol.NORMAL);
+            post("comunidades/{id}/editar/editar_cargo_miembro", ((ComunidadesController) FactoryController.controller("Comunidades"))::editarCargoMiembro, Rol.NORMAL);
+            post("comunidades/{id}/editar", ((ComunidadesController) FactoryController.controller("Comunidades"))::editarComunidad, Rol.NORMAL);
+            get("comunidades/{id}/servicios", ((ComunidadesController) FactoryController.controller("Comunidades"))::show, Rol.NORMAL);
+            get("comunidades/{id}/servicios/agregar", ((ServiciosController) FactoryController.controller("Servicios"))::index, Rol.NORMAL);
+            post("comunidades/{id}/servicios/agregar", ((ComunidadesController) FactoryController.controller("Comunidades"))::agregarServicio, Rol.NORMAL);
+            post("comunidades/{id}/servicios/crear", ((ServiciosController) FactoryController.controller("Servicios"))::save, Rol.NORMAL);
+            get("comunidades/{id}/servicios/{idServicio}", ((ServiciosController) FactoryController.controller("Servicios"))::show, Rol.NORMAL);
+            post("comunidades/{id}/servicios/{idServicio}/crear_incidente", ((IncidentesController) FactoryController.controller("Incidentes"))::save, Rol.NORMAL);
 
-            post("comunidades/{id}/servicios/{idServicio}/resolver/", ((IncidentesController) FactoryController.controller("Incidentes"))::edit);
+            post("comunidades/{id}/servicios/{idServicio}/resolver/", ((IncidentesController) FactoryController.controller("Incidentes"))::edit, Rol.NORMAL);
 
-            get("interes", ((PersonasController) FactoryController.controller("Personas"))::interes);
-            get("interes/agregar_servicio", ((PersonasController) FactoryController.controller("Personas"))::interesSeleccionarServicio);
-            post("interes/agregar_servicio", ((PersonasController) FactoryController.controller("Personas"))::interesAgregarServicio);
-            get("interes/agregar_entidad", ((PersonasController) FactoryController.controller("Personas"))::interesSeleccionarEntidad);
-            post("interes/agregar_entidad", ((PersonasController) FactoryController.controller("Personas"))::interesAgregarEntidad);
+            get("interes", ((PersonasController) FactoryController.controller("Personas"))::interes, Rol.NORMAL);
+            get("interes/agregar_servicio", ((PersonasController) FactoryController.controller("Personas"))::interesSeleccionarServicio, Rol.NORMAL);
+            post("interes/agregar_servicio", ((PersonasController) FactoryController.controller("Personas"))::interesAgregarServicio, Rol.NORMAL);
+            get("interes/agregar_entidad", ((PersonasController) FactoryController.controller("Personas"))::interesSeleccionarEntidad, Rol.NORMAL);
+            post("interes/agregar_entidad", ((PersonasController) FactoryController.controller("Personas"))::interesAgregarEntidad, Rol.NORMAL);
 
-            get("/csv",((CSVController) FactoryController.controller("Csv"))::index);
-            post("/csv",((CSVController) FactoryController.controller("Csv"))::save);
+            get("/csv",((CSVController) FactoryController.controller("Csv"))::index, Rol.ADMINISTRADOR);
+            post("/csv",((CSVController) FactoryController.controller("Csv"))::save, Rol.ADMINISTRADOR);
 
             /*Integracion del servicio 1 */
             get("/obtenerPosiblesFusiones", ((ComunidadesController) FactoryController.controller("Comunidades"))::obtenerPosiblesFusiones);
             post("comunidades/fusionar", ((ComunidadesController) FactoryController.controller("Comunidades"))::fusionarComunidades);
 
-            get("rankings", ((RankingsController) FactoryController.controller("Rankings"))::index);
-            get("rankings/{id}", ((RankingsController) FactoryController.controller("Rankings"))::show);
+            get("rankings", ((RankingsController) FactoryController.controller("Rankings"))::index, Rol.PERSONA_DESIGNADA);
+            get("rankings/{id}", ((RankingsController) FactoryController.controller("Rankings"))::show, Rol.PERSONA_DESIGNADA);
 
-            get("notificaciones",((NotificacionesController) FactoryController.controller("Notificaciones"))::index);
-            post("notificaciones",((NotificacionesController) FactoryController.controller("Notificaciones"))::delete);
+            get("notificaciones",((NotificacionesController) FactoryController.controller("Notificaciones"))::index, Rol.NORMAL);
+            post("notificaciones",((NotificacionesController) FactoryController.controller("Notificaciones"))::delete, Rol.NORMAL);
         });
     }
 }

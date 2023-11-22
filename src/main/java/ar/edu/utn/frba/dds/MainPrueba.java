@@ -18,6 +18,7 @@ import ar.edu.utn.frba.dds.Modelos.Comunidades.RolComunidad;
 import ar.edu.utn.frba.dds.Modelos.Servicio;
 import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Localidad;
 import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Provincia;
+import ar.edu.utn.frba.dds.Modelos.Usuarios.Rol;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.Usuario;
 import ar.edu.utn.frba.dds.Persistencia.EntityManagerHelper;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioPersonas;
@@ -29,22 +30,22 @@ public class MainPrueba {
   public static void main(String[] args) throws Exception {
 
     // === Usuarios y Personas Designadas ===
-    Usuario usuarioPepe = new Usuario("pepejose23", "1234");
+    Usuario usuarioPepe = new Usuario("pepejose23", "1234", Rol.PERSONA_DESIGNADA);
     PersonaDesignada pepeEncargadoCNRT = new PersonaDesignada("Pepe", "Jose", usuarioPepe);
 
-    Usuario usuarioManuel = new Usuario("manujose674", "4321");
+    Usuario usuarioManuel = new Usuario("manujose674", "4321", Rol.PERSONA_DESIGNADA);
     PersonaDesignada manuelEncargadoTrenesArg = new PersonaDesignada("Manuel", "Jose", usuarioManuel);
 
-    Usuario usuarioLaura = new Usuario("lauritagonz56", "5678");
+    Usuario usuarioLaura = new Usuario("lauritagonz56", "5678", Rol.PERSONA_DESIGNADA);
     PersonaDesignada lauraMetro = new PersonaDesignada("Laura", "Gonzalez", usuarioLaura);
 
-    Usuario usuarioAnna = new Usuario("annafer564", "8765");
+    Usuario usuarioAnna = new Usuario("annafer564", "8765", Rol.PERSONA_DESIGNADA);
     PersonaDesignada annaAvianca = new PersonaDesignada("Anna", "Fernandez", usuarioAnna);
 
-    Usuario usuarioPedro = new Usuario("pedroluis09", "0987");
+    Usuario usuarioPedro = new Usuario("pedroluis09", "0987", Rol.PERSONA_DESIGNADA);
     PersonaDesignada pedroAeroControl = new PersonaDesignada("Pedro", "Luis", usuarioPedro);
 
-    Usuario usuarioRosa = new Usuario("rositaflower45", "4567");
+    Usuario usuarioRosa = new Usuario("rositaflower45", "4567", Rol.PERSONA_DESIGNADA);
     PersonaDesignada rosaBusLines = new PersonaDesignada("Rosa", "Flores", usuarioRosa);
 
     // === Organismos y Entidades Propietarias ===
@@ -132,7 +133,7 @@ public class MainPrueba {
     Persona rosa = new Persona("Rosa", "Flores", usuarioRosa, config);
     rosa.setUbicacion(localidadW);
     */
-    Usuario usuarioJuan = new Usuario("juanro1259", "123");
+    Usuario usuarioJuan = new Usuario("juanro1259", "123", Rol.NORMAL);
     Persona juan = new Persona("Juan", "Rodriguez", usuarioJuan, config);
     juan.setUbicacion(lobos);
     juan.agregarEntidadDeInteres(lineaSarmiento);
@@ -140,7 +141,7 @@ public class MainPrueba {
 
     MedioNotificacionesWhatsapp medioPreferidoJose = new MedioNotificacionesWhatsapp("123123123");
     CuandoSuceden configJose = new CuandoSuceden(medioPreferidoJose);
-    Usuario usuarioJose = new Usuario("josero1259", "123");
+    Usuario usuarioJose = new Usuario("josero1259", "123", Rol.NORMAL);
     Persona jose = new Persona("Jose", "Rodriguez", usuarioJose, configJose);
     jose.setUbicacion(lobos);
     jose.agregarEntidadDeInteres(lineaSarmiento);
