@@ -74,6 +74,8 @@ public class MainPrueba {
     Localidad localidadY = GeoRefAPIService.getInstancia().localidadPorNombreYProv("7 DE ABRIL", ciudadZ.id).localidades.get(0);
     Localidad localidadX = GeoRefAPIService.getInstancia().localidadPorNombreYProv("LOS CHIRIGUANOS", ciudadW.id).localidades.get(0);
 
+    //Localidad caba = GeoRefAPIService.getInstancia().localidadPorNombreYProv("Caba", bsas.id).localidades.get(0);
+
     Entidad lineaSarmiento = new Entidad("Linea Sarmiento", "...", trenesArg, bsas);
     Entidad[] trenes = new Entidad[6];
     Entidad[] metros = new Entidad[6];
@@ -85,6 +87,7 @@ public class MainPrueba {
       aerolineas[i] = new Entidad("Vuelo " + (i+1), "Descripción...", avianca, ciudadZ);
       buses[i] = new Entidad("Bus Ruta " + (i+1), "Descripción...", busLines, ciudadW);
     }
+
 
     Establecimiento estacionLobos = new Establecimiento("Estacion Lobos", "...", lobos, null, lineaSarmiento);
     Establecimiento[] estacionesTren = new Establecimiento[10];
@@ -209,6 +212,8 @@ public class MainPrueba {
         EntityManagerHelper.persist(aeropuertos[i]);
         EntityManagerHelper.persist(paradasBus[i]);
       }
+
+
 
       // Persistir Servicios
       for (int i = 0; i < 10; i++) {
