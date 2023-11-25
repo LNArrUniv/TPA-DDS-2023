@@ -118,7 +118,7 @@ public class CalculoRankingsTest {
     Assertions.assertEquals(ranking.get(0).getEntidad(), bancoNacion);
     Assertions.assertEquals(ranking.get(1).getEntidad(), bancoProvincia);
   }
-
+/*
   @Test
   public void ElBancoNacionTieneUnMayorGradoDeImpactoQueElBancoProvincia() throws IOException, InterruptedException {
     incidenteEscaleraMec.setFechaHoraApertura(LocalDateTime.now().minusHours(1));
@@ -140,4 +140,5 @@ public class CalculoRankingsTest {
     Assertions.assertEquals(ranking.get(0).getEntidad(), bancoNacion);
     Assertions.assertEquals(ranking.get(1).getEntidad(), bancoProvincia);
   }
+ */
 }

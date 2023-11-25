@@ -23,7 +23,7 @@ public class RankingIncidentes {
   private static RankingIncidentes instance = null;
 
   @Getter
-  private List<MetodosRanking> metodosRankings = List.of(new TiempoDeCierre(), new MayorCantidadIncidentes(), new GradoImpacto()); //[new TiempoDeCierre(),MayorCantidadIncidentes,GradoImpacto]
+  private List<MetodosRanking> metodosRankings = List.of(new TiempoDeCierre(), new MayorCantidadIncidentes());//, new GradoImpacto()); //[new TiempoDeCierre(),MayorCantidadIncidentes,GradoImpacto]
   @Getter
   private Boolean running = false;
 

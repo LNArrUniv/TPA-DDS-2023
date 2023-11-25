@@ -2,6 +2,8 @@ package ar.edu.utn.frba.dds.Servicio.RegistradorService;
 
 import ar.edu.utn.frba.dds.Modelos.EntidadPropietaria;
 import ar.edu.utn.frba.dds.Modelos.OrganismoDeControl;
+import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioEntidadPropietarias;
+import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioOrganismoDeControl;
 import ar.edu.utn.frba.dds.Servicio.RegistradorEmpresasService;
 import com.opencsv.exceptions.CsvValidationException;
 import org.junit.jupiter.api.Assertions;
@@ -17,8 +19,20 @@ public class RegistradorServiceTest {
     String archivoCSV = "src/main/Archivos/ServiciosPrestadoresYOrganismosDeControl.csv";
     registrador = new RegistradorEmpresasService(archivoCSV);
 
-    registrador.obtenerEntidadesPrestadoras();
+
     registrador.obtenerOrganismosControl();
+    for (OrganismoDeControl oc:registrador.getOrganismosDeControl()){
+      if (!RepositorioOrganismoDeControl.getInstance().existeOrganismoConElNombre(oc.getNombre())){
+        RepositorioOrganismoDeControl.getInstance().add(oc);
+      }
+    }
+    // Registro las entidades propietarias que todavia no existen
+    registrador.obtenerEntidadesPrestadoras();
+    for (EntidadPropietaria ep:registrador.getEntidadesPrestadoras()) {
+      if (!RepositorioEntidadPropietarias.getInstance().existeEntidadPropietariaConElNombre(ep.getNombre())) {
+        RepositorioEntidadPropietarias.getInstance().add(ep);
+      }
+    }
   }
   @Test
   public void seCarganCorrectamenteLasEntidadesPrestadoras() {

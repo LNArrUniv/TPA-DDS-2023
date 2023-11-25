@@ -102,7 +102,7 @@ public class Comunidad extends EntidadPersistente {
 
     miembros.forEach(membresia -> {
       try {
-        Persona miembro = RepositorioPersonas.getInstance().get(membresia.getMiembro().getId());
+        Persona miembro = membresia.getMiembro();
         Notificacion notificacion = new NotificacionIncidenteResuelto(incidente, miembro);
         miembro.notificar(notificacion);
 
