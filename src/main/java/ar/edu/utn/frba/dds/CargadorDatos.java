@@ -329,6 +329,9 @@ public class CargadorDatos {
     EntityManagerHelper.persist(juan);
     EntityManagerHelper.persist(jose);
 
+    // Admin
+    EntityManagerHelper.persist(admin);
+
     EntityManagerHelper.commit();
 
   }
