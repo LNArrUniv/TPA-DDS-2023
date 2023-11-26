@@ -196,8 +196,6 @@ public class CargadorDatos {
     jose.agregarEntidadDeInteres(lineaB);
     jose.agregarServicioDeInteres(servicioEscaleraLeandroNAlem);
 
-    // === Admin ===
-    Usuario admin = new Usuario("admin", "abc123", Rol.ADMINISTRADOR);
 
     // ------- PERSISTENCIA -------
 
@@ -328,9 +326,6 @@ public class CargadorDatos {
     // Persona
     EntityManagerHelper.persist(juan);
     EntityManagerHelper.persist(jose);
-
-    // Admin
-    EntityManagerHelper.persist(admin);
 
     EntityManagerHelper.commit();
 
