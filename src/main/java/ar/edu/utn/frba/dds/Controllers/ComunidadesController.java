@@ -46,7 +46,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
     Map<String, Object> model = new HashMap<>();
     model.put("comunidades", comunidades);
 
-    EntityManagerHelper.closeEntityManager();
+    //EntityManagerHelper.closeEntityManager();
     context.render("comunidades/comunidades.hbs", model);
   }
 
@@ -76,7 +76,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
     Membresia membresia = RepositorioMembresias.getInstance().membresiaDePersonaEnComunidad(context.sessionAttribute("id"), comunidad.getId());
     model.put("membresia", membresia);
 
-    EntityManagerHelper.closeEntityManager();
+    //EntityManagerHelper.closeEntityManager();
     context.render("servicios/servicios.hbs", model);
   }
 
@@ -94,7 +94,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
     user.darseAltaComunidadCreada(comunidadNueva);
     RepositorioPersonas.getInstance().update(user);
 
-    EntityManagerHelper.closeEntityManager();
+    //EntityManagerHelper.closeEntityManager();
     context.status(HttpStatus.CREATED);
     context.redirect("/comunidades");
   }
@@ -111,7 +111,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
     model.put("membresias", membresias);
     model.put("cargos", CargoComunidad.values());
 
-    EntityManagerHelper.closeEntityManager();
+    //EntityManagerHelper.closeEntityManager();
     context.render("comunidades/editar_comunidad.hbs", model);
   }
 
@@ -122,7 +122,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
     RepositorioPersonas.getInstance().update(membresia.getMiembro());
     RepositorioMembresias.getInstance().delete(membresia);
 
-    EntityManagerHelper.closeEntityManager();
+    //EntityManagerHelper.closeEntityManager();
     context.status(HttpStatus.OK);
     context.redirect("/comunidades/".concat(context.pathParam("id")).concat("/editar"));
   }
@@ -133,7 +133,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
     membresia.cambiarCargo(CargoComunidad.valueOf(context.formParam("cargoM")));
     RepositorioMembresias.getInstance().update(membresia);
 
-    EntityManagerHelper.closeEntityManager();
+    //EntityManagerHelper.closeEntityManager();
     context.status(HttpStatus.OK);
     context.redirect("/comunidades/".concat(context.pathParam("id")).concat("/editar"));
   }
@@ -144,7 +144,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
 
     RepositorioComunidades.getInstance().update(comunidad);
 
-    EntityManagerHelper.closeEntityManager();
+    //EntityManagerHelper.closeEntityManager();
     context.redirect("/comunidades/".concat(context.pathParam("id")).concat("/servicios"));
   }
 
@@ -155,7 +155,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
 
     RepositorioMembresias.getInstance().update(membresia);
 
-    EntityManagerHelper.closeEntityManager();
+    //EntityManagerHelper.closeEntityManager();
     context.redirect("/comunidades/".concat(context.pathParam("id")).concat("/servicios"));
   }
 
@@ -176,7 +176,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
     model.put("comunidades", comunidadesQueNoFormaParte);
     model.put("roles", RolComunidad.values());
 
-    EntityManagerHelper.closeEntityManager();
+    //EntityManagerHelper.closeEntityManager();
     context.render("comunidades/unirse_comunidad.hbs", model);
   }
 
@@ -189,7 +189,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
     RepositorioComunidades.getInstance().update(comunidad);
     RepositorioPersonas.getInstance().update(persona);
 
-    EntityManagerHelper.closeEntityManager();
+    //EntityManagerHelper.closeEntityManager();
     context.status(HttpStatus.OK);
     context.redirect("/comunidades");
   }
@@ -201,7 +201,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
 
     RepositorioComunidades.getInstance().update(comunidad);
 
-    EntityManagerHelper.closeEntityManager();
+    //EntityManagerHelper.closeEntityManager();
     context.status(HttpStatus.OK);
     context.redirect("/comunidades/".concat(context.pathParam("id")).concat("/servicios"));
   }
