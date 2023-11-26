@@ -2,6 +2,8 @@ package ar.edu.utn.frba.dds.Seguridad.Filtros;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class ControlPasswordDebil implements FiltroInterface {
   private static String commonPasswordsPath;
@@ -15,9 +17,10 @@ public class ControlPasswordDebil implements FiltroInterface {
     return !EsComun(password);
   }
 
-  public static boolean EsComun(String password){
+  public boolean EsComun(String password){
     try{
-      BufferedReader buff = new BufferedReader(new FileReader(commonPasswordsPath));
+      InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("ar/edu/utn/frba/dds/Seguridad/Filtros/common-passwords.txt");
+      BufferedReader buff = new BufferedReader(new InputStreamReader(inputStream));
       String s;
       while((s=buff.readLine())!=null){
         if(s.trim().contains(password)){
