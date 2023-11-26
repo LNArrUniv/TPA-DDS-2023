@@ -329,8 +329,8 @@ public class CargadorDatos {
 
     EntityManagerHelper.commit();
 
-    EntityManagerHelper.closeEntityManager();
-    EntityManagerHelper.closeEntityManagerFactory();
-    
+    //EntityManagerHelper.closeEntityManager();
+    //EntityManagerHelper.closeEntityManagerFactory();
+
   }
 }
