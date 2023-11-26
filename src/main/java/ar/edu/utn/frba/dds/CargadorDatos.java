@@ -4,29 +4,21 @@ import ar.edu.utn.frba.dds.Modelos.Comunidades.Comunidad;
 import ar.edu.utn.frba.dds.Modelos.Entidad;
 import ar.edu.utn.frba.dds.Modelos.EntidadPropietaria;
 import ar.edu.utn.frba.dds.Modelos.Establecimiento;
-import ar.edu.utn.frba.dds.Modelos.Incidente;
-import ar.edu.utn.frba.dds.Modelos.Notificaciones.CuandoSuceden;
-import ar.edu.utn.frba.dds.Modelos.Notificaciones.MedioNotificacionesEmail;
-import ar.edu.utn.frba.dds.Modelos.Notificaciones.MedioNotificacionesWhatsapp;
-import ar.edu.utn.frba.dds.Modelos.Notificaciones.SinApuros;
 import ar.edu.utn.frba.dds.Modelos.OrganismoDeControl;
-import ar.edu.utn.frba.dds.Modelos.Rankings.MetodosRanking;
-import ar.edu.utn.frba.dds.Modelos.Rankings.RankingIncidentes;
-import ar.edu.utn.frba.dds.Modelos.Usuarios.Persona;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.PersonaDesignada;
-import ar.edu.utn.frba.dds.Modelos.Comunidades.RolComunidad;
 import ar.edu.utn.frba.dds.Modelos.Servicio;
 import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Localidad;
 import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Provincia;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.Rol;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.Usuario;
 import ar.edu.utn.frba.dds.Persistencia.EntityManagerHelper;
-import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioPersonas;
 import ar.edu.utn.frba.dds.Servicio.GeoRefAPIService;
-import java.time.LocalTime;
-import java.util.List;
-public class mainSubtes {
-  public static void main(String[] args) throws Exception {
+
+public class CargadorDatos {
+  public CargadorDatos() {
+  }
+
+  public void cargarDatos() throws Exception {
     // USUARIOS Y PERSONSAS DESIGNADAS
     Usuario usuarioLarreta = new Usuario("hr.larreta","1234",Rol.PERSONA_DESIGNADA);
     PersonaDesignada larretaSubte = new PersonaDesignada("Horacio","Rodriguez Larreta",usuarioLarreta);
