@@ -4,7 +4,12 @@ import ar.edu.utn.frba.dds.Modelos.Comunidades.Comunidad;
 import ar.edu.utn.frba.dds.Modelos.Entidad;
 import ar.edu.utn.frba.dds.Modelos.EntidadPropietaria;
 import ar.edu.utn.frba.dds.Modelos.Establecimiento;
+import ar.edu.utn.frba.dds.Modelos.Notificaciones.CuandoSuceden;
+import ar.edu.utn.frba.dds.Modelos.Notificaciones.MedioNotificacionesEmail;
+import ar.edu.utn.frba.dds.Modelos.Notificaciones.MedioNotificacionesWhatsapp;
+import ar.edu.utn.frba.dds.Modelos.Notificaciones.SinApuros;
 import ar.edu.utn.frba.dds.Modelos.OrganismoDeControl;
+import ar.edu.utn.frba.dds.Modelos.Usuarios.Persona;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.PersonaDesignada;
 import ar.edu.utn.frba.dds.Modelos.Servicio;
 import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Localidad;
@@ -13,6 +18,7 @@ import ar.edu.utn.frba.dds.Modelos.Usuarios.Rol;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.Usuario;
 import ar.edu.utn.frba.dds.Persistencia.EntityManagerHelper;
 import ar.edu.utn.frba.dds.Servicio.GeoRefAPIService;
+import java.time.LocalTime;
 
 public class CargadorDatos {
   public CargadorDatos() {
@@ -165,12 +171,33 @@ public class CargadorDatos {
 
 
     //Comunidades
-    Comunidad comunidadCaballito = new Comunidad("Comunidad de Caballito");
-    comunidadCaballito.agregarServicioDeInteres(servicioBaniosAcoyte);
-    comunidadCaballito.agregarServicioDeInteres(servicioBaniosPrimeraJunta);
+    //Comunidad comunidadCaballito = new Comunidad("Comunidad de Caballito");
+    //comunidadCaballito.agregarServicioDeInteres(servicioBaniosAcoyte);
+    //comunidadCaballito.agregarServicioDeInteres(servicioBaniosPrimeraJunta);
 
+    MedioNotificacionesEmail medioPreferido = new MedioNotificacionesEmail("juanro@gmail.com");
+    SinApuros config = new SinApuros(medioPreferido);
+    config.agregarHorario(LocalTime.of(20, 30, 0));
+    config.agregarHorario(LocalTime.of(7, 45, 0));
+    config.agregarHorario(LocalTime.of(14, 0, 0));
 
+    // === Personas ===
+    Usuario usuarioJuan = new Usuario("juanro1259", "123", Rol.NORMAL);
+    Persona juan = new Persona("Juan", "Rodriguez", usuarioJuan, config);
+    juan.setUbicacion(flores);
+    juan.agregarEntidadDeInteres(lineaA);
+    juan.agregarServicioDeInteres(servicioBaniosCarabobo);
 
+    MedioNotificacionesWhatsapp medioPreferidoJose = new MedioNotificacionesWhatsapp("123123123");
+    CuandoSuceden configJose = new CuandoSuceden(medioPreferidoJose);
+    Usuario usuarioJose = new Usuario("josero1259", "123", Rol.NORMAL);
+    Persona jose = new Persona("Jose", "Rodriguez", usuarioJose, configJose);
+    jose.setUbicacion(almagro);
+    jose.agregarEntidadDeInteres(lineaB);
+    jose.agregarServicioDeInteres(servicioEscaleraLeandroNAlem);
+
+    // === Admin ===
+    Usuario admin = new Usuario("admin", "abc123", Rol.ADMINISTRADOR);
 
     // ------- PERSISTENCIA -------
 
@@ -295,7 +322,12 @@ public class CargadorDatos {
     EntityManagerHelper.persist(servicioEscaleraDeLosIncasParqueChas);
     EntityManagerHelper.persist(servicioEscaleraEcheverria);
 
-    EntityManagerHelper.persist(comunidadCaballito);
+    // Comunidad
+    //EntityManagerHelper.persist(comunidadCaballito);
+
+    // Persona
+    EntityManagerHelper.persist(juan);
+    EntityManagerHelper.persist(jose);
 
     EntityManagerHelper.commit();
 
