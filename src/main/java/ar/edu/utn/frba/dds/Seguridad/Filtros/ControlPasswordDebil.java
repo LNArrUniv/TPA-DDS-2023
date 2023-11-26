@@ -19,7 +19,7 @@ public class ControlPasswordDebil implements FiltroInterface {
 
   public boolean EsComun(String password){
     try{
-      InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("ar/edu/utn/frba/dds/Seguridad/Filtros/common-passwords.txt");
+      InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("public/files/common-passwords.txt");
       BufferedReader buff = new BufferedReader(new InputStreamReader(inputStream));
       String s;
       while((s=buff.readLine())!=null){
