@@ -9,7 +9,7 @@ import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositoriosItemsRankings;
 
 public class App {
 
-    public static void main(String[] args) {
+  public static void main(String[] args) {
 /*
         if (RepositorioEntidadPropietarias.getInstance().all().isEmpty()) {
             CargadorDatos cd = new CargadorDatos();
@@ -19,10 +19,10 @@ public class App {
                 throw new RuntimeException(e);
             }
         }
-        if(RepositorioRankings.getInstance().all().isEmpty()){
-            RankingIncidentes.getInstance().generarRankings();
-        }
-*/
-      Server.init();
+        */
+    if (RepositorioRankings.getInstance().all().isEmpty()) {
+      RankingIncidentes.getInstance().generarRankings();
     }
+    Server.init();
+  }
 }

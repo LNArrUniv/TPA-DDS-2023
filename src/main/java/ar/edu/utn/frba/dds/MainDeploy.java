@@ -13,7 +13,7 @@ public class MainDeploy {
     CargadorDatos cd = new CargadorDatos();
     cd.cargarDatos();
 
-    RankingIncidentes.getInstance().generarRankings();
+    //RankingIncidentes.getInstance().generarRankings();
 
   }
 }
