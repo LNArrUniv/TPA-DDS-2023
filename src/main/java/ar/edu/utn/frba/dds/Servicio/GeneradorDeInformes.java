@@ -20,7 +20,7 @@ public class GeneradorDeInformes {
 
   public void generarInforme(ArrayList<ItemRanking> items, String title) throws FileNotFoundException, DocumentException {
     Document document = new Document();
-    PdfWriter.getInstance(document, new FileOutputStream("public/files/"+ title +"-"+ LocalDateTime.now() +".pdf-"));
+    PdfWriter.getInstance(document, new FileOutputStream("public/files/"+ title + ".pdf-"));
 
     document.open();
     document.newPage();
