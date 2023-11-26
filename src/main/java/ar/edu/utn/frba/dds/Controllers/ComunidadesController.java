@@ -8,6 +8,7 @@ import ar.edu.utn.frba.dds.Modelos.Comunidades.RolComunidad;
 import ar.edu.utn.frba.dds.Modelos.DTOServicio1.PropuestaDeFusionDTO;
 import ar.edu.utn.frba.dds.Modelos.Servicio;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.Persona;
+import ar.edu.utn.frba.dds.Persistencia.EntityManagerHelper;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioComunidades;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioIncidentes;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioMembresias;
@@ -44,6 +45,8 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
 
     Map<String, Object> model = new HashMap<>();
     model.put("comunidades", comunidades);
+
+    EntityManagerHelper.closeEntityManager();
     context.render("comunidades/comunidades.hbs", model);
   }
 
@@ -73,6 +76,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
     Membresia membresia = RepositorioMembresias.getInstance().membresiaDePersonaEnComunidad(context.sessionAttribute("id"), comunidad.getId());
     model.put("membresia", membresia);
 
+    EntityManagerHelper.closeEntityManager();
     context.render("servicios/servicios.hbs", model);
   }
 
@@ -90,6 +94,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
     user.darseAltaComunidadCreada(comunidadNueva);
     RepositorioPersonas.getInstance().update(user);
 
+    EntityManagerHelper.closeEntityManager();
     context.status(HttpStatus.CREATED);
     context.redirect("/comunidades");
   }
@@ -106,7 +111,8 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
     model.put("membresias", membresias);
     model.put("cargos", CargoComunidad.values());
 
-    context.render("/comunidades/editar_comunidad.hbs", model);
+    EntityManagerHelper.closeEntityManager();
+    context.render("comunidades/editar_comunidad.hbs", model);
   }
 
   public void eliminarMiembro(Context context){
@@ -116,6 +122,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
     RepositorioPersonas.getInstance().update(membresia.getMiembro());
     RepositorioMembresias.getInstance().delete(membresia);
 
+    EntityManagerHelper.closeEntityManager();
     context.status(HttpStatus.OK);
     context.redirect("/comunidades/".concat(context.pathParam("id")).concat("/editar"));
   }
@@ -126,6 +133,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
     membresia.cambiarCargo(CargoComunidad.valueOf(context.formParam("cargoM")));
     RepositorioMembresias.getInstance().update(membresia);
 
+    EntityManagerHelper.closeEntityManager();
     context.status(HttpStatus.OK);
     context.redirect("/comunidades/".concat(context.pathParam("id")).concat("/editar"));
   }
@@ -136,6 +144,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
 
     RepositorioComunidades.getInstance().update(comunidad);
 
+    EntityManagerHelper.closeEntityManager();
     context.redirect("/comunidades/".concat(context.pathParam("id")).concat("/servicios"));
   }
 
@@ -146,6 +155,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
 
     RepositorioMembresias.getInstance().update(membresia);
 
+    EntityManagerHelper.closeEntityManager();
     context.redirect("/comunidades/".concat(context.pathParam("id")).concat("/servicios"));
   }
 
@@ -165,6 +175,8 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
     List comunidadesQueNoFormaParte = RepositorioComunidades.getInstance().all().stream().filter(comunidad -> !comunidad.personaFormaParteDeLaComunidad(RepositorioPersonas.getInstance().get(context.sessionAttribute("id")))).toList();
     model.put("comunidades", comunidadesQueNoFormaParte);
     model.put("roles", RolComunidad.values());
+
+    EntityManagerHelper.closeEntityManager();
     context.render("comunidades/unirse_comunidad.hbs", model);
   }
 
@@ -177,6 +189,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
     RepositorioComunidades.getInstance().update(comunidad);
     RepositorioPersonas.getInstance().update(persona);
 
+    EntityManagerHelper.closeEntityManager();
     context.status(HttpStatus.OK);
     context.redirect("/comunidades");
   }
@@ -188,6 +201,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
 
     RepositorioComunidades.getInstance().update(comunidad);
 
+    EntityManagerHelper.closeEntityManager();
     context.status(HttpStatus.OK);
     context.redirect("/comunidades/".concat(context.pathParam("id")).concat("/servicios"));
   }
