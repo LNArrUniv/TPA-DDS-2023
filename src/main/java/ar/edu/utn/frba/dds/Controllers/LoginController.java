@@ -29,7 +29,7 @@ public class LoginController extends Controller {
       context.sessionAttribute("tipo_rol", RepositorioPersonasDesignadas.getInstance().get(idUser).getUsuario().getRol().name());
       context.redirect("/rankings");
     } else if (context.formParam("username").equals("admin") && context.formParam("password").equals("abc123")) {
-      context.sessionAttribute("tipo_rol", Rol.ADMINISTRADOR);
+      context.sessionAttribute("tipo_rol", Rol.ADMINISTRADOR.name());
       context.redirect("/csv");
     }
     else {
