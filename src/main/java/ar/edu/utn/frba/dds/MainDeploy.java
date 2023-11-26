@@ -10,15 +10,10 @@ import org.checkerframework.checker.units.qual.C;
 
 public class MainDeploy {
   public static void main(String[] args) throws Exception {
-    Servicio servicio = RepositorioServicios.getInstance().all().get(0);
-    Comunidad comunidad = RepositorioComunidades.getInstance().all().get(0);
-
     CargadorDatos cd = new CargadorDatos();
     cd.cargarDatos();
 
     RankingIncidentes.getInstance().generarRankings();
-
-
 
   }
 }
