@@ -27,7 +27,7 @@ public class CSVController extends Controller implements ICrudViewsHandler {
   @Override
   public void index(Context context) {
     List<EntidadPropietaria> entidades = RepositorioEntidadPropietarias.getInstance().all();
-    List<OrganismoDeControl> organismoDeControls = RepositorioOrganismoDeControl.getInstance().getOrganismosDeControl();
+    List<OrganismoDeControl> organismoDeControls = RepositorioOrganismoDeControl.getInstance().all();
 
     Map<String, Object> model = new HashMap<>();
     model.put("entidades", entidades);
