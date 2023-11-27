@@ -27,7 +27,7 @@ public class GeneradorDeInformes {
       file.delete();
     }
      */
-    PdfWriter.getInstance(document, new FileOutputStream("public/files/"+title+".pdf"));
+    PdfWriter.getInstance(document, new FileOutputStream("templates/"+title+".pdf"));
         //PdfWriter.getInstance(document, new FileOutputStream("public/files/"+ title + ".pdf-"));
 
     document.open();
