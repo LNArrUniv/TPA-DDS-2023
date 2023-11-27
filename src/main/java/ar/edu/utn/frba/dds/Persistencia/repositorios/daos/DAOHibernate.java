@@ -15,7 +15,7 @@ public class DAOHibernate<T> implements DAO<T> {
         EntityManagerHelper.getEntityManager().getTransaction().begin();
         List<T> list = EntityManagerHelper.getEntityManager().createQuery("FROM " + type.getSimpleName()).getResultList();
         EntityManagerHelper.getEntityManager().getTransaction().commit();
-        EntityManagerHelper.closeEntityManager();
+
         return list;
     }
 
@@ -24,7 +24,7 @@ public class DAOHibernate<T> implements DAO<T> {
         EntityManagerHelper.getEntityManager().getTransaction().begin();
         T o = EntityManagerHelper.getEntityManager().find(type, id);
         EntityManagerHelper.getEntityManager().getTransaction().commit();
-        EntityManagerHelper.closeEntityManager();
+
         return o;
     }
 
@@ -33,7 +33,6 @@ public class DAOHibernate<T> implements DAO<T> {
         EntityManagerHelper.getEntityManager().getTransaction().begin();
         EntityManagerHelper.getEntityManager().persist(object);
         EntityManagerHelper.getEntityManager().getTransaction().commit();
-        EntityManagerHelper.closeEntityManager();
     }
 
     @Override
@@ -41,7 +40,6 @@ public class DAOHibernate<T> implements DAO<T> {
         EntityManagerHelper.getEntityManager().getTransaction().begin();
         EntityManagerHelper.getEntityManager().merge(object);
         EntityManagerHelper.getEntityManager().getTransaction().commit();
-        EntityManagerHelper.closeEntityManager();
     }
 
     @Override
@@ -50,7 +48,6 @@ public class DAOHibernate<T> implements DAO<T> {
         EntityManagerHelper.getEntityManager().getTransaction().begin();
         EntityManagerHelper.getEntityManager().clear();
         EntityManagerHelper.getEntityManager().getTransaction().commit();
-        EntityManagerHelper.closeEntityManager();
     }
 
     @Override
@@ -58,6 +55,5 @@ public class DAOHibernate<T> implements DAO<T> {
         EntityManagerHelper.getEntityManager().getTransaction().begin();
         EntityManagerHelper.getEntityManager().remove(object);
         EntityManagerHelper.getEntityManager().getTransaction().commit();
-        EntityManagerHelper.closeEntityManager();
     }
 }

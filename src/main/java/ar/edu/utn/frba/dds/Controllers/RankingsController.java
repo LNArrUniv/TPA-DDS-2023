@@ -21,7 +21,7 @@ public class RankingsController extends Controller implements ICrudViewsHandler 
 
     model.put("rankings", rankings);
 
-    context.render("rankings/rankings.hbs", model);
+    context.render("rankings.hbs", model);
   }
 
   @Override
@@ -35,7 +35,7 @@ public class RankingsController extends Controller implements ICrudViewsHandler 
     model.put("items", items);
     model.put("ranking", ranking);
 
-    context.render("rankings/ranking.hbs", model);
+    context.render("ranking.hbs", model);
   }
 
   @Override

@@ -27,7 +27,6 @@ public class RepositoriosItemsRankings extends Repositorio<ItemRanking> {
     EntityManagerHelper.getEntityManager().getTransaction().begin();
     List resultados = EntityManagerHelper.createQuery("from ItemRanking where fecha <= :hoy and fecha >= :semanaPasada and ranking_id = :id").setParameter("hoy", LocalDate.now()).setParameter("semanaPasada", LocalDate.now().minusDays(7)).setParameter("id", idRanking).getResultList();
     EntityManagerHelper.getEntityManager().getTransaction().commit();
-    EntityManagerHelper.closeEntityManager();
 
     return resultados;
   }

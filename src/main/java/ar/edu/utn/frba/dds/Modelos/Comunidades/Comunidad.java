@@ -14,10 +14,13 @@ import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioPersonas;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -33,7 +36,8 @@ public class Comunidad extends EntidadPersistente {
   @Getter
   @Setter
   private String nombreComunidad;
-  @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+  @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+  @Fetch(value = FetchMode.SUBSELECT)
   @JoinColumn (name = "servicio_por_comunidad")
   @Getter
   private List<Servicio> serviciosDeInteres;

@@ -26,7 +26,6 @@ public class RepositorioOrganismoDeControl extends Repositorio<OrganismoDeContro
     EntityManagerHelper.getEntityManager().getTransaction().begin();
     List results = EntityManagerHelper.createQuery("from OrganismoDeControl where nombre = :nombre").setParameter("nombre", nombre).getResultList();
     EntityManagerHelper.getEntityManager().getTransaction().commit();
-    EntityManagerHelper.closeEntityManager();
 
     return !results.isEmpty();
   }
@@ -35,7 +34,6 @@ public class RepositorioOrganismoDeControl extends Repositorio<OrganismoDeContro
     EntityManagerHelper.getEntityManager().getTransaction().begin();
     List results = EntityManagerHelper.createQuery("from OrganismoDeControl where nombre = :nombre").setParameter("nombre", nombre).getResultList();
     EntityManagerHelper.getEntityManager().getTransaction().commit();
-    EntityManagerHelper.closeEntityManager();
 
     return results;
   }

@@ -109,6 +109,9 @@ public class EntityManagerHelper {
 
     if(!tx.isActive()){
       tx.begin();
+    } else {
+      tx.commit();
+      tx.begin();
     }
   }
 

@@ -10,6 +10,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import net.bytebuddy.asm.Advice;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.time.LocalDateTime;
@@ -20,7 +21,14 @@ public class GeneradorDeInformes {
 
   public void generarInforme(ArrayList<ItemRanking> items, String title) throws FileNotFoundException, DocumentException {
     Document document = new Document();
-    PdfWriter.getInstance(document, new FileOutputStream("public/files/"+ title + ".pdf-"));
+    /*
+    File file = new File("src/main/resources/templates/rankings/"+title+".pdf");
+    if (file.exists()){
+      file.delete();
+    }
+     */
+    PdfWriter.getInstance(document, new FileOutputStream("public/files/"+title+".pdf"));
+        //PdfWriter.getInstance(document, new FileOutputStream("public/files/"+ title + ".pdf-"));
 
     document.open();
     document.newPage();

@@ -26,7 +26,6 @@ public class RepositorioMembresias extends Repositorio<Membresia> {
     EntityManagerHelper.getEntityManager().getTransaction().begin();
     List resultados = EntityManagerHelper.createQuery("from Membresia where miembro_id = :miembro").setParameter("miembro", idPersona).getResultList();
     EntityManagerHelper.getEntityManager().getTransaction().commit();
-    EntityManagerHelper.closeEntityManager();
 
     return resultados;
   }
@@ -35,7 +34,6 @@ public class RepositorioMembresias extends Repositorio<Membresia> {
     EntityManagerHelper.getEntityManager().getTransaction().begin();
     List resultados = EntityManagerHelper.createQuery("from Membresia where miembro_id = :miembro and comunidad_id = :comunidad").setParameter("miembro", idPersona).setParameter("comunidad", idComunidad).getResultList();
     EntityManagerHelper.getEntityManager().getTransaction().commit();
-    EntityManagerHelper.closeEntityManager();
 
     return (Membresia) resultados.get(0);
   }
@@ -44,7 +42,6 @@ public class RepositorioMembresias extends Repositorio<Membresia> {
     EntityManagerHelper.getEntityManager().getTransaction().begin();
     List resultados = EntityManagerHelper.createQuery("from Membresia where comunidad_id = :comunidad").setParameter("comunidad", comunidad.getId()).getResultList();
     EntityManagerHelper.getEntityManager().getTransaction().commit();
-    EntityManagerHelper.closeEntityManager();
 
     return resultados;
   }
