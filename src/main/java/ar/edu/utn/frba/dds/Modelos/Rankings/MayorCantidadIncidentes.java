@@ -22,7 +22,7 @@ public class MayorCantidadIncidentes extends MetodosRanking {
    */
 
   public MayorCantidadIncidentes() {
-    this.nombre = "Mayor cantidad de incidentes en la semana";
+    this.nombre = "Mayor_cantidad_de_incidentes_en_la_semana";
     //this.rankingCantidadIncidentes = new ArrayList<>();
   }
 

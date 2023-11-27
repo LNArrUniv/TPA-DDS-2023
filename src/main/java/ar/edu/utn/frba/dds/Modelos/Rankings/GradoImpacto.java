@@ -26,7 +26,7 @@ public class GradoImpacto extends MetodosRanking {
     final private Integer CNF = 1; //TODO: cambiar  (Preguntar al ayudante!)
 
     public GradoImpacto() {
-        this.nombre = "Mayor grado de impacto de las problemáticas";
+        this.nombre = "Mayor_grado_de_impacto_de_las_problematicas";
         //this.rankingGradoDeImpacto = new ArrayList<>();
     }
 

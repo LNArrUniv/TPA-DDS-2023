@@ -20,7 +20,7 @@ public class TiempoDeCierre extends MetodosRanking {
    */
 
   public TiempoDeCierre() {
-    this.nombre = "Mayor promedio de tiempo de cierre de incidentes";
+    this.nombre = "Mayor_promedio_de_tiempo_de_cierre_de_incidentes";
     //this.rankingTiempoPromedio = new ArrayList<>();
   }
 
