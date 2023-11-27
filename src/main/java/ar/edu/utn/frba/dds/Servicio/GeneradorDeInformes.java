@@ -21,13 +21,13 @@ public class GeneradorDeInformes {
 
   public void generarInforme(ArrayList<ItemRanking> items, String title) throws FileNotFoundException, DocumentException {
     Document document = new Document();
-    /*
-    File file = new File("src/main/resources/templates/rankings/"+title+".pdf");
+
+    File file = new File(title+".pdf");
     if (file.exists()){
       file.delete();
     }
-     */
-    PdfWriter.getInstance(document, new FileOutputStream("public/files/"+title+".pdf"));
+    System.out.println(file.getAbsolutePath()+"HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    PdfWriter.getInstance(document, new FileOutputStream(file));
         //PdfWriter.getInstance(document, new FileOutputStream("public/files/"+ title + ".pdf-"));
 
     document.open();
