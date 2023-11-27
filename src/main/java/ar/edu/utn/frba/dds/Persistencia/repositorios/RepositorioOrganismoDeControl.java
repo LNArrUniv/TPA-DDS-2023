@@ -22,18 +22,20 @@ public class RepositorioOrganismoDeControl extends Repositorio<OrganismoDeContro
     return instance;
   }
 
-  public List getOrganismosDeControl(){
-    return EntityManagerHelper.createQuery("from OrganismoDeControl").getResultList();
-  }
-
   public Boolean existeOrganismoConElNombre(String nombre){
+    EntityManagerHelper.getEntityManager().getTransaction().begin();
     List results = EntityManagerHelper.createQuery("from OrganismoDeControl where nombre = :nombre").setParameter("nombre", nombre).getResultList();
+    EntityManagerHelper.getEntityManager().getTransaction().commit();
+    EntityManagerHelper.closeEntityManager();
 
     return !results.isEmpty();
   }
 
   public List getOrganismoConElNombre(String nombre){
+    EntityManagerHelper.getEntityManager().getTransaction().begin();
     List results = EntityManagerHelper.createQuery("from OrganismoDeControl where nombre = :nombre").setParameter("nombre", nombre).getResultList();
+    EntityManagerHelper.getEntityManager().getTransaction().commit();
+    EntityManagerHelper.closeEntityManager();
 
     return results;
   }

@@ -22,19 +22,29 @@ public class RepositorioPersonas extends Repositorio<Persona> {
   }
 
   public Boolean usuarioYContraseniaCorrectas(String user, String pass) {
+    EntityManagerHelper.getEntityManager().getTransaction().begin();
     List resultados = EntityManagerHelper.createQuery("from Persona where username = :user and contrasenia = :pass").setParameter("user", user).setParameter("pass", pass).getResultList();
+    EntityManagerHelper.getEntityManager().getTransaction().commit();
+    EntityManagerHelper.closeEntityManager();
 
     return !resultados.isEmpty();
   }
 
   public Long getId(String user, String pass) {
+    EntityManagerHelper.getEntityManager().getTransaction().begin();
     List<Persona> resultados = EntityManagerHelper.createQuery("from Persona where username = :user and contrasenia = :pass").setParameter("user", user).setParameter("pass", pass).getResultList();
+    EntityManagerHelper.getEntityManager().getTransaction().commit();
+    EntityManagerHelper.closeEntityManager();
+
     long id = resultados.get(0).getId();
     return id;
   }
 
   public List<String> todosLosUsuarios(){
+    EntityManagerHelper.getEntityManager().getTransaction().begin();
     List<Persona> resultados = EntityManagerHelper.createQuery("from Persona").getResultList();
+    EntityManagerHelper.getEntityManager().getTransaction().commit();
+    EntityManagerHelper.closeEntityManager();
 
     return resultados.stream().map(p -> p.getUsername()).toList();
   }

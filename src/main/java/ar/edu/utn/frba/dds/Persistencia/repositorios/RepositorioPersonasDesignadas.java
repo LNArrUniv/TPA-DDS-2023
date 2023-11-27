@@ -23,12 +23,20 @@ public class RepositorioPersonasDesignadas extends Repositorio<PersonaDesignada>
   }
 
   public Boolean usuarioYContraseniaCorrectas(String user, String pass) {
+    EntityManagerHelper.getEntityManager().getTransaction().begin();
     List resultados = EntityManagerHelper.createQuery("from PersonaDesignada where username = :user and contrasenia = :pass").setParameter("user", user).setParameter("pass", pass).getResultList();
+    EntityManagerHelper.getEntityManager().getTransaction().commit();
+    EntityManagerHelper.closeEntityManager();
+
     return !resultados.isEmpty();
   }
 
   public Long getId(String user, String pass) {
+    EntityManagerHelper.getEntityManager().getTransaction().begin();
     List<PersonaDesignada> resultados = EntityManagerHelper.createQuery("from PersonaDesignada where username = :user and contrasenia = :pass").setParameter("user", user).setParameter("pass", pass).getResultList();
+    EntityManagerHelper.getEntityManager().getTransaction().commit();
+    EntityManagerHelper.closeEntityManager();
+
     long id = resultados.get(0).getId();
     return id;
   }

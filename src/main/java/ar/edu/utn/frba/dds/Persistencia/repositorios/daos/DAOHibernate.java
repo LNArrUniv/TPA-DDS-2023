@@ -12,12 +12,20 @@ public class DAOHibernate<T> implements DAO<T> {
 
     @Override
     public List<T> all() {
-        return EntityManagerHelper.getEntityManager().createQuery("FROM " + type.getSimpleName()).getResultList();
+        EntityManagerHelper.getEntityManager().getTransaction().begin();
+        List<T> list = EntityManagerHelper.getEntityManager().createQuery("FROM " + type.getSimpleName()).getResultList();
+        EntityManagerHelper.getEntityManager().getTransaction().commit();
+        EntityManagerHelper.closeEntityManager();
+        return list;
     }
 
     @Override
     public T get(long id) {
-        return EntityManagerHelper.getEntityManager().find(type, id);
+        EntityManagerHelper.getEntityManager().getTransaction().begin();
+        T o = EntityManagerHelper.getEntityManager().find(type, id);
+        EntityManagerHelper.getEntityManager().getTransaction().commit();
+        EntityManagerHelper.closeEntityManager();
+        return o;
     }
 
     @Override
@@ -25,6 +33,7 @@ public class DAOHibernate<T> implements DAO<T> {
         EntityManagerHelper.getEntityManager().getTransaction().begin();
         EntityManagerHelper.getEntityManager().persist(object);
         EntityManagerHelper.getEntityManager().getTransaction().commit();
+        EntityManagerHelper.closeEntityManager();
     }
 
     @Override
@@ -32,6 +41,7 @@ public class DAOHibernate<T> implements DAO<T> {
         EntityManagerHelper.getEntityManager().getTransaction().begin();
         EntityManagerHelper.getEntityManager().merge(object);
         EntityManagerHelper.getEntityManager().getTransaction().commit();
+        EntityManagerHelper.closeEntityManager();
     }
 
     @Override
@@ -40,6 +50,7 @@ public class DAOHibernate<T> implements DAO<T> {
         EntityManagerHelper.getEntityManager().getTransaction().begin();
         EntityManagerHelper.getEntityManager().clear();
         EntityManagerHelper.getEntityManager().getTransaction().commit();
+        EntityManagerHelper.closeEntityManager();
     }
 
     @Override
@@ -47,5 +58,6 @@ public class DAOHibernate<T> implements DAO<T> {
         EntityManagerHelper.getEntityManager().getTransaction().begin();
         EntityManagerHelper.getEntityManager().remove(object);
         EntityManagerHelper.getEntityManager().getTransaction().commit();
+        EntityManagerHelper.closeEntityManager();
     }
 }

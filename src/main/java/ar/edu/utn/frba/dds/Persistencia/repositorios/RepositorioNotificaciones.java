@@ -22,7 +22,10 @@ public class RepositorioNotificaciones extends Repositorio<Notificacion>{
   }
 
   public List getNotificacionesDeUsuario (long id) {
+    EntityManagerHelper.getEntityManager().getTransaction().begin();
     List resultados = EntityManagerHelper.createQuery("from Notificacion where usuarioANotificar_id = :usuario").setParameter("usuario", id).getResultList();
+    EntityManagerHelper.getEntityManager().getTransaction().commit();
+    EntityManagerHelper.closeEntityManager();
 
     return resultados;
   }
