@@ -33,7 +33,7 @@ public class RepositoriosItemsRankings extends Repositorio<ItemRanking> {
 
   public Boolean pasaronDiezMinutosDesdeLosUltimos(){
     EntityManagerHelper.getEntityManager().getTransaction().begin();
-    List<ItemRanking> todos = this.all();
+    List<ItemRanking> todos = EntityManagerHelper.createQuery("from ItemRanking").getResultList();
     EntityManagerHelper.getEntityManager().getTransaction().commit();
 
     List<ItemRanking> recientes = todos.stream()
