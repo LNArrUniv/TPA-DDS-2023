@@ -176,6 +176,9 @@ public class CargadorDatos {
     Comunidad comunidadCaballito = new Comunidad("Comunidad de Caballito");
     comunidadCaballito.agregarServicioDeInteres(servicioBaniosAcoyte);
     comunidadCaballito.agregarServicioDeInteres(servicioBaniosPrimeraJunta);
+    Comunidad comunidadAlmagro = new Comunidad("Comunidad de Almagro");
+    comunidadAlmagro.agregarServicioDeInteres(servicioEscaleraUruguay);
+    comunidadAlmagro.agregarServicioDeInteres(servicioEscaleraCallao);
 
     MedioNotificacionesEmail medioPreferido = new MedioNotificacionesEmail("juanro@gmail.com");
     SinApuros config = new SinApuros(medioPreferido);
@@ -198,12 +201,14 @@ public class CargadorDatos {
     jose.setUbicacion(almagro);
     jose.agregarEntidadDeInteres(lineaB);
     jose.agregarServicioDeInteres(servicioEscaleraLeandroNAlem);
+    jose.darseAltaComunidadCreada(comunidadAlmagro);
 
     Incidente incidente1 = new Incidente("Incidente 1", "Los baños están fuera de servicio", juan, servicioBaniosPrimeraJunta, comunidadCaballito);
     Incidente incidente2 = new Incidente("Incidente 2", "Los baños no están disponibles por mantenimiento", juan, servicioBaniosPrimeraJunta, comunidadCaballito);
+    Incidente incidente3 = new Incidente("Incidente 1", "Las escaleras mecanicas no están funcionando", jose, servicioEscaleraCallao, comunidadAlmagro);
 
     comunidadCaballito.informarIncidenteResuelto(incidente1);
-    comunidadCaballito.informarIncidenteResuelto(incidente2);
+    comunidadAlmagro.informarIncidenteResuelto(incidente3);
 
 
     // ------- PERSISTENCIA -------
@@ -338,6 +343,7 @@ public class CargadorDatos {
 
     EntityManagerHelper.persist(incidente1);
     EntityManagerHelper.persist(incidente2);
+    EntityManagerHelper.persist(incidente3);
 
     EntityManagerHelper.commit();
 
