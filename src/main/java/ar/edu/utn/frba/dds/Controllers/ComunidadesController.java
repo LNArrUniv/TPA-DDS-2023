@@ -163,6 +163,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
   }
 
   public void obtenerComunidades(Context context) {
+    RepositorioComunidades.getInstance().clean();
     List<Comunidad> comunidades = RepositorioComunidades.getInstance().all();
 
     List<ComunidadDTO> comunidadesDTO = comunidades.stream()

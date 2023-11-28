@@ -200,7 +200,7 @@ public class CargadorDatos {
     jose.agregarServicioDeInteres(servicioEscaleraLeandroNAlem);
 
     Incidente incidente1 = new Incidente("Incidente 1", "Los baños están fuera de servicio", juan, servicioBaniosPrimeraJunta, comunidadCaballito);
-    Incidente incidente2 = new Incidente("Incidente 1", "Los baños no están disponibles por mantenimiento", juan, servicioBaniosPrimeraJunta, comunidadCaballito);
+    Incidente incidente2 = new Incidente("Incidente 2", "Los baños no están disponibles por mantenimiento", juan, servicioBaniosPrimeraJunta, comunidadCaballito);
 
     comunidadCaballito.informarIncidenteResuelto(incidente1);
     comunidadCaballito.informarIncidenteResuelto(incidente2);
