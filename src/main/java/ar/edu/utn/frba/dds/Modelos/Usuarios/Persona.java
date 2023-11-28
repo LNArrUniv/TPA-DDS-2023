@@ -109,6 +109,13 @@ public class Persona extends EntidadPersistente {
     comunidad.agregarMiembro(membresia);
   }
 
+  public void darseAltaComunidadFusionada(Comunidad comunidad, RolComunidad rolComunidad, CargoComunidad cargo) {
+    Membresia membresia = new Membresia(comunidad, rolComunidad, this, cargo);
+
+    membresiasAComunidades.add(membresia);
+    comunidad.agregarMiembro(membresia);
+  }
+
   public void darseBajaComunidad(Membresia membresia) {
     this.membresiasAComunidades.remove(membresia);
     membresia.getComunidad().eliminarMiembro(membresia);

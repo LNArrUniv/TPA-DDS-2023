@@ -23,7 +23,7 @@ public class RankingIncidentes {
   private static RankingIncidentes instance = null;
 
   @Getter
-  private List<MetodosRanking> metodosRankings = List.of(new TiempoDeCierre(), new MayorCantidadIncidentes());//, new GradoImpacto()); //[new TiempoDeCierre(),MayorCantidadIncidentes,GradoImpacto]
+  private List<MetodosRanking> metodosRankings = List.of(new TiempoDeCierre(), new MayorCantidadIncidentes(), new GradoImpacto()); //[new TiempoDeCierre(),MayorCantidadIncidentes,GradoImpacto]
   @Getter
   private Boolean running = false;
 
@@ -52,11 +52,11 @@ public class RankingIncidentes {
     public void run() {
       metodosRankings.forEach(metodo -> {
         List entidades = RepositorioEntidades.getInstance().all();
-        GeneradorDeInformes generadorDeInformes = new GeneradorDeInformes();
+        //GeneradorDeInformes generadorDeInformes = new GeneradorDeInformes();
         try {
           ArrayList<ItemRanking> items = (ArrayList<ItemRanking>) metodo.generarRanking(entidades);
-          generadorDeInformes.generarInforme(items, metodo.nombre);
-        } catch (IOException | DocumentException e) {
+          //generadorDeInformes.generarInforme(items, metodo.nombre);
+        } catch (IOException e) {
           throw new RuntimeException(e);
         } catch (InterruptedException e) {
           throw new RuntimeException(e);

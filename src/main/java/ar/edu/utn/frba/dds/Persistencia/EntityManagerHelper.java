@@ -106,12 +106,12 @@ public class EntityManagerHelper {
   public static void beginTransaction() {
     EntityManager em = EntityManagerHelper.getEntityManager();
     EntityTransaction tx = em.getTransaction();
-
-    if(!tx.isActive()){
-      tx.begin();
-    } else {
-      tx.commit();
-      tx.begin();
+    try {
+      if (!tx.isActive()) {
+        tx.begin();
+      }
+    } catch (Exception e) {
+      tx.rollback();
     }
   }
 

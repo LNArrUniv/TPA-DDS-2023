@@ -34,7 +34,7 @@ public class Router {
             post("registro", ((PersonasController) FactoryController.controller("Personas"))::save);
             get("login", ((LoginController) FactoryController.controller("Login"))::get);
             post("login", ((LoginController) FactoryController.controller("Login"))::post);
-            get("comunidades/obtenerTodas", ((ComunidadesController) FactoryController.controller("Comunidades"))::obtenerComunidades, Rol.NORMAL);
+            get("comunidades/obtenerTodas", ((ComunidadesController) FactoryController.controller("Comunidades"))::obtenerComunidades);
             get("comunidades", ((ComunidadesController) FactoryController.controller("Comunidades"))::index, Rol.NORMAL);
             get("comunidades/crear", ((ComunidadesController) FactoryController.controller("Comunidades"))::create, Rol.NORMAL);
             post("comunidades/crear", ((ComunidadesController) FactoryController.controller("Comunidades"))::save, Rol.NORMAL);

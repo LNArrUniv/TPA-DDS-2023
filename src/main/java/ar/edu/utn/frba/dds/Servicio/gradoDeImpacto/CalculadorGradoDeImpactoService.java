@@ -10,7 +10,7 @@ import java.util.List;
 
 public class CalculadorGradoDeImpactoService {
   private static CalculadorGradoDeImpactoService instancia = null;
-  private  static  final String URLAPI = "http://localhost:52911";
+  private  static  final String URLAPI = "https://prueba-deploy-0nxf.onrender.com";
   private Retrofit retrofit;
 
   private CalculadorGradoDeImpactoService(){

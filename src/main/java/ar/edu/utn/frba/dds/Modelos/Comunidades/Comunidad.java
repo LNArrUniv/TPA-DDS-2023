@@ -1,8 +1,6 @@
 package ar.edu.utn.frba.dds.Modelos.Comunidades;
 
 import ar.edu.utn.frba.dds.Modelos.DTOServicio1.ComunidadDTO;
-import ar.edu.utn.frba.dds.Modelos.DTOServicio1.EstablecimientoDTO;
-import ar.edu.utn.frba.dds.Modelos.DTOServicio1.ServicioParticularObservadoDTO;
 import ar.edu.utn.frba.dds.Modelos.Incidente;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.Notificacion;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.NotificacionIncidenteResuelto;
@@ -10,7 +8,6 @@ import ar.edu.utn.frba.dds.Modelos.Notificaciones.NotificacionNuevoIncidente;
 import ar.edu.utn.frba.dds.Modelos.Servicio;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.Persona;
 import ar.edu.utn.frba.dds.Persistencia.EntidadPersistente;
-import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioPersonas;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,7 +24,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "comunidad")
@@ -42,17 +38,19 @@ public class Comunidad extends EntidadPersistente {
   @Getter
   private List<Servicio> serviciosDeInteres;
   @JsonIgnore
+  @Getter
   @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "comunidad")
   private List<Membresia> miembros;
   @Column
   @Getter
+  @Setter
   private Double gradoDeConfianza;
 
   public Comunidad(String nombreComunidad) {
     this.nombreComunidad = nombreComunidad;
     this.serviciosDeInteres = new ArrayList<>();
     this.miembros = new ArrayList<>();
-    int randomInt = (int) (Math.random() * 11);
+    int randomInt = 7;//(int) (Math.random() * 11);
     this.gradoDeConfianza = Double.valueOf(randomInt);
 
   }
@@ -130,6 +128,7 @@ public class Comunidad extends EntidadPersistente {
   public ComunidadDTO toDTO() {
     return new ComunidadDTO(
         (int) this.getId(),
+        this.getNombreComunidad(),
         this.serviciosDeInteres,
         this.getGradoDeConfianza()
     );
