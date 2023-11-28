@@ -3,6 +3,7 @@ package ar.edu.utn.frba.dds.Modelos.Rankings;
 import ar.edu.utn.frba.dds.Modelos.Entidad;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.SinApuros;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioEntidades;
+import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioRankings;
 import ar.edu.utn.frba.dds.Servicio.GeneradorDeInformes;
 import com.itextpdf.text.DocumentException;
 import lombok.Getter;
@@ -53,6 +54,7 @@ public class RankingIncidentes {
     @Override
     public void run() {
       metodosRankings.forEach(metodo -> {
+        RepositorioRankings.getInstance().add(metodo);
         List entidades = RepositorioEntidades.getInstance().all();
         //GeneradorDeInformes generadorDeInformes = new GeneradorDeInformes();
         try {
