@@ -29,9 +29,6 @@ public class LoginController extends Controller {
       long idUser = RepositorioPersonasDesignadas.getInstance().getId(context.formParam("username"), context.formParam("password"));
       context.sessionAttribute("id", idUser);
       context.sessionAttribute("tipo_rol", RepositorioPersonasDesignadas.getInstance().get(idUser).getUsuario().getRol().name());
-      if (RepositoriosItemsRankings.getInstance().pasaronDiezMinutosDesdeLosUltimos()){
-        RankingIncidentes.getInstance().generarRankings();
-      }
       context.redirect("/rankings");
     } else if (context.formParam("username").equals("admin") && context.formParam("password").equals("abc123")) {
       context.sessionAttribute("tipo_rol", Rol.ADMINISTRADOR.name());

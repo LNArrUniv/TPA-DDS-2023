@@ -21,24 +21,29 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class RankingIncidentes {
-  private static RankingIncidentes instance = null;
-
   @Getter
-  private List<MetodosRanking> metodosRankings = List.of(new TiempoDeCierre(), new MayorCantidadIncidentes(), new GradoImpacto()); //[new TiempoDeCierre(),MayorCantidadIncidentes,GradoImpacto]
+  private List<MetodosRanking> metodosRankings; //= List.of(new TiempoDeCierre(), new MayorCantidadIncidentes(), new GradoImpacto()); //[new TiempoDeCierre(),MayorCantidadIncidentes,GradoImpacto]
   @Getter
   private Boolean running = false;
 
-  private RankingIncidentes(){
-  }
-  public static RankingIncidentes getInstance(){
-    if (instance == null){
-      instance = new RankingIncidentes();
-    }
-    return instance;
+  public RankingIncidentes(List<MetodosRanking> rankings){
+    metodosRankings = rankings;
   }
 
   public void generarRankings() {
-    new GeneradorRanking().run();
+    metodosRankings.forEach(ranking -> {
+      if (RepositorioRankings.getInstance().all().isEmpty()){
+        RepositorioRankings.getInstance().add(ranking);
+      }
+      List entidades = RepositorioEntidades.getInstance().all();
+      try {
+        ranking.generarRanking(entidades);
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+      } catch (InterruptedException e) {
+        throw new RuntimeException(e);
+      }
+    });
     /*
     Timer tempo = new Timer();
     LocalDateTime semanaPasada = LocalDateTime.now().minus(7, ChronoUnit.DAYS);
@@ -54,7 +59,9 @@ public class RankingIncidentes {
     @Override
     public void run() {
       metodosRankings.forEach(metodo -> {
-        RepositorioRankings.getInstance().add(metodo);
+        if (RepositorioRankings.getInstance().all().isEmpty()){
+          RepositorioRankings.getInstance().add(metodo);
+        }
         List entidades = RepositorioEntidades.getInstance().all();
         //GeneradorDeInformes generadorDeInformes = new GeneradorDeInformes();
         try {

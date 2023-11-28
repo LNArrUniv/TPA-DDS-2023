@@ -20,9 +20,11 @@ public class App {
             }
         }
         */
+    /*
     if (RepositorioRankings.getInstance().all().isEmpty()) {
       RankingIncidentes.getInstance().generarRankings();
     }
+     */
     Server.init();
   }
 }
