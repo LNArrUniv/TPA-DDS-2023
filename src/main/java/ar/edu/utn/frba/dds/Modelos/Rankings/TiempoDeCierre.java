@@ -30,7 +30,7 @@ public class TiempoDeCierre extends MetodosRanking {
   public List<ItemRanking> generarRanking(List<Entidad> entidades) {
     List<ItemRanking> rankingTiempoPromedio = new ArrayList<>();
     for (Entidad entidad : entidades) {
-      ItemRanking item = new ItemRanking(entidad, promedioCierre(entidad), LocalDateTime.now(), RepositorioRankings.getInstance().rankingPorNombre(this.nombre));
+      ItemRanking item = new ItemRanking(entidad, promedioCierre(entidad), LocalDateTime.now(), this);
       rankingTiempoPromedio.add(item);
       RepositoriosItemsRankings.getInstance().add(item);
     }

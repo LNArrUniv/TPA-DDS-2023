@@ -30,7 +30,7 @@ public class RepositoriosItemsRankings extends Repositorio<ItemRanking> {
 
     return resultados;
   }
-
+  /*
   public Boolean pasaronDiezMinutosDesdeLosUltimos(){
     EntityManagerHelper.getEntityManager().getTransaction().begin();
     List<ItemRanking> todos = EntityManagerHelper.createQuery("from ItemRanking").getResultList();
@@ -55,4 +55,5 @@ public class RepositoriosItemsRankings extends Repositorio<ItemRanking> {
 
     return recientes;
   }
+  */
 }

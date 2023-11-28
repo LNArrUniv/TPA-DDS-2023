@@ -62,7 +62,7 @@ public class GradoImpacto extends MetodosRanking {
         Thread.sleep(500);
         ListadoDeResultados resultados = CalculadorGradoDeImpactoService.getInstancia().obtenerResultados();
         for (Entidad entidad : entidades) {
-            ItemRanking item = new ItemRanking(entidad, resultados.valorDeEntidad(entidad.getId()).getResultadoGradoImpacto(), LocalDateTime.now(), RepositorioRankings.getInstance().rankingPorNombre(this.nombre));
+            ItemRanking item = new ItemRanking(entidad, resultados.valorDeEntidad(entidad.getId()).getResultadoGradoImpacto(), LocalDateTime.now(), this);
             rankingGradoDeImpacto.add(item);
             RepositoriosItemsRankings.getInstance().add(item);
         }

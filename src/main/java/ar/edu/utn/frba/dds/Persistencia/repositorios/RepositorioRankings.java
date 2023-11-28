@@ -20,7 +20,7 @@ public class RepositorioRankings extends Repositorio<MetodosRanking>{
     }
     return instance;
   }
-
+/*
   public MetodosRanking rankingPorNombre(String nombre){
       EntityManagerHelper.getEntityManager().getTransaction().begin();
       List<MetodosRanking> resultados = EntityManagerHelper.createQuery("from MetodosRanking where nombre = :nombre").setParameter("nombre", nombre).getResultList();
@@ -28,4 +28,5 @@ public class RepositorioRankings extends Repositorio<MetodosRanking>{
 
       return resultados.get(0);
   }
+ */
 }

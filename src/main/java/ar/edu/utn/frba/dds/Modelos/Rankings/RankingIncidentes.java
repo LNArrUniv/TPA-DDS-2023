@@ -21,51 +21,42 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class RankingIncidentes {
+  private static RankingIncidentes instance = null;
+
   @Getter
-  private List<MetodosRanking> metodosRankings; //= List.of(new TiempoDeCierre(), new MayorCantidadIncidentes(), new GradoImpacto()); //[new TiempoDeCierre(),MayorCantidadIncidentes,GradoImpacto]
+  private List<MetodosRanking> metodosRankings = List.of(new TiempoDeCierre(), new MayorCantidadIncidentes(), new GradoImpacto()); //[new TiempoDeCierre(),MayorCantidadIncidentes,GradoImpacto]
   @Getter
   private Boolean running = false;
 
-  public RankingIncidentes(List<MetodosRanking> rankings){
-    metodosRankings = rankings;
+  public RankingIncidentes(){
+
+  }
+  public static RankingIncidentes getInstance(){
+    if (instance == null){
+      instance = new RankingIncidentes();
+    }
+    return instance;
   }
 
   public void generarRankings() {
-    metodosRankings.forEach(ranking -> {
-      if (RepositorioRankings.getInstance().all().isEmpty()){
-        RepositorioRankings.getInstance().add(ranking);
-      }
-      List entidades = RepositorioEntidades.getInstance().all();
-      try {
-        ranking.generarRanking(entidades);
-      } catch (IOException e) {
-        throw new RuntimeException(e);
-      } catch (InterruptedException e) {
-        throw new RuntimeException(e);
-      }
-    });
-    /*
     Timer tempo = new Timer();
     LocalDateTime semanaPasada = LocalDateTime.now().minus(7, ChronoUnit.DAYS);
     long duracionSemanaEnMiliseg = semanaPasada.until(LocalDateTime.now(), ChronoUnit.MILLIS);
     running = true;
     // Para que ejecute el generador 1 vez y despues lo haga cada 7 dias
-    tempo.scheduleAtFixedRate(new GeneradorRanking(), 0, 600000);
-    //tempo.scheduleAtFixedRate(new GeneradorRanking(), 0, duracionSemanaEnMiliseg);
-     */
+
+    tempo.scheduleAtFixedRate(new GeneradorRanking(), 0, duracionSemanaEnMiliseg);
   }
 
   private class GeneradorRanking extends TimerTask {
     @Override
     public void run() {
       metodosRankings.forEach(metodo -> {
-        if (RepositorioRankings.getInstance().all().isEmpty()){
-          RepositorioRankings.getInstance().add(metodo);
-        }
-        List entidades = RepositorioEntidades.getInstance().all();
+        RepositorioRankings.getInstance().add(metodo);
+        List<Entidad> entidades = RepositorioEntidades.getInstance().all();
         //GeneradorDeInformes generadorDeInformes = new GeneradorDeInformes();
         try {
-          ArrayList<ItemRanking> items = (ArrayList<ItemRanking>) metodo.generarRanking(entidades);
+          metodo.generarRanking(entidades);
           //generadorDeInformes.generarInforme(items, metodo.nombre);
         } catch (IOException e) {
           throw new RuntimeException(e);
