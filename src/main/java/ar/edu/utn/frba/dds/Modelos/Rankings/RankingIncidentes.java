@@ -37,7 +37,8 @@ public class RankingIncidentes {
   }
 
   public void generarRankings() {
-
+    new GeneradorRanking().run();
+    /*
     Timer tempo = new Timer();
     LocalDateTime semanaPasada = LocalDateTime.now().minus(7, ChronoUnit.DAYS);
     long duracionSemanaEnMiliseg = semanaPasada.until(LocalDateTime.now(), ChronoUnit.MILLIS);
@@ -45,6 +46,7 @@ public class RankingIncidentes {
     // Para que ejecute el generador 1 vez y despues lo haga cada 7 dias
     tempo.scheduleAtFixedRate(new GeneradorRanking(), 0, 600000);
     //tempo.scheduleAtFixedRate(new GeneradorRanking(), 0, duracionSemanaEnMiliseg);
+     */
   }
 
   private class GeneradorRanking extends TimerTask {

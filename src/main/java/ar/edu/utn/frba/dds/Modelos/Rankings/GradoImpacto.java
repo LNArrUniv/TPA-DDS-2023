@@ -3,6 +3,7 @@ package ar.edu.utn.frba.dds.Modelos.Rankings;
 import ar.edu.utn.frba.dds.Modelos.Entidad;
 import ar.edu.utn.frba.dds.Modelos.Incidente;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioIncidentes;
+import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioRankings;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositoriosItemsRankings;
 import ar.edu.utn.frba.dds.Servicio.gradoDeImpacto.CalculadorGradoDeImpactoService;
 import ar.edu.utn.frba.dds.Servicio.gradoDeImpacto.ListadoDeResultados;
@@ -61,7 +62,7 @@ public class GradoImpacto extends MetodosRanking {
         Thread.sleep(500);
         ListadoDeResultados resultados = CalculadorGradoDeImpactoService.getInstancia().obtenerResultados();
         for (Entidad entidad : entidades) {
-            ItemRanking item = new ItemRanking(entidad, resultados.valorDeEntidad(entidad.getId()).getResultadoGradoImpacto(), LocalDateTime.now(), this);
+            ItemRanking item = new ItemRanking(entidad, resultados.valorDeEntidad(entidad.getId()).getResultadoGradoImpacto(), LocalDateTime.now(), RepositorioRankings.getInstance().rankingPorNombre(this.nombre));
             rankingGradoDeImpacto.add(item);
             RepositoriosItemsRankings.getInstance().add(item);
         }
