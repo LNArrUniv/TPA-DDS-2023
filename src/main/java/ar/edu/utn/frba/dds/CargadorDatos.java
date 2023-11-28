@@ -4,6 +4,7 @@ import ar.edu.utn.frba.dds.Modelos.Comunidades.Comunidad;
 import ar.edu.utn.frba.dds.Modelos.Entidad;
 import ar.edu.utn.frba.dds.Modelos.EntidadPropietaria;
 import ar.edu.utn.frba.dds.Modelos.Establecimiento;
+import ar.edu.utn.frba.dds.Modelos.Incidente;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.CuandoSuceden;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.MedioNotificacionesEmail;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.MedioNotificacionesWhatsapp;
@@ -18,6 +19,7 @@ import ar.edu.utn.frba.dds.Modelos.Usuarios.Rol;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.Usuario;
 import ar.edu.utn.frba.dds.Persistencia.EntityManagerHelper;
 import ar.edu.utn.frba.dds.Servicio.GeoRefAPIService;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalTime;
 
 public class CargadorDatos {
@@ -171,9 +173,9 @@ public class CargadorDatos {
 
 
     //Comunidades
-    //Comunidad comunidadCaballito = new Comunidad("Comunidad de Caballito");
-    //comunidadCaballito.agregarServicioDeInteres(servicioBaniosAcoyte);
-    //comunidadCaballito.agregarServicioDeInteres(servicioBaniosPrimeraJunta);
+    Comunidad comunidadCaballito = new Comunidad("Comunidad de Caballito");
+    comunidadCaballito.agregarServicioDeInteres(servicioBaniosAcoyte);
+    comunidadCaballito.agregarServicioDeInteres(servicioBaniosPrimeraJunta);
 
     MedioNotificacionesEmail medioPreferido = new MedioNotificacionesEmail("juanro@gmail.com");
     SinApuros config = new SinApuros(medioPreferido);
@@ -187,6 +189,7 @@ public class CargadorDatos {
     juan.setUbicacion(flores);
     juan.agregarEntidadDeInteres(lineaA);
     juan.agregarServicioDeInteres(servicioBaniosCarabobo);
+    juan.darseAltaComunidadCreada(comunidadCaballito);
 
     MedioNotificacionesWhatsapp medioPreferidoJose = new MedioNotificacionesWhatsapp("123123123");
     CuandoSuceden configJose = new CuandoSuceden(medioPreferidoJose);
@@ -195,6 +198,12 @@ public class CargadorDatos {
     jose.setUbicacion(almagro);
     jose.agregarEntidadDeInteres(lineaB);
     jose.agregarServicioDeInteres(servicioEscaleraLeandroNAlem);
+
+    Incidente incidente1 = new Incidente("Incidente 1", "Los baños están fuera de servicio", juan, servicioBaniosPrimeraJunta, comunidadCaballito);
+    Incidente incidente2 = new Incidente("Incidente 1", "Los baños no están disponibles por mantenimiento", juan, servicioBaniosPrimeraJunta, comunidadCaballito);
+
+    comunidadCaballito.informarIncidenteResuelto(incidente1);
+    comunidadCaballito.informarIncidenteResuelto(incidente2);
 
 
     // ------- PERSISTENCIA -------
@@ -321,11 +330,14 @@ public class CargadorDatos {
     EntityManagerHelper.persist(servicioEscaleraEcheverria);
 
     // Comunidad
-    //EntityManagerHelper.persist(comunidadCaballito);
+    EntityManagerHelper.persist(comunidadCaballito);
 
     // Persona
     EntityManagerHelper.persist(juan);
     EntityManagerHelper.persist(jose);
+
+    EntityManagerHelper.persist(incidente1);
+    EntityManagerHelper.persist(incidente2);
 
     EntityManagerHelper.commit();
 
