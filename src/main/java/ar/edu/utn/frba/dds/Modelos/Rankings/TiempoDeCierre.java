@@ -6,6 +6,7 @@ import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioIncidentes;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositoriosItemsRankings;
 import javax.persistence.Entity;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,7 @@ public class TiempoDeCierre extends MetodosRanking {
   public List<ItemRanking> generarRanking(List<Entidad> entidades) {
     List<ItemRanking> rankingTiempoPromedio = new ArrayList<>();
     for (Entidad entidad : entidades) {
-      ItemRanking item = new ItemRanking(entidad, promedioCierre(entidad), LocalDate.now(), this);
+      ItemRanking item = new ItemRanking(entidad, promedioCierre(entidad), LocalDateTime.now(), this);
       rankingTiempoPromedio.add(item);
       RepositoriosItemsRankings.getInstance().add(item);
     }

@@ -1,8 +1,10 @@
 package ar.edu.utn.frba.dds.Controllers;
 
+import ar.edu.utn.frba.dds.Modelos.Rankings.RankingIncidentes;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.Rol;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioPersonas;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioPersonasDesignadas;
+import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositoriosItemsRankings;
 import io.javalin.http.Context;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +29,9 @@ public class LoginController extends Controller {
       long idUser = RepositorioPersonasDesignadas.getInstance().getId(context.formParam("username"), context.formParam("password"));
       context.sessionAttribute("id", idUser);
       context.sessionAttribute("tipo_rol", RepositorioPersonasDesignadas.getInstance().get(idUser).getUsuario().getRol().name());
+      if (RepositoriosItemsRankings.getInstance().pasaronDiezMinutosDesdeLosUltimos()){
+        RankingIncidentes.getInstance().generarRankings();
+      }
       context.redirect("/rankings");
     } else if (context.formParam("username").equals("admin") && context.formParam("password").equals("abc123")) {
       context.sessionAttribute("tipo_rol", Rol.ADMINISTRADOR.name());

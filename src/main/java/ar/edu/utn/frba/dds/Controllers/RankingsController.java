@@ -28,8 +28,9 @@ public class RankingsController extends Controller implements ICrudViewsHandler 
   public void show(Context context) {
     Map<String, Object> model = new HashMap<>();
 
-    Long idRanking = Long.parseLong(context.pathParam("id"));
-    List<ItemRanking> items = RepositoriosItemsRankings.getInstance().itemsEstaSemana(idRanking);
+    long idRanking = Long.parseLong(context.pathParam("id"));
+    List<ItemRanking> items = RepositoriosItemsRankings.getInstance().masRecientes(idRanking);
+    //List<ItemRanking> items = RepositoriosItemsRankings.getInstance().itemsEstaSemana(idRanking);
     MetodosRanking ranking = RepositorioRankings.getInstance().get(idRanking);
 
     model.put("items", items);

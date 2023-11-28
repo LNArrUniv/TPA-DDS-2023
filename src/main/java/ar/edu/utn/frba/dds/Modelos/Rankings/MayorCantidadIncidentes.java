@@ -33,7 +33,7 @@ public class MayorCantidadIncidentes extends MetodosRanking {
       List<Incidente> incidentesEntidad = RepositorioIncidentes.getInstance().incidentesDeEntidad(entidad);
       long cantidadIncidentes = incidentesEntidad.stream().filter(incidente -> sonDelPeriodo(incidente)).count();
       double cantidad = (double) cantidadIncidentes;
-      ItemRanking item = new ItemRanking(entidad, cantidad, LocalDate.now(), this);
+      ItemRanking item = new ItemRanking(entidad, cantidad, LocalDateTime.now(), this);
       rankingCantidadIncidentes.add(item);
       RepositoriosItemsRankings.getInstance().add(item);
     }

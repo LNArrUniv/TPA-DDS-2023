@@ -11,6 +11,7 @@ import ar.edu.utn.frba.dds.Servicio.gradoDeImpacto.ValoresFormula;
 import javax.persistence.Entity;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +61,7 @@ public class GradoImpacto extends MetodosRanking {
         Thread.sleep(500);
         ListadoDeResultados resultados = CalculadorGradoDeImpactoService.getInstancia().obtenerResultados();
         for (Entidad entidad : entidades) {
-            ItemRanking item = new ItemRanking(entidad, resultados.valorDeEntidad(entidad.getId()).getResultadoGradoImpacto(), LocalDate.now(), this);
+            ItemRanking item = new ItemRanking(entidad, resultados.valorDeEntidad(entidad.getId()).getResultadoGradoImpacto(), LocalDateTime.now(), this);
             rankingGradoDeImpacto.add(item);
             RepositoriosItemsRankings.getInstance().add(item);
         }
