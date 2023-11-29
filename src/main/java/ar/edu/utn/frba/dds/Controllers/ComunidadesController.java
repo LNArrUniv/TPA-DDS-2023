@@ -5,6 +5,7 @@ import ar.edu.utn.frba.dds.Modelos.Comunidades.Comunidad;
 import ar.edu.utn.frba.dds.Modelos.DTOServicio1.ComunidadDTO;
 import ar.edu.utn.frba.dds.Modelos.Comunidades.Membresia;
 import ar.edu.utn.frba.dds.Modelos.Comunidades.RolComunidad;
+import ar.edu.utn.frba.dds.Modelos.DTOServicio1.ComunidadObservadaDTO;
 import ar.edu.utn.frba.dds.Modelos.DTOServicio1.PropuestaDeFusionDTO;
 import ar.edu.utn.frba.dds.Modelos.Servicio;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.Persona;
@@ -156,7 +157,9 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
         .map(Comunidad::toDTO)
         .collect(Collectors.toList());
 
-    context.json(comunidadesDTO);
+    ComunidadObservadaDTO comunidadObservadaDTO = new ComunidadObservadaDTO(comunidadesDTO);
+
+    context.json(comunidadObservadaDTO);
   }
 
 

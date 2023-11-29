@@ -126,11 +126,11 @@ public class Comunidad extends EntidadPersistente {
   public ComunidadDTO toDTO() {
     return new ComunidadDTO(
         (int) this.getId(),
+        this.nombreComunidad,
         this.serviciosDeInteres,
         this.getGradoDeConfianza()
     );
   }
-
 
 
   public Boolean personaFormaParteDeLaComunidad(Persona persona) {

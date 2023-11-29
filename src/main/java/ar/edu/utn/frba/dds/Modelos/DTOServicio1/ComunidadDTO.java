@@ -7,20 +7,22 @@ import java.util.stream.Collectors;
 
 public class ComunidadDTO {
   private int id;
+  private String nombre;
   private List<ServicioParticularObservadoDTO> serviciosParticularesObservados;
-  private Double gradoDeConfianza;
+  private Integer gradoDeConfianza;
 
   public ComunidadDTO() {}
 
-  public ComunidadDTO(int id, List<Servicio> serviciosDeInteres, Double gradoDeConfianza) {
+  public ComunidadDTO(int id, String nombreComunidad, List<Servicio> serviciosDeInteres, Double gradoDeConfianza) {
     this.id = id;
+    this.nombre = nombreComunidad;
     this.serviciosParticularesObservados = serviciosDeInteres.stream()
         .map(servicio ->
             new ServicioParticularObservadoDTO(
                 new ServicioDTO((int) servicio.getId(), servicio.getNombre()),
                 new EstablecimientoDTO((int) servicio.getEstablecimiento().getId(), servicio.getEstablecimiento().getNombre()))
         ).collect(Collectors.toList());
-    this.gradoDeConfianza = gradoDeConfianza;
+    this.gradoDeConfianza =  gradoDeConfianza.intValue();
   }
 
 
@@ -28,11 +30,15 @@ public class ComunidadDTO {
     return id;
   }
 
+  public String getNombre() {
+    return nombre;
+  }
+
   public List<ServicioParticularObservadoDTO> getServiciosParticularesObservados() {
     return serviciosParticularesObservados;
   }
 
-  public Double getGradoDeConfianza() {
+  public Integer getGradoDeConfianza() {
     return gradoDeConfianza;
   }
 }
