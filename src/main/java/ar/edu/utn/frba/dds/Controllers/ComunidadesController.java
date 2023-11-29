@@ -1,5 +1,7 @@
 package ar.edu.utn.frba.dds.Controllers;
 
+import static java.lang.Thread.sleep;
+
 import ar.edu.utn.frba.dds.Modelos.Comunidades.CargoComunidad;
 import ar.edu.utn.frba.dds.Modelos.Comunidades.Comunidad;
 import ar.edu.utn.frba.dds.Modelos.DTOServicio1.ComunidadDTO;
@@ -232,7 +234,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
       // Usar la instancia para hacer una llamada POST a /fusionarcomunidades
       Servicio1 service = retrofit.create(Servicio1.class);
       retrofit2.Response<ComunidadDTO> response = service.fusionarComunidades(propuestaDeFusionDTO).execute();
-
+      sleep(300);
       if (response.code() == HttpStatus.OK.getCode()) {
         ComunidadDTO resultado = new ComunidadDTO(response.body());
 
@@ -288,7 +290,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
       Servicio1 service = retrofit.create(Servicio1.class);
 
       retrofit2.Response<List<PropuestaDeFusionDTO>> response = service.obtenerPosiblesFusiones().execute();
-
+      sleep(300);
       if (response.code() == HttpStatus.OK.getCode()) {
         ListaPropuestas listado = new ListaPropuestas(response.body());
         Map<String, Object> model = new HashMap<>();
