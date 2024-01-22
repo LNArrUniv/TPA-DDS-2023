@@ -1,12 +1,16 @@
 package ar.edu.utn.frba.dds.Controllers;
 
+import static java.lang.Thread.sleep;
+
 import ar.edu.utn.frba.dds.Modelos.Comunidades.CargoComunidad;
 import ar.edu.utn.frba.dds.Modelos.Comunidades.Comunidad;
 import ar.edu.utn.frba.dds.Modelos.DTOServicio1.ComunidadDTO;
 import ar.edu.utn.frba.dds.Modelos.Comunidades.Membresia;
 import ar.edu.utn.frba.dds.Modelos.Comunidades.RolComunidad;
-import ar.edu.utn.frba.dds.Modelos.DTOServicio1.ComunidadObservadaDTO;
+import ar.edu.utn.frba.dds.Modelos.DTOServicio1.ListaPropuestas;
+import ar.edu.utn.frba.dds.Modelos.DTOServicio1.PropuestaDeFusion;
 import ar.edu.utn.frba.dds.Modelos.DTOServicio1.PropuestaDeFusionDTO;
+import ar.edu.utn.frba.dds.Modelos.DTOServicio1.ServicioParticularObservadoDTO;
 import ar.edu.utn.frba.dds.Modelos.Servicio;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.Persona;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioComunidades;
@@ -16,6 +20,7 @@ import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioPersonas;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioServicios;
 import ar.edu.utn.frba.dds.Server.Utils.ICrudViewsHandler;
 import ar.edu.utn.frba.dds.Server.Utils.Servicio1;
+import ar.edu.utn.frba.dds.Servicio.gradoDeImpacto.EntidadValor;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
 import retrofit2.Call;
@@ -23,12 +28,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ComunidadesController extends Controller implements ICrudViewsHandler {
@@ -45,6 +50,8 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
 
     Map<String, Object> model = new HashMap<>();
     model.put("comunidades", comunidades);
+
+    //EntityManagerHelper.closeEntityManager();
     context.render("comunidades/comunidades.hbs", model);
   }
 
@@ -74,6 +81,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
     Membresia membresia = RepositorioMembresias.getInstance().membresiaDePersonaEnComunidad(context.sessionAttribute("id"), comunidad.getId());
     model.put("membresia", membresia);
 
+    //EntityManagerHelper.closeEntityManager();
     context.render("servicios/servicios.hbs", model);
   }
 
@@ -91,6 +99,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
     user.darseAltaComunidadCreada(comunidadNueva);
     RepositorioPersonas.getInstance().update(user);
 
+    //EntityManagerHelper.closeEntityManager();
     context.status(HttpStatus.CREATED);
     context.redirect("/comunidades");
   }
@@ -107,7 +116,8 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
     model.put("membresias", membresias);
     model.put("cargos", CargoComunidad.values());
 
-    context.render("/comunidades/editar_comunidad.hbs", model);
+    //EntityManagerHelper.closeEntityManager();
+    context.render("comunidades/editar_comunidad.hbs", model);
   }
 
   public void eliminarMiembro(Context context){
@@ -117,6 +127,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
     RepositorioPersonas.getInstance().update(membresia.getMiembro());
     RepositorioMembresias.getInstance().delete(membresia);
 
+    //EntityManagerHelper.closeEntityManager();
     context.status(HttpStatus.OK);
     context.redirect("/comunidades/".concat(context.pathParam("id")).concat("/editar"));
   }
@@ -127,6 +138,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
     membresia.cambiarCargo(CargoComunidad.valueOf(context.formParam("cargoM")));
     RepositorioMembresias.getInstance().update(membresia);
 
+    //EntityManagerHelper.closeEntityManager();
     context.status(HttpStatus.OK);
     context.redirect("/comunidades/".concat(context.pathParam("id")).concat("/editar"));
   }
@@ -137,6 +149,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
 
     RepositorioComunidades.getInstance().update(comunidad);
 
+    //EntityManagerHelper.closeEntityManager();
     context.redirect("/comunidades/".concat(context.pathParam("id")).concat("/servicios"));
   }
 
@@ -147,19 +160,20 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
 
     RepositorioMembresias.getInstance().update(membresia);
 
+    //EntityManagerHelper.closeEntityManager();
     context.redirect("/comunidades/".concat(context.pathParam("id")).concat("/servicios"));
   }
 
   public void obtenerComunidades(Context context) {
+    RepositorioComunidades.getInstance().clean();
     List<Comunidad> comunidades = RepositorioComunidades.getInstance().all();
 
     List<ComunidadDTO> comunidadesDTO = comunidades.stream()
         .map(Comunidad::toDTO)
         .collect(Collectors.toList());
 
-    ComunidadObservadaDTO comunidadObservadaDTO = new ComunidadObservadaDTO(comunidadesDTO);
-
-    context.json(comunidadObservadaDTO);
+    context.status(HttpStatus.OK);
+    context.json(comunidadesDTO);
   }
 
 
@@ -168,6 +182,8 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
     List comunidadesQueNoFormaParte = RepositorioComunidades.getInstance().all().stream().filter(comunidad -> !comunidad.personaFormaParteDeLaComunidad(RepositorioPersonas.getInstance().get(context.sessionAttribute("id")))).toList();
     model.put("comunidades", comunidadesQueNoFormaParte);
     model.put("roles", RolComunidad.values());
+
+    //EntityManagerHelper.closeEntityManager();
     context.render("comunidades/unirse_comunidad.hbs", model);
   }
 
@@ -180,6 +196,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
     RepositorioComunidades.getInstance().update(comunidad);
     RepositorioPersonas.getInstance().update(persona);
 
+    //EntityManagerHelper.closeEntityManager();
     context.status(HttpStatus.OK);
     context.redirect("/comunidades");
   }
@@ -191,6 +208,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
 
     RepositorioComunidades.getInstance().update(comunidad);
 
+    //EntityManagerHelper.closeEntityManager();
     context.status(HttpStatus.OK);
     context.redirect("/comunidades/".concat(context.pathParam("id")).concat("/servicios"));
   }
@@ -198,23 +216,63 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
   public void fusionarComunidades(Context context) {
     try {
       // Convertir el cuerpo del request a un objeto PropuestaDeFusionDTO
-      PropuestaDeFusionDTO propuestaDTO = context.bodyAsClass(PropuestaDeFusionDTO.class);
+      //PropuestaDeFusionDTO propuestaDTO = context.bodyAsClass(PropuestaDeFusionDTO.class);
+
+      Comunidad una = RepositorioComunidades.getInstance().get(Long.parseLong(context.formParam("idComunidad1")));
+      Comunidad otra = RepositorioComunidades.getInstance().get(Long.parseLong(context.formParam("idComunidad2")));
+      PropuestaDeFusionDTO propuestaDeFusionDTO = new PropuestaDeFusionDTO(
+        new ComunidadDTO((int) una.getId(), una.getNombreComunidad(), una.getServiciosDeInteres(), una.getGradoDeConfianza()),
+        new ComunidadDTO((int) otra.getId(), otra.getNombreComunidad(), otra.getServiciosDeInteres(), otra.getGradoDeConfianza())
+      );
 
       // Crear una instancia de Retrofit
       Retrofit retrofit = new Retrofit.Builder()
-          .baseUrl("http://localhost:8081")
+          .baseUrl("https://api-fusion-de-comunidades.onrender.com")
           .addConverterFactory(GsonConverterFactory.create())
           .build();
 
       // Usar la instancia para hacer una llamada POST a /fusionarcomunidades
       Servicio1 service = retrofit.create(Servicio1.class);
-      retrofit2.Response<String> response = service.fusionarComunidades(propuestaDTO).execute();
+      retrofit2.Response<ComunidadDTO> response = service.fusionarComunidades(propuestaDeFusionDTO).execute();
+      sleep(300);
+      if (response.code() == HttpStatus.OK.getCode()) {
+        ComunidadDTO resultado = new ComunidadDTO(response.body());
 
-      if (response.isSuccessful()) {
-        String resultado = response.body();
-        context.status(200).result(resultado);
+        Comunidad fusionada = new Comunidad(resultado.getNombre());
+        fusionada.setGradoDeConfianza(resultado.getGradoDeConfianza());
+        for (ServicioParticularObservadoDTO s:resultado.getServiciosParticularesObservados()) {
+          fusionada.agregarServicioDeInteres(RepositorioServicios.getInstance().get(s.getServicio().getId()));
+        }
+        Set<Persona> todos = new HashSet<>();
+        List<Persona> deUnaComunidad = RepositorioComunidades.getInstance().get(Long.parseLong(context.formParam("idComunidad1"))).getMiembros().stream().map(Membresia::getMiembro).toList();
+        List<Persona> deOtraComunidad = RepositorioComunidades.getInstance().get(Long.parseLong(context.formParam("idComunidad2"))).getMiembros().stream().map(Membresia::getMiembro).toList();
+        todos.addAll(deUnaComunidad);
+        todos.addAll(deOtraComunidad);
+
+        for (Persona p: todos) {
+          p.darseAltaComunidadFusionada(fusionada, RolComunidad.AFECTADO, CargoComunidad.ADMINISTRADOR);
+          //RepositorioPersonas.getInstance().update(m.getMiembro());
+        }
+        List<Membresia> memDeC1 = RepositorioMembresias.getInstance().membresiasDeComunidad(una);
+        for (Membresia m:memDeC1) {
+          m.getMiembro().darseBajaComunidad(m);
+          RepositorioMembresias.getInstance().delete(m);
+        }
+        List<Membresia> memDeC2 = RepositorioMembresias.getInstance().membresiasDeComunidad(otra);
+        for (Membresia m:memDeC2) {
+          m.getMiembro().darseBajaComunidad(m);
+          RepositorioMembresias.getInstance().delete(m);
+        }
+
+        RepositorioComunidades.getInstance().add(fusionada);
+
+        context.redirect("/obtenerPosiblesFusiones");
+        RepositorioComunidades.getInstance().delete(una);
+        RepositorioComunidades.getInstance().delete(otra);
+        //context.status(200).result(resultado);
       } else {
         context.status(response.code()).result("Error al fusionar comunidades");
+
       }
     } catch (Exception e) {
       e.printStackTrace();
@@ -225,18 +283,29 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
   public void obtenerPosiblesFusiones(Context context) {
     try {
       Retrofit retrofit = new Retrofit.Builder()
-          .baseUrl("http://localhost:8081")
+          .baseUrl("https://api-fusion-de-comunidades.onrender.com")
           .addConverterFactory(GsonConverterFactory.create())
           .build();
 
       Servicio1 service = retrofit.create(Servicio1.class);
-      retrofit2.Response<String> response = service.obtenerPosiblesFusiones().execute();
 
-      if (response.isSuccessful()) {
-        String propuestasJson = response.body();
-        context.status(200).result(propuestasJson);
+      retrofit2.Response<List<PropuestaDeFusionDTO>> response = service.obtenerPosiblesFusiones().execute();
+      sleep(300);
+      if (response.code() == HttpStatus.OK.getCode()) {
+        ListaPropuestas listado = new ListaPropuestas(response.body());
+        Map<String, Object> model = new HashMap<>();
+
+        ArrayList<PropuestaDeFusionDTO> listadoAMostrar = new ArrayList<>();
+        for (PropuestaDeFusionDTO propuesta : listado.getPropuestas()) {
+          listadoAMostrar.add(propuesta);
+        }
+
+        model.put("listado", listadoAMostrar);
+
+        context.render("comunidades/comunidades_fusion.hbs", model);
       } else {
-        context.status(response.code()).result("Error al obtener propuestas de fusión");
+        context.render("comunidades/error_fusion.hbs");
+        //context.status(response.code()).result("Error al obtener propuestas de fusión");
       }
     } catch (Exception e) {
       e.printStackTrace();

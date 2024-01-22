@@ -22,7 +22,9 @@ public class RepositorioEntidadPropietarias extends Repositorio<EntidadPropietar
   }
 
   public Boolean existeEntidadPropietariaConElNombre(String nombre){
+    EntityManagerHelper.getEntityManager().getTransaction().begin();
     List results = EntityManagerHelper.createQuery("from EntidadPropietaria where nombre = :nombre").setParameter("nombre", nombre).getResultList();
+    EntityManagerHelper.getEntityManager().getTransaction().commit();
 
     return !results.isEmpty();
   }

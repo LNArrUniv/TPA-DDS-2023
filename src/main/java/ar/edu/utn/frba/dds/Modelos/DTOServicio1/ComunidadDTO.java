@@ -13,9 +13,9 @@ public class ComunidadDTO {
 
   public ComunidadDTO() {}
 
-  public ComunidadDTO(int id, String nombreComunidad, List<Servicio> serviciosDeInteres, Double gradoDeConfianza) {
+  public ComunidadDTO(int id, String nombre, List<Servicio> serviciosDeInteres, Double gradoDeConfianza) {
     this.id = id;
-    this.nombre = nombreComunidad;
+    this.nombre = nombre;
     this.serviciosParticularesObservados = serviciosDeInteres.stream()
         .map(servicio ->
             new ServicioParticularObservadoDTO(
@@ -23,6 +23,13 @@ public class ComunidadDTO {
                 new EstablecimientoDTO((int) servicio.getEstablecimiento().getId(), servicio.getEstablecimiento().getNombre()))
         ).collect(Collectors.toList());
     this.gradoDeConfianza =  gradoDeConfianza.intValue();
+  }
+
+  public ComunidadDTO(ComunidadDTO body) {
+    this.id = body.id;
+    this.nombre = body.nombre;
+    this.serviciosParticularesObservados = body.serviciosParticularesObservados;
+    this.gradoDeConfianza = body.gradoDeConfianza;
   }
 
 

@@ -8,7 +8,7 @@
         <h2 class="fw-normal">Ranking</h2>
         <hr>
         <div class="d-flex align-items-center justify-content-center mt-4 col-12 flex-column">
-            <table class="table table-bordered w-75 col-12">
+            <table id="ranking" class="table table-bordered w-75 col-12">
                 <thead class="table-success text-center">
                 <tr>
                     <th scope="col" class="col-8">Entidad</th>
@@ -24,8 +24,22 @@
                 {{/each}}
                 </tbody>
             </table>
-            <a href="/files/{{ranking.nombre}}.pdf" class="btn btn-primario ms-0 mb-3 ms-lg-5 fs-5 pt-2 pb-2 pe-5 ps-5" download>Descargar PDF</a>
+            <!--<a href="/{{ranking.nombre}}.pdf" class="btn btn-primario ms-0 mb-3 ms-lg-5 fs-5 pt-2 pb-2 pe-5 ps-5" download="{{ranking.nombre}}.pdf">Descargar PDF</a>-->
+            <button type="button" class="btn btn-primario ms-0 mb-3 ms-lg-5 fs-5 pt-2 pb-2 pe-5 ps-5" id="generatePDF">Descargar PDF</button>
         </div>
     </div>
+
+    <script>
+        document.getElementById('generatePDF').addEventListener('click', function() {
+
+            const doc = new jsPDF();
+
+            doc.autoTable({ html: '#ranking' })
+
+            doc.save('{{ranking.nombre}}.pdf');
+        });
+    </script>
+
+
 {{/partial}}
 {{> templates/base_pdesignada }}

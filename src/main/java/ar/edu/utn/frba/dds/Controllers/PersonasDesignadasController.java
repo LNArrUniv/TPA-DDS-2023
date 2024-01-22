@@ -61,13 +61,14 @@ public class PersonasDesignadasController extends Controller implements ICrudVie
     ValidadorPassword validador = new ValidadorPassword();
     validador.addFiltro(new ControlPasswordDebil());
 
+    PersonaDesignada persona = RepositorioPersonasDesignadas.getInstance().get(context.sessionAttribute("id"));
+
     Boolean contraseniaValida = validador.validarPassword(context.formParam("password"));
 
-    List<String> usernames = RepositorioPersonas.getInstance().todosLosUsuarios().stream().filter(s -> !Objects.equals(s, context.formParam("username"))).toList();
-    Boolean usernameValido = !usernames.contains(context.formParam("username"));
+    Boolean usernameValido = !RepositorioPersonasDesignadas.getInstance().usuarioYaExiste(context.formParam("username"))
+        || context.formParam("username").equals(persona.getUsuario());
 
     if (contraseniaValida && usernameValido) {
-      PersonaDesignada persona = RepositorioPersonasDesignadas.getInstance().get(context.sessionAttribute("id"));
 
       persona.setNombre(context.formParam("nombre"));
       persona.setApellido(context.formParam("apellido"));

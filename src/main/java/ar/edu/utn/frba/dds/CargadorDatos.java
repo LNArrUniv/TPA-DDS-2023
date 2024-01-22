@@ -10,23 +10,23 @@ import ar.edu.utn.frba.dds.Modelos.Notificaciones.MedioNotificacionesEmail;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.MedioNotificacionesWhatsapp;
 import ar.edu.utn.frba.dds.Modelos.Notificaciones.SinApuros;
 import ar.edu.utn.frba.dds.Modelos.OrganismoDeControl;
-import ar.edu.utn.frba.dds.Modelos.Rankings.MetodosRanking;
-import ar.edu.utn.frba.dds.Modelos.Rankings.RankingIncidentes;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.Persona;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.PersonaDesignada;
-import ar.edu.utn.frba.dds.Modelos.Comunidades.RolComunidad;
 import ar.edu.utn.frba.dds.Modelos.Servicio;
 import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Localidad;
 import ar.edu.utn.frba.dds.Modelos.UbicacionDTO.Provincia;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.Rol;
 import ar.edu.utn.frba.dds.Modelos.Usuarios.Usuario;
 import ar.edu.utn.frba.dds.Persistencia.EntityManagerHelper;
-import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioPersonas;
 import ar.edu.utn.frba.dds.Servicio.GeoRefAPIService;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalTime;
-import java.util.List;
-public class mainSubtes {
-  public static void main(String[] args) throws Exception {
+
+public class CargadorDatos {
+  public CargadorDatos() {
+  }
+
+  public void cargarDatos() throws Exception {
     // USUARIOS Y PERSONSAS DESIGNADAS
     Usuario usuarioLarreta = new Usuario("hr.larreta","1234",Rol.PERSONA_DESIGNADA);
     PersonaDesignada larretaSubte = new PersonaDesignada("Horacio","Rodriguez Larreta",usuarioLarreta);
@@ -176,8 +176,39 @@ public class mainSubtes {
     Comunidad comunidadCaballito = new Comunidad("Comunidad de Caballito");
     comunidadCaballito.agregarServicioDeInteres(servicioBaniosAcoyte);
     comunidadCaballito.agregarServicioDeInteres(servicioBaniosPrimeraJunta);
+    Comunidad comunidadAlmagro = new Comunidad("Comunidad de Almagro");
+    comunidadAlmagro.agregarServicioDeInteres(servicioEscaleraUruguay);
+    comunidadAlmagro.agregarServicioDeInteres(servicioEscaleraCallao);
 
+    MedioNotificacionesEmail medioPreferido = new MedioNotificacionesEmail("juanro@gmail.com");
+    SinApuros config = new SinApuros(medioPreferido);
+    config.agregarHorario(LocalTime.of(20, 30, 0));
+    config.agregarHorario(LocalTime.of(7, 45, 0));
+    config.agregarHorario(LocalTime.of(14, 0, 0));
 
+    // === Personas ===
+    Usuario usuarioJuan = new Usuario("juanro1259", "123", Rol.NORMAL);
+    Persona juan = new Persona("Juan", "Rodriguez", usuarioJuan, config);
+    juan.setUbicacion(flores);
+    juan.agregarEntidadDeInteres(lineaA);
+    juan.agregarServicioDeInteres(servicioBaniosCarabobo);
+    juan.darseAltaComunidadCreada(comunidadCaballito);
+
+    MedioNotificacionesWhatsapp medioPreferidoJose = new MedioNotificacionesWhatsapp("123123123");
+    CuandoSuceden configJose = new CuandoSuceden(medioPreferidoJose);
+    Usuario usuarioJose = new Usuario("josero1259", "123", Rol.NORMAL);
+    Persona jose = new Persona("Jose", "Rodriguez", usuarioJose, configJose);
+    jose.setUbicacion(almagro);
+    jose.agregarEntidadDeInteres(lineaB);
+    jose.agregarServicioDeInteres(servicioEscaleraLeandroNAlem);
+    jose.darseAltaComunidadCreada(comunidadAlmagro);
+
+    Incidente incidente1 = new Incidente("Incidente 1", "Los baños están fuera de servicio", juan, servicioBaniosPrimeraJunta, comunidadCaballito);
+    Incidente incidente2 = new Incidente("Incidente 2", "Los baños no están disponibles por mantenimiento", juan, servicioBaniosPrimeraJunta, comunidadCaballito);
+    Incidente incidente3 = new Incidente("Incidente 1", "Las escaleras mecanicas no están funcionando", jose, servicioEscaleraCallao, comunidadAlmagro);
+
+    comunidadCaballito.informarIncidenteResuelto(incidente1);
+    comunidadAlmagro.informarIncidenteResuelto(incidente3);
 
 
     // ------- PERSISTENCIA -------
@@ -303,9 +334,21 @@ public class mainSubtes {
     EntityManagerHelper.persist(servicioEscaleraDeLosIncasParqueChas);
     EntityManagerHelper.persist(servicioEscaleraEcheverria);
 
+    // Comunidad
     EntityManagerHelper.persist(comunidadCaballito);
 
+    // Persona
+    EntityManagerHelper.persist(juan);
+    EntityManagerHelper.persist(jose);
+
+    EntityManagerHelper.persist(incidente1);
+    EntityManagerHelper.persist(incidente2);
+    EntityManagerHelper.persist(incidente3);
+
     EntityManagerHelper.commit();
+
+    //EntityManagerHelper.closeEntityManager();
+    //EntityManagerHelper.closeEntityManagerFactory();
 
   }
 }

@@ -3,6 +3,7 @@ package ar.edu.utn.frba.dds.Modelos.Rankings;
 import ar.edu.utn.frba.dds.Modelos.Entidad;
 import ar.edu.utn.frba.dds.Modelos.Incidente;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioIncidentes;
+import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioRankings;
 import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositoriosItemsRankings;
 import ar.edu.utn.frba.dds.Servicio.gradoDeImpacto.CalculadorGradoDeImpactoService;
 import ar.edu.utn.frba.dds.Servicio.gradoDeImpacto.ListadoDeResultados;
@@ -11,6 +12,7 @@ import ar.edu.utn.frba.dds.Servicio.gradoDeImpacto.ValoresFormula;
 import javax.persistence.Entity;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +28,7 @@ public class GradoImpacto extends MetodosRanking {
     final private Integer CNF = 1; //TODO: cambiar  (Preguntar al ayudante!)
 
     public GradoImpacto() {
-        this.nombre = "Mayor grado de impacto de las problemáticas";
+        this.nombre = "Mayor grado de impacto de las problematicas";
         //this.rankingGradoDeImpacto = new ArrayList<>();
     }
 
@@ -57,10 +59,10 @@ public class GradoImpacto extends MetodosRanking {
     public List<ItemRanking> generarRanking(List<Entidad> entidades) throws IOException, InterruptedException {
         List<ItemRanking> rankingGradoDeImpacto = new ArrayList<>();
         enviarValoresAAPI(entidades);
-        Thread.sleep(200);
+        Thread.sleep(500);
         ListadoDeResultados resultados = CalculadorGradoDeImpactoService.getInstancia().obtenerResultados();
         for (Entidad entidad : entidades) {
-            ItemRanking item = new ItemRanking(entidad, resultados.valorDeEntidad(entidad.getId()).getResultadoGradoImpacto(), LocalDate.now(), this);
+            ItemRanking item = new ItemRanking(entidad, resultados.valorDeEntidad(entidad.getId()).getResultadoGradoImpacto(), LocalDateTime.now(), this);
             rankingGradoDeImpacto.add(item);
             RepositoriosItemsRankings.getInstance().add(item);
         }

@@ -29,6 +29,7 @@ import java.util.List;
 public class MainPrueba {
   public static void main(String[] args) throws Exception {
 
+
     // === Usuarios y Personas Designadas ===
     Usuario usuarioPepe = new Usuario("pepejose23", "1234", Rol.PERSONA_DESIGNADA);
     PersonaDesignada pepeEncargadoCNRT = new PersonaDesignada("Pepe", "Jose", usuarioPepe);

@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Table(name = "item_ranking")
 @Entity
@@ -23,11 +24,11 @@ public class ItemRanking extends EntidadPersistente {
   private Double valorParametro;
   @Getter @Setter
   @Column
-  private LocalDate fecha;
+  private LocalDateTime fecha;
   @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   private MetodosRanking ranking;
 
-  public ItemRanking(Entidad entidad, Double valorParametro, LocalDate fecha, MetodosRanking ranking) {
+  public ItemRanking(Entidad entidad, Double valorParametro, LocalDateTime fecha, MetodosRanking ranking) {
     this.entidad = entidad;
     this.valorParametro = valorParametro;
     this.fecha = fecha;

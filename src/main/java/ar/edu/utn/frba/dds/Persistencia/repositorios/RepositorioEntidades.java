@@ -20,8 +20,5 @@ public class RepositorioEntidades extends Repositorio<Entidad> {
     }
     return instance;
   }
-  public List getEntidades(){
-    return EntityManagerHelper.createQuery("from Entidad").getResultList();
-  }
 }
 

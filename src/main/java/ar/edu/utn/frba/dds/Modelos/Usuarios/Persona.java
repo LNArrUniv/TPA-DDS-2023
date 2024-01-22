@@ -17,11 +17,14 @@ import ar.edu.utn.frba.dds.Persistencia.repositorios.RepositorioNotificaciones;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -58,7 +61,8 @@ public class Persona extends EntidadPersistente {
   private Localidad ubicacion;
   @JsonIgnore
   @Getter
-  @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "miembro")
+  @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "miembro", fetch = FetchType.EAGER)
+  @Fetch(value = FetchMode.SUBSELECT)
   private List<Membresia> membresiasAComunidades;
   @Getter
   @Setter
@@ -100,6 +104,13 @@ public class Persona extends EntidadPersistente {
 
   public void darseAltaComunidad(Comunidad comunidad, RolComunidad rolComunidad) {
     Membresia membresia = new Membresia(comunidad, rolComunidad, this, CargoComunidad.MIEMBRO);
+
+    membresiasAComunidades.add(membresia);
+    comunidad.agregarMiembro(membresia);
+  }
+
+  public void darseAltaComunidadFusionada(Comunidad comunidad, RolComunidad rolComunidad, CargoComunidad cargo) {
+    Membresia membresia = new Membresia(comunidad, rolComunidad, this, cargo);
 
     membresiasAComunidades.add(membresia);
     comunidad.agregarMiembro(membresia);

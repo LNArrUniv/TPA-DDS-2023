@@ -5,6 +5,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Supplier;
 
 public class EntityManagerHelper {
@@ -15,7 +17,27 @@ public class EntityManagerHelper {
 
   static {
     try {
-      emf = Persistence.createEntityManagerFactory("simple-persistence-unit");
+      Map<String, String> env = System.getenv();
+      Map<String, Object> configOverrides = new HashMap<String, Object>();
+
+      String[] keys = new String[]{
+          "javax.persistence.jdbc.driver",
+          "javax.persistence.jdbc.password",
+          "javax.persistence.jdbc.url",
+          "javax.persistence.jdbc.user",
+          "hibernate.hbm2ddl.auto",
+          "hibernate.connection.pool_size",
+          "hibernate.show_sql"};
+
+      for (String key : keys) {
+        if (env.containsKey(key)) {
+          String value = env.get(key);
+          configOverrides.put(key, value);
+        }
+
+      }
+
+      emf = Persistence.createEntityManagerFactory("simple-persistence-unit", configOverrides);
       threadLocal = new ThreadLocal<>();
     } catch (Exception e) {
       e.printStackTrace();
@@ -24,7 +46,27 @@ public class EntityManagerHelper {
 
   private static EntityManagerFactory emf() {
     if(emf == null || !emf.isOpen()) {
-      emf = Persistence.createEntityManagerFactory("simple-persistence-unit");
+      Map<String, String> env = System.getenv();
+      Map<String, Object> configOverrides = new HashMap<String, Object>();
+
+      String[] keys = new String[]{
+          "javax.persistence.jdbc.driver",
+          "javax.persistence.jdbc.password",
+          "javax.persistence.jdbc.url",
+          "javax.persistence.jdbc.user",
+          "hibernate.hbm2ddl.auto",
+          "hibernate.connection.pool_size",
+          "hibernate.show_sql"};
+
+      for (String key : keys) {
+        if (env.containsKey(key)) {
+          String value = env.get(key);
+          configOverrides.put(key, value);
+        }
+
+      }
+
+      emf = Persistence.createEntityManagerFactory("simple-persistence-unit", configOverrides);
     }
     return emf;
   }
@@ -64,9 +106,12 @@ public class EntityManagerHelper {
   public static void beginTransaction() {
     EntityManager em = EntityManagerHelper.getEntityManager();
     EntityTransaction tx = em.getTransaction();
-
-    if(!tx.isActive()){
-      tx.begin();
+    try {
+      if (!tx.isActive()) {
+        tx.begin();
+      }
+    } catch (Exception e) {
+      tx.rollback();
     }
   }
 

@@ -12,12 +12,20 @@ public class DAOHibernate<T> implements DAO<T> {
 
     @Override
     public List<T> all() {
-        return EntityManagerHelper.getEntityManager().createQuery("FROM " + type.getSimpleName()).getResultList();
+        EntityManagerHelper.getEntityManager().getTransaction().begin();
+        List<T> list = EntityManagerHelper.getEntityManager().createQuery("FROM " + type.getSimpleName()).getResultList();
+        EntityManagerHelper.getEntityManager().getTransaction().commit();
+
+        return list;
     }
 
     @Override
     public T get(long id) {
-        return EntityManagerHelper.getEntityManager().find(type, id);
+        EntityManagerHelper.getEntityManager().getTransaction().begin();
+        T o = EntityManagerHelper.getEntityManager().find(type, id);
+        EntityManagerHelper.getEntityManager().getTransaction().commit();
+
+        return o;
     }
 
     @Override

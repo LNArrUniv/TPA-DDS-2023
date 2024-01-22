@@ -56,8 +56,7 @@ public class PersonasController extends Controller implements ICrudViewsHandler 
 
     Boolean contraseniaValida = validador.validarPassword(context.formParam("password"));
 
-    List<String> usernames = RepositorioPersonas.getInstance().todosLosUsuarios();
-    Boolean usernameValido = !usernames.contains(context.formParam("username"));
+    Boolean usernameValido = !RepositorioPersonas.getInstance().usuarioYaExiste(context.formParam("username"));
 
     if (contraseniaValida && usernameValido) {
       MedioDeNotificacionesPreferido medio = null;
@@ -134,10 +133,12 @@ public class PersonasController extends Controller implements ICrudViewsHandler 
     ValidadorPassword validador = new ValidadorPassword();
     validador.addFiltro(new ControlPasswordDebil());
 
+    Persona persona = RepositorioPersonas.getInstance().get(context.sessionAttribute("id"));
+
     Boolean contraseniaValida = validador.validarPassword(context.formParam("password"));
 
-    List<String> usernames = RepositorioPersonas.getInstance().todosLosUsuarios().stream().filter(s -> !Objects.equals(s, context.formParam("username"))).toList();
-    Boolean usernameValido = !usernames.contains(context.formParam("username"));
+    Boolean usernameValido = !RepositorioPersonas.getInstance().usuarioYaExiste(context.formParam("username"))
+        || context.formParam("username").equals(persona.getUsername());
 
     Boolean ubicacionValida = true;
     Provincia prov = null;
@@ -173,7 +174,7 @@ public class PersonasController extends Controller implements ICrudViewsHandler 
         config = new CuandoSuceden(medio);
       }
 
-      Persona persona = RepositorioPersonas.getInstance().get(context.sessionAttribute("id"));
+
 
       persona.setNombre(context.formParam("nombre"));
       persona.setApellido(context.formParam("apellido"));
