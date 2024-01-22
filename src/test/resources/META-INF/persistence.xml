@@ -8,23 +8,23 @@
   <persistence-unit name="simple-persistence-unit" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-    <class>ar.edu.utn.frba.dds.Modelos.Incidente</class>
-    <class>ar.edu.utn.frba.dds.Modelos.Comunidades.Comunidad</class>
-    <class>ar.edu.utn.frba.dds.Modelos.Usuarios.Persona</class>
-    <class>ar.edu.utn.frba.dds.Modelos.Servicio</class>
-    <class>ar.edu.utn.frba.dds.Modelos.Notificaciones.ConfiguracionNotificaciones</class>
-    <class>ar.edu.utn.frba.dds.Modelos.Establecimiento</class>
-    <class>ar.edu.utn.frba.dds.Modelos.Entidad</class>
-    <class>ar.edu.utn.frba.dds.Modelos.EntidadPropietaria</class>
-    <class>ar.edu.utn.frba.dds.Modelos.OrganismoDeControl</class>
-    <class>ar.edu.utn.frba.dds.Modelos.Usuarios.PersonaDesignada</class>
-    <class>ar.edu.utn.frba.dds.Modelos.Comunidades.Membresia</class>
-    <class>ar.edu.utn.frba.dds.Modelos.Rankings.ItemRanking</class>
-    <class>ar.edu.utn.frba.dds.Modelos.Rankings.MetodosRanking</class>
-    <class>ar.edu.utn.frba.dds.Modelos.Notificaciones.Notificacion</class>
-    <class>ar.edu.utn.frba.dds.Modelos.Notificaciones.NotificacionIncidenteResuelto</class>
-    <class>ar.edu.utn.frba.dds.Modelos.Notificaciones.NotificacionNuevoIncidente</class>
-    <class>ar.edu.utn.frba.dds.Modelos.Notificaciones.NotificacionRevision</class>
+    <class>ar.edu.utn.frba.dds.models.Incidente</class>
+    <class>ar.edu.utn.frba.dds.models.comunidades.Comunidad</class>
+    <class>ar.edu.utn.frba.dds.models.usuarios.Persona</class>
+    <class>ar.edu.utn.frba.dds.models.Servicio</class>
+    <class>ar.edu.utn.frba.dds.models.notificaciones.ConfiguracionNotificaciones</class>
+    <class>ar.edu.utn.frba.dds.models.Establecimiento</class>
+    <class>ar.edu.utn.frba.dds.models.Entidad</class>
+    <class>ar.edu.utn.frba.dds.models.EntidadPropietaria</class>
+    <class>ar.edu.utn.frba.dds.models.OrganismoDeControl</class>
+    <class>ar.edu.utn.frba.dds.models.usuarios.PersonaDesignada</class>
+    <class>ar.edu.utn.frba.dds.models.comunidades.Membresia</class>
+    <class>ar.edu.utn.frba.dds.models.rankings.ItemRanking</class>
+    <class>ar.edu.utn.frba.dds.models.rankings.MetodosRanking</class>
+    <class>ar.edu.utn.frba.dds.models.notificaciones.Notificacion</class>
+    <class>ar.edu.utn.frba.dds.models.notificaciones.NotificacionIncidenteResuelto</class>
+    <class>ar.edu.utn.frba.dds.models.notificaciones.NotificacionNuevoIncidente</class>
+    <class>ar.edu.utn.frba.dds.models.notificaciones.NotificacionRevision</class>
 
     <properties>
       <property name="hibernate.archive.autodetection" value="class"/>
