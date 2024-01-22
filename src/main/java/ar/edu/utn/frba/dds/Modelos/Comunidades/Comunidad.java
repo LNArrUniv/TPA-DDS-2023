@@ -135,7 +135,6 @@ public class Comunidad extends EntidadPersistente {
   }
 
 
-
   public Boolean personaFormaParteDeLaComunidad(Persona persona) {
     return !this.miembros.stream().filter(membresia -> membresia.getMiembro().equals(persona)).toList().isEmpty();
   }

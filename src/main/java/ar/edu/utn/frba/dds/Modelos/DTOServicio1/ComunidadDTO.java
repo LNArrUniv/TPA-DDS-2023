@@ -9,7 +9,7 @@ public class ComunidadDTO {
   private int id;
   private String nombre;
   private List<ServicioParticularObservadoDTO> serviciosParticularesObservados;
-  private Double gradoDeConfianza;
+  private Integer gradoDeConfianza;
 
   public ComunidadDTO() {}
 
@@ -22,7 +22,7 @@ public class ComunidadDTO {
                 new ServicioDTO((int) servicio.getId(), servicio.getNombre()),
                 new EstablecimientoDTO((int) servicio.getEstablecimiento().getId(), servicio.getEstablecimiento().getNombre()))
         ).collect(Collectors.toList());
-    this.gradoDeConfianza = gradoDeConfianza;
+    this.gradoDeConfianza =  gradoDeConfianza.intValue();
   }
 
   public ComunidadDTO(ComunidadDTO body) {
@@ -45,7 +45,7 @@ public class ComunidadDTO {
     return serviciosParticularesObservados;
   }
 
-  public Double getGradoDeConfianza() {
+  public Integer getGradoDeConfianza() {
     return gradoDeConfianza;
   }
 }
