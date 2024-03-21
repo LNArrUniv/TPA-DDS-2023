@@ -1,6 +1,6 @@
 package ar.edu.utn.frba.dds.models;
 
-import ar.edu.utn.frba.dds.models.ubicaciondto.Localidad;
+import ar.edu.utn.frba.dds.models.ubicacion.Localidad;
 import ar.edu.utn.frba.dds.persistencia.EntidadPersistente;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.AttributeOverride;

@@ -10,7 +10,7 @@ import ar.edu.utn.frba.dds.models.comunidades.RolComunidad;
 import ar.edu.utn.frba.dds.models.notificaciones.ConfiguracionNotificaciones;
 import ar.edu.utn.frba.dds.models.notificaciones.Notificacion;
 import ar.edu.utn.frba.dds.models.notificaciones.NotificacionRevision;
-import ar.edu.utn.frba.dds.models.ubicaciondto.Localidad;
+import ar.edu.utn.frba.dds.models.ubicacion.Localidad;
 import ar.edu.utn.frba.dds.persistencia.EntidadPersistente;
 import ar.edu.utn.frba.dds.persistencia.repositorios.RepositorioIncidentes;
 import ar.edu.utn.frba.dds.persistencia.repositorios.RepositorioNotificaciones;

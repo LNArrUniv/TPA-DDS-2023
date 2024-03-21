@@ -11,14 +11,14 @@ import ar.edu.utn.frba.dds.models.notificaciones.CuandoSuceden;
 import ar.edu.utn.frba.dds.models.notificaciones.MedioNotificacionesEmail;
 import ar.edu.utn.frba.dds.models.notificaciones.MedioNotificacionesWhatsapp;
 import ar.edu.utn.frba.dds.models.notificaciones.SinApuros;
-import ar.edu.utn.frba.dds.models.ubicaciondto.Localidad;
-import ar.edu.utn.frba.dds.models.ubicaciondto.Provincia;
+import ar.edu.utn.frba.dds.models.ubicacion.Localidad;
+import ar.edu.utn.frba.dds.models.ubicacion.Provincia;
 import ar.edu.utn.frba.dds.models.usuarios.Persona;
 import ar.edu.utn.frba.dds.models.usuarios.PersonaDesignada;
 import ar.edu.utn.frba.dds.models.usuarios.Rol;
 import ar.edu.utn.frba.dds.models.usuarios.Usuario;
 import ar.edu.utn.frba.dds.persistencia.EntityManagerHelper;
-import ar.edu.utn.frba.dds.servicio.GeoRefApiService;
+import ar.edu.utn.frba.dds.servicio.georefapi.GeoRefApiService;
 import java.time.LocalTime;
 
 public class CargadorDatos {

@@ -18,17 +18,17 @@ public class ControlPasswordDebil implements FiltroInterface {
   }
 
   public boolean esComun(String password) {
-    try {
-      InputStream inputStream =
-          this.getClass().getClassLoader().getResourceAsStream("public/files/common-passwords.txt");
-      BufferedReader buff = new BufferedReader(new InputStreamReader(inputStream));
+    try (InputStream inputStream = this.getClass()
+        .getClassLoader().getResourceAsStream("public/files/common-passwords.txt");
+        InputStreamReader isr = new InputStreamReader(inputStream);
+        BufferedReader buff = new BufferedReader(isr)
+        ) {
       String s;
       while ((s = buff.readLine()) != null) {
         if (s.trim().contains(password)) {
           return true;
         }
       }
-      buff.close();
     } catch (Exception e) {
       e.printStackTrace();
     }

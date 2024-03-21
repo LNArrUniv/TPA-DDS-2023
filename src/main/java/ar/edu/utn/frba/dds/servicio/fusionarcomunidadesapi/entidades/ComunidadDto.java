@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.models.dtoserviciofusion;
+package ar.edu.utn.frba.dds.servicio.fusionarcomunidadesapi.entidades;
 
 import ar.edu.utn.frba.dds.models.Servicio;
 import java.util.List;

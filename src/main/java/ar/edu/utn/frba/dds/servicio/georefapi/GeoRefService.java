@@ -1,7 +1,7 @@
-package ar.edu.utn.frba.dds.servicio;
+package ar.edu.utn.frba.dds.servicio.georefapi;
 
-import ar.edu.utn.frba.dds.servicio.entidadesgeoref.ListadoDeLocalidades;
-import ar.edu.utn.frba.dds.servicio.entidadesgeoref.ListadoDeProvincias;
+import ar.edu.utn.frba.dds.servicio.georefapi.entidades.ListadoDeLocalidades;
+import ar.edu.utn.frba.dds.servicio.georefapi.entidades.ListadoDeProvincias;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

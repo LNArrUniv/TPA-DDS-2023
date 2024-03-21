@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.models.dtoserviciofusion;
+package ar.edu.utn.frba.dds.servicio.fusionarcomunidadesapi.entidades;
 
 import java.util.List;
 import lombok.Getter;

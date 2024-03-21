@@ -1,7 +1,7 @@
 package ar.edu.utn.frba.dds.models;
 
 import ar.edu.utn.frba.dds.models.comunidades.Comunidad;
-import ar.edu.utn.frba.dds.models.ubicaciondto.Localidad;
+import ar.edu.utn.frba.dds.models.ubicacion.Localidad;
 import ar.edu.utn.frba.dds.models.usuarios.Persona;
 import ar.edu.utn.frba.dds.persistencia.EntidadPersistente;
 import java.time.LocalDateTime;

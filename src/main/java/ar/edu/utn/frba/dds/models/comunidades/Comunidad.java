@@ -2,7 +2,7 @@ package ar.edu.utn.frba.dds.models.comunidades;
 
 import ar.edu.utn.frba.dds.models.Incidente;
 import ar.edu.utn.frba.dds.models.Servicio;
-import ar.edu.utn.frba.dds.models.dtoserviciofusion.ComunidadDto;
+import ar.edu.utn.frba.dds.servicio.fusionarcomunidadesapi.entidades.ComunidadDto;
 import ar.edu.utn.frba.dds.models.notificaciones.Notificacion;
 import ar.edu.utn.frba.dds.models.notificaciones.NotificacionIncidenteResuelto;
 import ar.edu.utn.frba.dds.models.notificaciones.NotificacionNuevoIncidente;

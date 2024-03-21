@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.servicio.gradodeimpacto;
+package ar.edu.utn.frba.dds.servicio.gradodeimpactoapi.entidades;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.models.dtoserviciofusion;
+package ar.edu.utn.frba.dds.servicio.fusionarcomunidadesapi.entidades;
 
 public class ServicioParticularObservadoDto {
   private int id;

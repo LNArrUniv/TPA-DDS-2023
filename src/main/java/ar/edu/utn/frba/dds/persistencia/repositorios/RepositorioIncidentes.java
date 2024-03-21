@@ -2,7 +2,7 @@ package ar.edu.utn.frba.dds.persistencia.repositorios;
 
 import ar.edu.utn.frba.dds.models.Entidad;
 import ar.edu.utn.frba.dds.models.Incidente;
-import ar.edu.utn.frba.dds.models.ubicaciondto.Localidad;
+import ar.edu.utn.frba.dds.models.ubicacion.Localidad;
 import ar.edu.utn.frba.dds.persistencia.EntityManagerHelper;
 import ar.edu.utn.frba.dds.persistencia.repositorios.daos.Dao;
 import ar.edu.utn.frba.dds.persistencia.repositorios.daos.DaoHibernate;

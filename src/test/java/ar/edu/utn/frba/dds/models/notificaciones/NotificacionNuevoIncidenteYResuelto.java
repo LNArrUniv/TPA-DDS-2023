@@ -11,7 +11,7 @@ import ar.edu.utn.frba.dds.models.Incidente;
 import ar.edu.utn.frba.dds.models.usuarios.Persona;
 import ar.edu.utn.frba.dds.models.comunidades.RolComunidad;
 import ar.edu.utn.frba.dds.models.Servicio;
-import ar.edu.utn.frba.dds.models.ubicaciondto.Localidad;
+import ar.edu.utn.frba.dds.models.ubicacion.Localidad;
 import ar.edu.utn.frba.dds.models.usuarios.Rol;
 import ar.edu.utn.frba.dds.models.usuarios.Usuario;
 import org.junit.jupiter.api.BeforeEach;

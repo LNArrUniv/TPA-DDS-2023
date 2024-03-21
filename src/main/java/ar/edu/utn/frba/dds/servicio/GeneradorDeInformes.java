@@ -22,7 +22,10 @@ public class GeneradorDeInformes {
 
     File file = new File(title + ".pdf");
     if (file.exists()) {
-      file.delete();
+      Boolean success = file.delete();
+      if (!success) {
+        throw new RuntimeException("No se pudo eliminar el pdf viejo correctamente");
+      }
     }
     System.out.println(file.getAbsolutePath() + "HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
     PdfWriter.getInstance(document, new FileOutputStream(file));

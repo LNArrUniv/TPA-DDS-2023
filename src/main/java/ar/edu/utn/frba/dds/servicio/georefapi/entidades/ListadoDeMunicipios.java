@@ -1,6 +1,6 @@
-package ar.edu.utn.frba.dds.servicio.entidadesgeoref;
+package ar.edu.utn.frba.dds.servicio.georefapi.entidades;
 
-import ar.edu.utn.frba.dds.models.ubicaciondto.Municipalidad;
+import ar.edu.utn.frba.dds.models.ubicacion.Municipalidad;
 import java.util.List;
 
 public class ListadoDeMunicipios extends PageInterface {

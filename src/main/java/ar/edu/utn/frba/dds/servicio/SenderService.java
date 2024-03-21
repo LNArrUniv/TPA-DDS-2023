@@ -9,7 +9,6 @@ public class SenderService {
   private static MailService mailServiceInstance;
 
   private SenderService() {
-    this.instance = new SenderService();
   }
 
   static {

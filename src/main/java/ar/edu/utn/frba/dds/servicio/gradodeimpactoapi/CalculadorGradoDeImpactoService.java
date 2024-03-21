@@ -1,7 +1,10 @@
-package ar.edu.utn.frba.dds.servicio.gradodeimpacto;
+package ar.edu.utn.frba.dds.servicio.gradodeimpactoapi;
 
 import java.io.IOException;
 import java.util.List;
+import ar.edu.utn.frba.dds.servicio.gradodeimpactoapi.entidades.EntidadValor;
+import ar.edu.utn.frba.dds.servicio.gradodeimpactoapi.entidades.ListadoDeResultados;
+import ar.edu.utn.frba.dds.servicio.gradodeimpactoapi.entidades.ListadoDeValores;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

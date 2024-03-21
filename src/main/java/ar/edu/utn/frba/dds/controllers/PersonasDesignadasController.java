@@ -52,7 +52,7 @@ public class PersonasDesignadasController extends Controller implements IcrudVie
 
     Boolean usernameValido = !RepositorioPersonasDesignadas.getInstance()
         .usuarioYaExiste(context.formParam("username"))
-        || context.formParam("username").equals(persona.getUsuario());
+        || context.formParam("username").equals(persona.getUsuario().getUsername());
 
     if (contraseniaValida && usernameValido) {
 

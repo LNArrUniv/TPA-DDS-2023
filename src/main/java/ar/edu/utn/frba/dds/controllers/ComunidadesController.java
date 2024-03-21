@@ -7,10 +7,10 @@ import ar.edu.utn.frba.dds.models.comunidades.CargoComunidad;
 import ar.edu.utn.frba.dds.models.comunidades.Comunidad;
 import ar.edu.utn.frba.dds.models.comunidades.Membresia;
 import ar.edu.utn.frba.dds.models.comunidades.RolComunidad;
-import ar.edu.utn.frba.dds.models.dtoserviciofusion.ComunidadDto;
-import ar.edu.utn.frba.dds.models.dtoserviciofusion.ListaPropuestas;
-import ar.edu.utn.frba.dds.models.dtoserviciofusion.PropuestaDeFusionDto;
-import ar.edu.utn.frba.dds.models.dtoserviciofusion.ServicioParticularObservadoDto;
+import ar.edu.utn.frba.dds.servicio.fusionarcomunidadesapi.FusionComunidades;
+import ar.edu.utn.frba.dds.servicio.fusionarcomunidadesapi.entidades.ComunidadDto;
+import ar.edu.utn.frba.dds.servicio.fusionarcomunidadesapi.entidades.PropuestaDeFusionDto;
+import ar.edu.utn.frba.dds.servicio.fusionarcomunidadesapi.entidades.ServicioParticularObservadoDto;
 import ar.edu.utn.frba.dds.models.usuarios.Persona;
 import ar.edu.utn.frba.dds.persistencia.repositorios.RepositorioComunidades;
 import ar.edu.utn.frba.dds.persistencia.repositorios.RepositorioIncidentes;
@@ -18,9 +18,10 @@ import ar.edu.utn.frba.dds.persistencia.repositorios.RepositorioMembresias;
 import ar.edu.utn.frba.dds.persistencia.repositorios.RepositorioPersonas;
 import ar.edu.utn.frba.dds.persistencia.repositorios.RepositorioServicios;
 import ar.edu.utn.frba.dds.server.utils.IcrudViewsHandler;
-import ar.edu.utn.frba.dds.server.utils.Servicio1;
+import ar.edu.utn.frba.dds.servicio.fusionarcomunidadesapi.IFusionComunidades;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -157,10 +158,10 @@ public class ComunidadesController extends Controller implements IcrudViewsHandl
   }
 
   public void editarRolMiembro(Context context) {
+    long idPersona = context.sessionAttribute("id");
     RepositorioMembresias.getInstance().clean();
     Membresia membresia = RepositorioMembresias.getInstance()
-        .membresiaDePersonaEnComunidad(context.sessionAttribute("id"),
-            Long.parseLong(context.pathParam("id")));
+        .membresiaDePersonaEnComunidad(idPersona, Long.parseLong(context.pathParam("id")));
     membresia.cambiarRol();
 
     RepositorioMembresias.getInstance().update(membresia);
@@ -187,7 +188,7 @@ public class ComunidadesController extends Controller implements IcrudViewsHandl
     List<Comunidad> comunidadesQueNoFormaParte = RepositorioComunidades.getInstance()
         .all().stream().filter(comunidad ->
             !comunidad.personaFormaParteDeLaComunidad(RepositorioPersonas.getInstance()
-                    .get(context.sessionAttribute("id")))).toList();
+                .get(context.sessionAttribute("id")))).toList();
     model.put("comunidades", comunidadesQueNoFormaParte);
     model.put("roles", RolComunidad.values());
 
@@ -248,7 +249,7 @@ public class ComunidadesController extends Controller implements IcrudViewsHandl
           .build();
 
       // Usar la instancia para hacer una llamada POST a /fusionarcomunidades
-      Servicio1 service = retrofit.create(Servicio1.class);
+      IFusionComunidades service = retrofit.create(IFusionComunidades.class);
       retrofit2.Response<ComunidadDto> response =
           service.fusionarComunidades(propuestaDeFusionDto).execute();
       sleep(300);
@@ -303,42 +304,21 @@ public class ComunidadesController extends Controller implements IcrudViewsHandl
     }
   }
 
-  public void obtenerPosiblesFusiones(Context context) {
-    try {
-      Retrofit retrofit = new Retrofit.Builder()
-          .baseUrl("https://api-fusion-de-comunidades.onrender.com")
-          .addConverterFactory(GsonConverterFactory.create())
-          .build();
+  public void obtenerPosiblesFusiones(Context context) throws IOException, InterruptedException {
+    ArrayList<PropuestaDeFusionDto> listadoAmostrar = FusionComunidades.getInstancia().obtenerPosiblesFusiones();
 
-      Servicio1 service = retrofit.create(Servicio1.class);
+    if (!listadoAmostrar.isEmpty()) {
+      Map<String, Object> model = new HashMap<>();
+      model.put("listado", listadoAmostrar);
 
-      retrofit2.Response<List<PropuestaDeFusionDto>> response =
-          service.obtenerPosiblesFusiones().execute();
-      sleep(300);
-      if (response.code() == HttpStatus.OK.getCode()) {
-        ListaPropuestas listado = new ListaPropuestas(response.body());
-        Map<String, Object> model = new HashMap<>();
-
-        ArrayList<PropuestaDeFusionDto> listadoAmostrar = new ArrayList<>();
-        for (PropuestaDeFusionDto propuesta : listado.getPropuestas()) {
-          listadoAmostrar.add(propuesta);
-        }
-
-        model.put("listado", listadoAmostrar);
-
-        context.render("comunidades/comunidades_fusion.hbs", model);
-      } else {
-        context.render("comunidades/error_fusion.hbs");
-        //context.status(response.code()).result("Error al obtener propuestas de fusión");
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-      context.status(500).result("Error interno del servidor");
+      context.render("comunidades/comunidades_fusion.hbs", model);
+    } else {
+      context.render("comunidades/error_fusion.hbs");
+      //context.status(response.code()).result("Error al obtener propuestas de fusión");
     }
   }
+    @Override
+    public void delete (Context context){
 
-  @Override
-  public void delete(Context context) {
-
+    }
   }
-}

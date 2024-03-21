@@ -4,9 +4,8 @@ package ar.edu.utn.frba.dds.servicio.georefapi;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import ar.edu.utn.frba.dds.models.ubicaciondto.Provincia;
-import ar.edu.utn.frba.dds.servicio.entidadesgeoref.ListadoDeProvincias;
-import ar.edu.utn.frba.dds.servicio.GeoRefApiService;
+import ar.edu.utn.frba.dds.models.ubicacion.Provincia;
+import ar.edu.utn.frba.dds.servicio.georefapi.entidades.ListadoDeProvincias;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

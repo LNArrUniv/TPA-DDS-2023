@@ -1,6 +1,6 @@
-package ar.edu.utn.frba.dds.servicio.gradodeimpacto;
+package ar.edu.utn.frba.dds.servicio.gradodeimpactoapi.entidades;
 
-import ar.edu.utn.frba.dds.servicio.entidadesgeoref.PageInterface;
+import ar.edu.utn.frba.dds.servicio.georefapi.entidades.PageInterface;
 import java.util.List;
 import lombok.Getter;
 
